@@ -30,19 +30,19 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
   const hasOriginalDescription = job.original_description && job.original_description.trim().length > 0
   
   return (
-    <div className="w-[320px] bg-white h-full border-l border-border overflow-y-auto">
+    <div className="w-[320px] bg-card h-full border-l border-border overflow-y-auto">
       <div className="p-6 space-y-6 font-sora">
         
         {/* Original Job Description - MOST IMPORTANT */}
         {hasOriginalDescription && (
           <section className="space-y-3">
-            <h3 className="text-xs font-semibold text-black-soft uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-semibold text-card-foreground uppercase tracking-wider flex items-center gap-2">
               <FileText className="w-4 h-4" />
               Original Job Description
             </h3>
             <div className="relative">
               <div 
-                className={`text-sm text-black-soft leading-relaxed whitespace-pre-wrap ${
+                className={`text-sm text-card-foreground leading-relaxed whitespace-pre-wrap ${
                   isDescriptionExpanded ? '' : 'line-clamp-6'
                 }`}
               >
@@ -71,7 +71,7 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <span className="text-xs font-medium text-black-soft">Must-Have Skills</span>
+                <span className="text-xs font-medium text-card-foreground">Must-Have Skills</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {job.mustHaveSkills.map(skill => (
@@ -88,7 +88,7 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                <span className="text-xs font-medium text-black-soft">Nice-to-Have Skills</span>
+                <span className="text-xs font-medium text-card-foreground">Nice-to-Have Skills</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {job.niceToHaveSkills.map(skill => (
@@ -105,7 +105,7 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <XCircle className="w-4 h-4 text-red-600" />
-                <span className="text-xs font-medium text-black-soft">Non-Requirements</span>
+                <span className="text-xs font-medium text-card-foreground">Non-Requirements</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {job.non_requirements.map((item, i) => (
@@ -120,24 +120,24 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
 
         {/* Job Info */}
         <section className="space-y-3 pt-4 border-t border-border">
-          <h3 className="text-xs font-semibold text-black-soft uppercase tracking-wider">
+          <h3 className="text-xs font-semibold text-card-foreground uppercase tracking-wider">
             Job Info
           </h3>
           
           <div className="space-y-2">
-            <div className="flex items-center gap-2 text-sm text-black-soft">
+            <div className="flex items-center gap-2 text-sm text-card-foreground">
               <MapPin className="w-4 h-4 text-muted" />
               <span>Remote</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-black-soft">
+            <div className="flex items-center gap-2 text-sm text-card-foreground">
               <Briefcase className="w-4 h-4 text-muted" />
               <span>{exp.level || 'Mid-Senior'} Level</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-black-soft">
+            <div className="flex items-center gap-2 text-sm text-card-foreground">
               <Clock className="w-4 h-4 text-muted" />
               <span>{exp.minYears || 3}+ Years Experience</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-black-soft">
+            <div className="flex items-center gap-2 text-sm text-card-foreground">
               <Calendar className="w-4 h-4 text-muted" />
               <span>Created {new Date(job.created_at).toLocaleDateString()}</span>
             </div>

@@ -72,11 +72,20 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             experienceRaw: ev.candidate_profiles?.experience?.length ? `${ev.candidate_profiles.experience.length} roles` : "N/A",
             score: ev.final_score,
             scoreBand: ev.score_band === 'Strong Fit' ? 'strong' : ev.score_band === 'Good Fit' ? 'good' : ev.score_band === 'Borderline' ? 'borderline' : 'reject',
+            status: ev.status || 'pending',
             topSkills: ev.candidate_profiles?.skills?.slice(0,3) || [],
             appliedAt: new Date(ev.created_at).toLocaleDateString()
         }))
         setCandidates(mapped)
-        setPipelineCounts({ new: mapped.length, screening: 0, interview: 0, offer: 0 })
+        
+        // Compute pipeline counts from actual statuses
+        const counts = {
+          new: evaluations.filter((e: any) => !e.status || e.status === 'pending' || e.status === 'rejected').length,
+          screening: evaluations.filter((e: any) => e.status === 'shortlisted').length,
+          interview: evaluations.filter((e: any) => e.status === 'interviewing').length,
+          offer: evaluations.filter((e: any) => e.status === 'offered').length
+        }
+        setPipelineCounts(counts)
     }
   }, [supabase, jobId])
 
@@ -88,9 +97,14 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             method: 'DELETE'
         })
         if (res.ok) {
-            fetchJobData()
+            // Optimistic update or refetch
+            setCandidates(prev => prev.filter(c => c.id !== candidateId))
+            setPipelineCounts(prev => ({ ...prev })) // Trigger re-render, though ideally we'd recalc counts
+            fetchJobData() // Full refresh to be safe
+            // showToast("Candidate removed", "success") // Toast not available in this component yet, using alert for now but cleaner
         } else {
-            alert("Failed to delete candidate.")
+            console.error("Delete failed")
+            alert("Failed to delete candidate. Please check console.")
         }
     } catch (e) {
         console.error(e)
@@ -297,6 +311,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             jobId={jobId}
             isOpen={isDetailOpen}
             onClose={() => setIsDetailOpen(false)}
+            onStatusChange={fetchJobData}
         />
       </div>
 

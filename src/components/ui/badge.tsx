@@ -8,12 +8,12 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 function Badge({ className, variant = "default", ...props }: BadgeProps) {
   const variants = {
     default: "border-transparent bg-navy text-white hover:bg-navy/80",
-    secondary: "border-transparent bg-cream text-black-soft hover:bg-cream/80",
+    secondary: "border-transparent bg-cream text-black-soft hover:bg-cream/80 dark:bg-muted/30 dark:text-muted-foreground dark:hover:bg-muted/40",
     destructive: "border-transparent bg-red-600 text-white hover:bg-red-600/80",
-    outline: "text-black-soft border-border",
-    "fit-strong": "border-transparent bg-green-100 text-green-800 hover:bg-green-100/80",
-    "fit-good": "border-transparent bg-blue-100 text-blue-800 hover:bg-blue-100/80",
-    "fit-borderline": "border-transparent bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80",
+    outline: "text-black-soft border-border dark:text-gray-300 dark:border-gray-700",
+    "fit-strong": "border-transparent bg-green-100 text-green-800 hover:bg-green-100/80 dark:bg-green-600 dark:text-white hover:dark:bg-green-700",
+    "fit-good": "border-transparent bg-blue-100 text-blue-800 hover:bg-blue-100/80 dark:bg-blue-600 dark:text-white hover:dark:bg-blue-700",
+    "fit-borderline": "border-transparent bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80 dark:bg-yellow-600 dark:text-white hover:dark:bg-yellow-700",
   }
 
   return (

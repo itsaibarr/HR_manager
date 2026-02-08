@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-navy: #3D5A80;
-  --color-paper: #F7F6F3;
-  --color-cream: #FAF9F6;
-  --color-muted: #9CA3AF;
-  --color-black-soft: #2D2D2D;
+  /* Colors - referencing CSS variables for dark mode support */
+  --color-navy: var(--navy);
+  --color-paper: var(--paper);
+  --color-cream: var(--cream);
+  --color-muted: var(--muted);
+  --color-black-soft: var(--black-soft);
+  
   --color-strong-fit: #16A34A;
   --color-good-fit: #2563EB;
-  --color-border: #E8E6E1;
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
   --color-borderline: #CA8A04;
   --color-amber-warning: #F59E0B;
   --color-teal-success: #10B981;
@@ -33,6 +35,16 @@
   /* Radius */
   --radius-sm: 2px;
   --radius-md: 4px;
+
+  /* Component Colors */
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-input-bg: var(--input-bg);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 }
 
 /* Custom Utilities */
@@ -42,8 +54,52 @@
   }
 }
 
+/* Theme Variables */
+:root {
+  /* Light Theme (Default) */
+  --navy: #3D5A80;
+  --paper: #F7F6F3;
+  --cream: #FAF9F6; /* Sidebar/Cards background in light */
+  --muted: #9CA3AF;
+  --black-soft: #2D2D2D;
+  --border: #E8E6E1;
+  --border-hover: #D1D5DB;
+
+  /* Component Colors */
+  --card: #FFFFFF;
+  --card-foreground: #2D2D2D;
+  --popover: #FFFFFF;
+  --popover-foreground: #2D2D2D;
+  --input-bg: #FFFFFF;
+  --muted-foreground: #6B7280;
+  --accent: #F4F4F5;
+  --accent-foreground: #2D2D2D;
+}
+
+.dark {
+  /* Dark Theme */
+  --navy: #4A6FA5; /* Adjusted for better contrast with white text */
+  --paper: #0B0E14; /* Deep dark background */
+  --cream: #151A23; /* Slightly lighter for cards/sidebar */
+  --muted: #9CA3AF; /* Keep muted same or slightly lighter */
+  --black-soft: #F1F5F9; /* Text becomes light */
+  --border: #2A303C;
+  --border-hover: #4B5563;
+
+  /* Component Colors Dark */
+  --card: #151A23;
+  --card-foreground: #F1F5F9;
+  --popover: #151A23;
+  --popover-foreground: #F1F5F9;
+  --input-bg: #0F1218; /* Slightly darker than card */
+  --muted-foreground: #9CA3AF;
+  --accent: #1F2937;
+  --accent-foreground: #F1F5F9;
+}
+
 body {
   background-color: var(--color-paper);
   color: var(--color-black-soft);
   font-family: var(--font-sora), sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

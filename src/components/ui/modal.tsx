@@ -26,9 +26,9 @@ export function Modal({ isOpen, onClose, title, children, footer, className }: M
       />
       
       {/* Content */}
-      <div className={cn("relative bg-white w-full max-w-lg rounded-lg shadow-xl border border-border animate-in fade-in zoom-in-95 duration-200", className)}>
+      <div className={cn("relative bg-card w-full max-w-lg rounded-lg shadow-xl border border-border animate-in fade-in zoom-in-95 duration-200", className)}>
         <div className="flex items-center justify-between p-6 border-b border-border">
-          <h2 className="text-xl font-sora font-semibold text-black-soft">{title}</h2>
+          <h2 className="text-xl font-sora font-semibold text-card-foreground">{title}</h2>
           <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
             <X className="w-4 h-4" />
           </Button>
@@ -39,7 +39,7 @@ export function Modal({ isOpen, onClose, title, children, footer, className }: M
         </div>
 
         {footer && (
-          <div className="flex items-center justify-end gap-2 p-6 bg-cream/30 border-t border-border rounded-b-lg">
+          <div className="flex items-center justify-end gap-2 p-6 bg-muted/20 border-t border-border rounded-b-lg">
             {footer}
           </div>
         )}

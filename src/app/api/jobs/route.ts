@@ -58,6 +58,8 @@ export async function POST(request: Request) {
         nice_to_have_skills: validatedData.niceToHaveSkills,
         experience_expectations: validatedData.experienceExpectations as any, // Supabase types are JSON
         non_requirements: validatedData.nonRequirements,
+        original_description: body.description || null, // Store original JD text
+        is_active: true,
         created_by: user.id
       })
       .select()
@@ -65,16 +67,20 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error('Database error:', error);
-      return NextResponse.json({ error: 'Failed to create job context' }, { status: 500 });
+      return NextResponse.json({ 
+        error: 'Failed to create job context', 
+        details: JSON.stringify(error) 
+      }, { status: 500 });
     }
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
+      return NextResponse.json({ error: 'Validation error', details: error.flatten() }, { status: 400 });
     }
     console.error('Request error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return NextResponse.json({ error: 'Internal server error', details: errorMessage }, { status: 500 });
   }
 }
 

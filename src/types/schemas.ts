@@ -6,13 +6,22 @@ import { z } from "zod";
 export const JobContextSchema = z.object({
   id: z.string().uuid().optional(),
   title: z.string().min(1, "Role title is required"),
-  responsibilities: z.array(z.string()).min(1, "At least one responsibility required"),
-  mustHaveSkills: z.array(z.string()).min(1, "At least one must-have skill required"),
+  responsibilities: z.array(z.string()).default([]),
+  mustHaveSkills: z.array(z.string()).default([]),
   niceToHaveSkills: z.array(z.string()).default([]),
   experienceExpectations: z.object({
-    minYears: z.number().min(0).optional(),
-    maxYears: z.number().optional(),
-    level: z.enum(['junior', 'mid', 'senior', 'lead', 'any']).default('any'),
+    minYears: z.coerce.number().min(0).optional(),
+    maxYears: z.coerce.number().optional(),
+    level: z.preprocess((val) => {
+      if (typeof val !== 'string') return 'any';
+      const normalized = val.toLowerCase();
+      if (['junior', 'mid', 'senior', 'lead'].includes(normalized)) return normalized;
+      if (normalized.includes('mid') || normalized.includes('intermediate')) return 'mid';
+      if (normalized.includes('senior') || normalized.includes('sr')) return 'senior';
+      if (normalized.includes('junior') || normalized.includes('jr') || normalized.includes('entry')) return 'junior';
+      if (normalized.includes('lead') || normalized.includes('principal') || normalized.includes('staff')) return 'lead';
+      return 'any';
+    }, z.enum(['junior', 'mid', 'senior', 'lead', 'any'])).default('any'),
     notes: z.string().optional()
   }).optional(),
   nonRequirements: z.array(z.string()).default([]),

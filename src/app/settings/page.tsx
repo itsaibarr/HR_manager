@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useTheme } from "@/components/providers/ThemeProvider"
 import { createClient } from "@/lib/supabase/client"
 import { PageHeader } from "@/components/shared/PageHeader"
 import { Button } from "@/components/ui/button"
@@ -25,6 +26,7 @@ interface UserProfile {
 }
 
 export default function SettingsPage() {
+  const { theme, setTheme } = useTheme()
   const [loading, setLoading] = useState(false)
   const [testingConnection, setTestingConnection] = useState(false)
   const [user, setUser] = useState<UserProfile | null>(null)
@@ -60,19 +62,20 @@ export default function SettingsPage() {
         }
 
         if (data) {
+          const profile = data as any
           setUser({
-            id: data.id,
-            email: data.email,
-            full_name: data.full_name,
-            role: data.role
+            id: profile.id,
+            email: profile.email,
+            full_name: profile.full_name,
+            role: profile.role
           })
           
-          if (data.ai_config) {
-            setConfig(data.ai_config as AIConfig)
+          if (profile.ai_config) {
+            setConfig(profile.ai_config as AIConfig)
           }
           
-          if (data.preferences) {
-            setPreferences({ ...preferences, ...(data.preferences as UserPreferences) })
+          if (profile.preferences) {
+            setPreferences({ ...preferences, ...(profile.preferences as UserPreferences) })
           }
         }
       } catch (err) {
@@ -211,7 +214,7 @@ export default function SettingsPage() {
           <div className="space-y-2">
             <label className="text-sm font-medium text-black-soft">Active Provider</label>
             <select 
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-10 w-full rounded-md border border-input bg-input-bg px-3 py-2 text-sm ring-offset-background disabled:cursor-not-allowed disabled:opacity-50"
               value={config.provider}
               onChange={(e) => setConfig({ ...config, provider: e.target.value })}
             >
@@ -300,8 +303,12 @@ export default function SettingsPage() {
             <label className="text-sm font-medium text-black-soft">Theme</label>
             <select 
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-              value={preferences.theme}
-              onChange={(e) => setPreferences({ ...preferences, theme: e.target.value as UserPreferences['theme'] })}
+              value={theme}
+              onChange={(e) => {
+                const newTheme = e.target.value as any
+                setTheme(newTheme)
+                setPreferences({ ...preferences, theme: newTheme })
+              }}
             >
               <option value="light">Light</option>
               <option value="dark">Dark</option>
