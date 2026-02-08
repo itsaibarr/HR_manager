@@ -9,18 +9,34 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0",
+    "@google/generative-ai": "^0.24.1",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.95.3",
+    "better-auth": "^1.4.18",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.33.0",
+    "lucide-react": "^0.563.0",
     "next": "16.1.6",
+    "openai": "^6.18.0",
+    "papaparse": "^5.5.3",
+    "pdf-parse": "^2.4.5",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "^20.19.33",
+    "@types/papaparse": "^5.5.2",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }

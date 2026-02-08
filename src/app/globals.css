@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Colors */
+  --color-navy: #3D5A80;
+  --color-paper: #F7F6F3;
+  --color-cream: #FAF9F6;
+  --color-muted: #9CA3AF;
+  --color-black-soft: #2D2D2D;
+  --color-strong-fit: #16A34A;
+  --color-good-fit: #2563EB;
+  --color-border: #E8E6E1;
+  --color-borderline: #CA8A04;
+  --color-amber-warning: #F59E0B;
+  --color-teal-success: #10B981;
+  --color-reject: #DC2626;
+
+  /* Typography */
+  --font-sora: var(--font-sora);
+  --font-mono: var(--font-mono);
+  
+  --text-xs: 0.75rem; /* 12px */
+  --text-xxs: 0.6875rem; /* 11px */
+
+  /* Spacing */
+  --spacing-4: 0.25rem;
+  --spacing-8: 0.5rem;
+  --spacing-12: 0.75rem;
+  --spacing-16: 1rem;
+  --spacing-24: 1.5rem;
+  --spacing-32: 2rem;
+  
+  /* Radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Custom Utilities */
+@layer utilities {
+  .paper-shadow {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-paper);
+  color: var(--color-black-soft);
+  font-family: var(--font-sora), sans-serif;
 }
