@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from 'react'
-import { X, CheckCircle, AlertCircle, Info } from 'lucide-react'
+import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 import type { Toast as ToastType } from '@/hooks/useToast'
 
 interface ToastProps {
@@ -14,12 +14,14 @@ export function Toast({ toast, onDismiss }: ToastProps) {
     success: CheckCircle,
     error: AlertCircle,
     info: Info,
+    warning: AlertTriangle,
   }
   
   const colors = {
     success: 'bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800/50 dark:text-green-300',
     error: 'bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800/50 dark:text-red-300',
     info: 'bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800/50 dark:text-blue-300',
+    warning: 'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800/50 dark:text-amber-300',
   }
 
   const Icon = icons[toast.type]

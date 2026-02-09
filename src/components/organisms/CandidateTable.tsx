@@ -70,9 +70,9 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
           >
             {/* Candidate Info */}
             <div className={cn("flex items-center gap-3", showJobColumn ? "w-[180px]" : "w-[200px]")}>
-              <Avatar className="h-7 w-7 bg-accent/60 text-primary border border-border/40 rounded-sm">
-                <AvatarFallback className="text-[10px] font-bold font-mono bg-transparent">{candidate.initials}</AvatarFallback>
-              </Avatar>
+              <div className="h-8 w-8 rounded-lg bg-linear-to-br from-primary/10 to-transparent border border-primary/10 flex items-center justify-center shrink-0">
+                <span className="text-[10px] font-bold font-mono text-primary/80">{candidate.initials || "CA"}</span>
+              </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-semibold text-primary group-hover:text-primary/80 transition-colors truncate leading-tight">
                   {candidate.name}

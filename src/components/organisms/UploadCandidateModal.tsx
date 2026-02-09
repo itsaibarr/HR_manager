@@ -56,12 +56,64 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
             const text = await file.text()
             const result = Papa.parse(text, { header: true, skipEmptyLines: true })
             const rows = result.data as any[]
+            
+            // Smart column detection helper
+            const findValue = (row: any, synonyms: string[]): string => {
+                const keys = Object.keys(row)
+                const lowerKeys = keys.map(k => k.toLowerCase())
+                
+                // 1. Exact match
+                for (const synonym of synonyms) {
+                    const idx = lowerKeys.indexOf(synonym)
+                    if (idx !== -1) return row[keys[idx]]
+                }
+                
+                // 2. Partial match (key contains synonym)
+                for (const synonym of synonyms) {
+                    const idx = lowerKeys.findIndex(k => k.includes(synonym))
+                    if (idx !== -1) return row[keys[idx]]
+                }
+                
+                return ""
+            }
+
             rows.forEach((row, i) => {
+                // Try to find Name
+                const name = findValue(row, ['name', 'candidate', 'applicant', 'full name', 'fullname']) 
+                             || `Candidate ${list.length + 1}`
+                
+                // Try to find Email
+                const email = findValue(row, ['email', 'e-mail', 'mail', 'contact'])
+
+                // Try to find CV Content
+                let rawText = findValue(row, ['cv', 'resume', 'summary', 'profile', 'content', 'text', 'about'])
+                
+                // Fallback: If no explicit CV text, aggregate useful columns
+                if (!rawText || rawText.length < 50) {
+                     // Filter out metadata and columns we already extracted (name, email)
+                     const irrelevantKeys = ['id', 'timestamp', 'created', 'updated', ...Object.keys(row).filter(k => {
+                        const lower = k.toLowerCase()
+                        return lower.includes('name') || lower.includes('email')
+                     })]
+                     
+                     // Construct text from remaining columns (Experience, Education, etc.)
+                     const contentParts = Object.entries(row)
+                        .filter(([k]) => !irrelevantKeys.some(i => k.toLowerCase().includes(i)))
+                        .map(([k, v]) => `${k}: ${v}`)
+                     
+                     if (contentParts.length > 0) {
+                        rawText = contentParts.join('\n')
+                     }
+                }
+
+                // Final Fallback: just dump the whole row if we still have nothing useful
+                if (!rawText || rawText.length < 10) rawText = JSON.stringify(row)
+
                 list.push({
                     id: `csv-${i}-${Date.now()}`,
-                    name: row.name || row.full_name || row.candidate || `Candidate ${list.length + 1}`,
-                    email: row.email || "",
-                    rawText: row.cv_text || row.resume || row.content || JSON.stringify(row),
+                    name,
+                    email,
+                    rawText,
                     status: 'pending'
                 })
             })

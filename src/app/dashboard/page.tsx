@@ -204,7 +204,7 @@ export default function JobsPage() {
         subtitle="Manage your open roles and screening criteria."
         action={
           <Button onClick={openCreateModal}>
-            <Plus className="w-4 h-4 mr-2" />
+            <Plus className="w-5 h-5 mr-2" />
             New Job Context
           </Button>
         }
@@ -267,7 +267,7 @@ function EmptyState({ onCreate }: { onCreate: () => void }) {
         </p>
       </div>
       <Button className="mt-2" onClick={onCreate}>
-        <Plus className="w-4 h-4 mr-2" />
+        <Plus className="w-5 h-5 mr-2" />
         Create Job Context
       </Button>
     </div>

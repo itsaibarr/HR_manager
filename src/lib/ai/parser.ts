@@ -84,7 +84,7 @@ Rules:
 
 class GeminiProvider implements AIProvider {
     private genAI: GoogleGenerativeAI;
-    private modelName = 'gemini-2.0-flash';
+    private modelName = 'gemini-2.5-flash';
 
     constructor(apiKey: string) {
         this.genAI = new GoogleGenerativeAI(apiKey);

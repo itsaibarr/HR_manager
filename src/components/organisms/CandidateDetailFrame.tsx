@@ -115,75 +115,8 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
     }
   }, [candidateId, jobId, isOpen, supabase])
 
-  // Generate personalized matching advice based on HR manager's requirements
-  const matchingAdvice = useMemo(() => {
-    if (!data || !jobContext) return null
-
-    const candidateSkills = data.candidate_profiles?.skills || []
-    const candidateExperience = data.candidate_profiles?.experience || []
-    const cvText = data.candidate_profiles?.raw_cv_text || ''
-    
-    const responsibilities = jobContext.responsibilities || []
-    const mustHaveSkills = jobContext.must_have_skills || []
-    const niceToHaveSkills = jobContext.nice_to_have_skills || []
-    const nonRequirements = jobContext.non_requirements || []
-
-    // Match responsibilities from AI reasoning
-    const matchedResponsibilities = responsibilities.filter((resp: string) => {
-      // Check if any reasoning mentions this responsibility
-      return data.reasoning?.some((r: string) => 
-        r.toLowerCase().includes(resp.toLowerCase().substring(0, 20))
-      ) || cvText.toLowerCase().includes(resp.toLowerCase().substring(0, 20))
-    })
-
-    // Match must-have requirements
-    // Match must-have requirements
-    const metRequirements = mustHaveSkills.filter((req: string) => {
-      const reqLower = req.toLowerCase()
-      // FIXED: Check if the requirement DESCRIPTION contains the candidate's skill (e.g. "Experience with Python" contains "Python")
-      // instead of checking if "Python" contains "Experience with Python"
-      const hasMatchingSkill = candidateSkills.some((cs: string) => {
-        const skillLower = cs.toLowerCase()
-        return reqLower.includes(skillLower) && skillLower.length > 2 // Avoid matching short words like "it", "go", "c" incorrectly if not careful context
-      })
-
-      // Also check if reasoning mentions search terms from the requirement
-      const isMentionedInReasoning = data.reasoning?.some((r: string) => {
-         const rLower = r.toLowerCase()
-         // simplistic check: if reasoning contains significant words from requirement
-         // This is heuristic.
-         return rLower.includes(reqLower.substring(0, 15)) // Match start of requirement?
-      })
-
-      return hasMatchingSkill ||
-             cvText.toLowerCase().includes(reqLower) ||
-             // Fallback: Check if requirement is contained in reasoning (AI mentioned it)
-             data.reasoning?.some((r: string) => r.toLowerCase().includes(reqLower))
-    })
-
-    // Missing must-have requirements
-    const missingRequirements = mustHaveSkills.filter((req: string) => {
-      return !metRequirements.includes(req) // Reuse the logic above
-    })
-
-    // Nice-to-have bonuses
-    const bonusRequirements = niceToHaveSkills.filter((req: string) => {
-      const reqLower = req.toLowerCase()
-      return candidateSkills.some((cs: string) => cs.toLowerCase().includes(reqLower)) ||
-             cvText.toLowerCase().includes(reqLower)
-    })
-
-    // Extract key strengths from AI reasoning
-    const keyStrengths = data.reasoning || []
-
-    return {
-      matchedResponsibilities,
-      metRequirements,
-      missingRequirements,
-      bonusRequirements,
-      keyStrengths
-    }
-  }, [data, jobContext])
+  // Reasoning points from AI
+  const reasoning = useMemo(() => data?.reasoning || [], [data])
 
   const handleShortlist = async () => {
     if (!data) return
@@ -324,80 +257,21 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                   )}
                 </div>
 
-                {/* Why This Candidate Fits */}
-                {matchingAdvice && (
+                {/* AI Reasoning / Observations */}
+                {reasoning.length > 0 && (
                   <div className="space-y-4">
                     <div className="flex items-center gap-3 pb-2 border-b border-border/60">
                       <Target className="w-4 h-4 text-primary" />
-                      <h3 className="text-sm font-bold uppercase tracking-widest text-primary">Requirement Verification</h3>
+                      <h3 className="text-sm font-bold uppercase tracking-widest text-primary">Assessment Reasoning</h3>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4">
-                      {/* Matched Responsibilities */}
-                      {matchingAdvice.matchedResponsibilities.length > 0 && (
-                        <div className="space-y-3">
-                          <h4 className="text-[10px] font-bold flex items-center gap-2 text-primary/60 uppercase tracking-widest">
-                            Matched Responsibilities
-                          </h4>
-                          <div className="grid grid-cols-1 gap-2">
-                            {matchingAdvice.matchedResponsibilities.map((resp: string) => (
-                              <div key={resp} className="flex gap-3 p-4 bg-paper rounded-sm border border-border/60 hover:border-primary/20 transition-all group">
-                                <CheckCircle className="w-4 h-4 text-strong-fit shrink-0 mt-0.5" />
-                                <p className="text-[13px] text-primary/80 group-hover:text-primary leading-relaxed">{resp}</p>
-                              </div>
-                            ))}
-                          </div>
+                    <div className="grid grid-cols-1 gap-2">
+                      {reasoning.map((point: string, i: number) => (
+                        <div key={i} className="flex gap-3 p-4 bg-accent/20 rounded-sm border border-border/40 hover:bg-accent/30 transition-all group">
+                          <Lightbulb className="w-4 h-4 text-good-fit shrink-0 mt-0.5" />
+                          <p className="text-[13px] text-primary/80 group-hover:text-primary leading-relaxed font-medium">{point}</p>
                         </div>
-                      )}
-
-                      {/* Met Requirements */}
-                      {matchingAdvice.metRequirements.length > 0 && (
-                        <div className="space-y-3">
-                          <h4 className="text-[10px] font-bold flex items-center gap-2 text-primary/60 uppercase tracking-widest">
-                            Verified Essential Skills
-                          </h4>
-                          <div className="flex flex-wrap gap-2">
-                            {matchingAdvice.metRequirements.map((req: string) => (
-                              <div key={req} className="flex items-center gap-2 px-3 py-1.5 bg-strong-fit/5 rounded-sm border border-strong-fit/10">
-                                <Check className="w-3 h-3 text-strong-fit" />
-                                <span className="text-[11px] font-bold text-strong-fit font-mono">{req}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Missing Requirements */}
-                      {matchingAdvice.missingRequirements.length > 0 && (
-                        <div className="space-y-3">
-                          <h4 className="text-[10px] font-bold flex items-center gap-2 text-reject uppercase tracking-widest">
-                            Missing Signals
-                          </h4>
-                          <div className="flex flex-wrap gap-2">
-                            {matchingAdvice.missingRequirements.map((req: string) => (
-                              <div key={req} className="flex items-center gap-2 px-3 py-1.5 bg-reject/5 rounded-sm border border-reject/10">
-                                <X className="w-3 h-3 text-reject" />
-                                <span className="text-[11px] font-bold text-reject font-mono">{req}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* AI Analysis & Evidence */}
-                      {matchingAdvice.keyStrengths.length > 0 && (
-                        <div className="space-y-3 pt-4">
-                          <h4 className="text-[10px] font-bold uppercase tracking-widest text-primary/60">Expert Observations</h4>
-                          <div className="grid grid-cols-1 gap-2">
-                            {matchingAdvice.keyStrengths.map((strength: string, i: number) => (
-                              <div key={i} className="flex gap-3 p-4 bg-accent/20 rounded-sm border border-border/40 hover:bg-accent/30 transition-all group">
-                                <Lightbulb className="w-4 h-4 text-good-fit shrink-0 mt-0.5" />
-                                <p className="text-[13px] text-primary/80 group-hover:text-primary leading-relaxed font-medium">{strength}</p>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                      ))}
                     </div>
                   </div>
                 )}
@@ -430,12 +304,14 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
               <>
                 <div className="space-y-8 flex-1">
                 <div className="flex flex-col items-center text-center gap-4">
-                  <Avatar className="w-24 h-24 bg-accent/40 rounded-sm border border-border/60 relative overflow-hidden group">
-                    <AvatarFallback className="bg-transparent text-primary text-3xl font-sora font-extrabold tracking-tighter">
-                      {data.candidate_profiles.full_name ? data.candidate_profiles.full_name.split(' ').map((n: string) => n[0]).join('').substring(0,2) : "CA"}
-                    </AvatarFallback>
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Avatar>
+                  <div className="w-24 h-24 rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 border border-primary/10 flex items-center justify-center shadow-inner relative overflow-hidden group">
+                    <span className="text-3xl font-sora font-extrabold text-primary tracking-tighter drop-shadow-sm">
+                      {data.candidate_profiles.full_name 
+                        ? data.candidate_profiles.full_name.split(' ').map((n: string) => n[0]).join('').substring(0,2).toUpperCase()
+                        : "CA"}
+                    </span>
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
                   <div className="space-y-1.5">
                     <h2 className="text-xl font-sora font-extrabold text-primary tracking-tight leading-tight">
                       {data.candidate_profiles.full_name || 'Candidate Profile'}

@@ -8,20 +8,20 @@
   --color-cream: var(--cream);
   --color-muted: var(--muted);
   --color-black-soft: var(--black-soft);
-  
-  --color-strong-fit: #10B981; /* Emerald 500 */
-  --color-good-fit: #3B82F6; /* Blue 500 */
+
+  --color-strong-fit: #10b981; /* Emerald 500 */
+  --color-good-fit: #3b82f6; /* Blue 500 */
   --color-border: var(--border);
   --color-border-hover: var(--border-hover);
-  --color-borderline: #F59E0B; /* Amber 500 */
-  --color-amber-warning: #F59E0B;
-  --color-teal-success: #10B981;
-  --color-reject: #EF4444; /* Red 500 */
+  --color-borderline: #f59e0b; /* Amber 500 */
+  --color-amber-warning: #f59e0b;
+  --color-teal-success: #10b981;
+  --color-reject: #ef4444; /* Red 500 */
 
   /* Typography */
   --font-sora: var(--font-sora);
   --font-mono: var(--font-mono);
-  
+
   --text-xs: 0.75rem; /* 12px */
   --text-xxs: 0.6875rem; /* 11px */
 
@@ -32,7 +32,7 @@
   --spacing-16: 1rem;
   --spacing-24: 1.5rem;
   --spacing-32: 2rem;
-  
+
   /* Radius */
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -62,49 +62,51 @@
 /* Theme Variables */
 :root {
   /* High-end Neutral Palette (Light) */
-  --primary: #09090B; /* Zinc 950 */
-  --paper: #FFFFFF;
-  --cream: #FBFBFA;
-  --muted: #71717A; /* Zinc 500 */
-  --black-soft: #18181B; /* Zinc 900 */
-  --border: #E4E4E7; /* Zinc 200 */
-  --border-hover: #D4D4D8; /* Zinc 300 */
+  --primary: #09090b; /* Zinc 950 */
+  --paper: #ffffff;
+  --cream: #fbfbfa;
+  --muted: #71717a; /* Zinc 500 */
+  --black-soft: #18181b; /* Zinc 900 */
+  --border: #e4e4e7; /* Zinc 200 */
+  --border-hover: #d4d4d8; /* Zinc 300 */
 
   /* Component Colors */
-  --card: #FFFFFF;
-  --card-foreground: #18181B;
-  --popover: #FFFFFF;
-  --popover-foreground: #18181B;
-  --input-bg: #FFFFFF;
-  --muted-foreground: #71717A;
-  --accent: #F4F4F5; /* Zinc 100 */
-  --accent-foreground: #18181B;
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --input-bg: #ffffff;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5; /* Zinc 100 */
+  --accent-foreground: #18181b;
 }
 
 .dark {
   /* High-end Neutral Palette (Dark) */
-  --primary: #FAFAFA; /* Zinc 50 */
-  --paper: #09090B; /* Zinc 950 */
-  --cream: #121214; 
-  --muted: #A1A1AA; /* Zinc 400 */
-  --black-soft: #FAFAFA; 
-  --border: #27272A; /* Zinc 800 */
-  --border-hover: #3F3F46; /* Zinc 700 */
+  --primary: #fafafa; /* Zinc 50 */
+  --paper: #141415; /* Lighter Dark Background */
+  --cream: #1c1c1e;
+  --muted: #a1a1aa; /* Zinc 400 */
+  --black-soft: #fafafa;
+  --border: #2e2e30;
+  --border-hover: #3f3f42;
 
   /* Component Colors Dark */
-  --card: #0C0C0E;
-  --card-foreground: #FAFAFA;
-  --popover: #0C0C0E;
-  --popover-foreground: #FAFAFA;
-  --input-bg: #09090B;
-  --muted-foreground: #A1A1AA;
-  --accent: #18181B; /* Zinc 900 */
-  --accent-foreground: #FAFAFA;
+  --card: #1c1c1e;
+  --card-foreground: #fafafa;
+  --popover: #1c1c1e;
+  --popover-foreground: #fafafa;
+  --input-bg: #1c1c1e;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a; /* Zinc 800 */
+  --accent-foreground: #fafafa;
 }
 
 body {
   background-color: var(--color-paper);
   color: var(--color-black-soft);
   font-family: var(--font-sora), sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }

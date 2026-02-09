@@ -25,10 +25,10 @@ interface CandidateFiltersProps {
 }
 
 const SCORE_BANDS = [
-  { value: 'strong', label: 'Strong Fit', color: 'bg-green-600 hover:bg-green-700' },
-  { value: 'good', label: 'Good Fit', color: 'bg-blue-600 hover:bg-blue-700' },
-  { value: 'borderline', label: 'Borderline', color: 'bg-yellow-600 hover:bg-yellow-700' },
-  { value: 'reject', label: 'Reject', color: 'bg-gray-600 hover:bg-gray-700' }
+  { value: 'strong', label: 'Force Multiplier', color: 'bg-green-600 hover:bg-green-700' },
+  { value: 'good', label: 'Solid Contributor', color: 'bg-blue-600 hover:bg-blue-700' },
+  { value: 'borderline', label: 'Baseline Capable', color: 'bg-yellow-600 hover:bg-yellow-700' },
+  { value: 'reject', label: 'Do Not Proceed', color: 'bg-gray-600 hover:bg-gray-700' }
 ]
 
 const SORT_OPTIONS = [

@@ -78,7 +78,8 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             role: ev.candidate_profiles?.experience?.[0]?.title || "Applicant",
             experienceRaw: ev.candidate_profiles?.experience?.length ? `${ev.candidate_profiles.experience.length} roles` : "N/A",
             score: ev.final_score,
-            scoreBand: ev.score_band === 'Strong Fit' ? 'strong' : ev.score_band === 'Good Fit' ? 'good' : ev.score_band === 'Borderline' ? 'borderline' : 'reject',
+            // Calculate band on the fly to fix existing records with gaps
+            scoreBand: ev.final_score >= 85 ? 'strong' : ev.final_score >= 70 ? 'good' : ev.final_score >= 60 ? 'borderline' : 'reject',
             status: ev.status || 'pending',
             topSkills: ev.candidate_profiles?.skills?.slice(0,3) || [],
             appliedAt: new Date(ev.created_at).toLocaleDateString()
@@ -181,9 +182,9 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
     await fetchJobData() 
     
     if (failCount > 0) {
-        alert(`Import process finished with mixed results.\n\n✅ Successfully imported: ${successCount}\n❌ Failed: ${failCount}\n\nPlease check the console for details on failed candidates.`)
+        showToast(`Import finished: ${successCount} success, ${failCount} failed. Check console.`, "warning")
     } else {
-        alert(`Successfully imported all ${successCount} candidates!`)
+        showToast(`Successfully imported all ${successCount} candidates!`, "success")
     }
   }
 

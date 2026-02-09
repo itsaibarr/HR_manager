@@ -4,8 +4,28 @@ import { parseCvText } from '@/lib/ai/parser';
 import { evaluateCandidate } from '@/lib/ai/evaluator';
 import { JobContextSchema } from '@/types/schemas';
 
-// @ts-ignore
-import { PDFParse } from 'pdf-parse'; 
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+// Polyfill for DOMMatrix which is missing in Node environment but required by pdf-parse dependencies
+if (typeof global.DOMMatrix === 'undefined') {
+  (global as any).DOMMatrix = class DOMMatrix {};
+}
+if (typeof global.ImageData === 'undefined') {
+  (global as any).ImageData = class ImageData {
+    constructor(public data: Uint8ClampedArray, public width: number, public height: number) {}
+  };
+}
+if (typeof global.Path2D === 'undefined') {
+  (global as any).Path2D = class Path2D {};
+}
+
+let pdf: any;
+try {
+  pdf = require('pdf-parse');
+  console.log('[UPLOAD] pdf-parse loaded:', typeof pdf);
+} catch (e) {
+  console.error('[UPLOAD] Failed to load pdf-parse:', e);
+} 
 
 export async function POST(request: Request) {
   try {
@@ -51,8 +71,7 @@ export async function POST(request: Request) {
 
         if (file.type === 'application/pdf') {
           try {
-            const parser = new PDFParse({ data: buffer });
-            const data = await parser.getText();
+            const data = await pdf(buffer);
             rawText = data.text;
           } catch (e) {
             console.error('PDF Parse Error:', e);

@@ -11,68 +11,68 @@ export const EVALUATION_FRAMEWORK = {
     coreCompetencies: {
       id: 'core_competencies',
       name: 'Core Competencies',
-      weight: 0.35,
-      description: 'Technical skills relevance and depth',
+      weight: 0.25,
+      description: 'System understanding and trade-offs',
       criteria: [
-        'Relevance of skills to the job context',
-        'Evidence of applying those skills in practice',
-        'Depth over keyword matching'
+        'System understanding and trade-offs',
+        'Equivalent tools imply equivalent competence',
+        'Do NOT require duplicate frontend frameworks'
       ]
     },
     experienceResults: {
       id: 'experience_results',
       name: 'Experience & Results',
-      weight: 0.25,
-      description: 'Hands-on experience and ownership',
+      weight: 0.40,
+      description: 'Primary signal for senior roles',
       criteria: [
-        'Hands-on experience (internships, projects, junior roles)',
-        'Ownership of work',
-        'Measurable impact if available (optional for junior roles)'
+        'Look for ownership, scope, complexity, and outcomes',
+        'IMPLIED impact is acceptable if supported by context',
+        'Primary signal for senior roles'
       ]
     },
     collaborationSignals: {
       id: 'collaboration_signals',
-      name: 'Collaboration Signals',
+      name: 'Leadership & Influence',
       weight: 0.20,
-      description: 'Evidence of teamwork and feedback exposure',
+      description: 'Leadership and cross-team collaboration',
       criteria: [
-        'Evidence of working with others',
-        'Exposure to feedback, iteration, or team environments',
-        'Signals only — not proven behavior'
+        'Leadership implied by owning systems/migrations',
+        'Cross-team collaboration',
+        'Explicit "mentorship" wording is NOT required'
       ]
     },
     culturalPracticalFit: {
       id: 'cultural_practical_fit',
-      name: 'Cultural & Practical Fit',
+      name: 'Problem Solving & Fit',
       weight: 0.15,
-      description: 'Role level fit and logistics',
+      description: 'Operating under ambiguity',
       criteria: [
-        'Fit for role level and work environment',
-        'Availability, language, logistics if stated',
-        'No personality or values inference'
+        'Ability to operate under ambiguity',
+        'Fit for role level and work context',
+        'Problem Solving & Practical Fit'
       ]
     },
     educationOther: {
       id: 'education_other',
       name: 'Education & Other Signals',
-      weight: 0.05,
-      description: 'Educational background (low weight by design)',
+      weight: 0.00,
+      description: 'Neutral by default',
       criteria: [
-        'Relevant education or learning activity',
-        'Low weight by design'
+        'Neutral by default',
+        'Never penalize for absence'
       ]
     }
   } as const,
 
   scoreBands: {
-    'Strong Fit': { min: 85, max: 100, color: '#16A34A' },
-    'Good Fit': { min: 70, max: 84, color: '#2563EB' },
-    'Borderline': { min: 60, max: 69, color: '#CA8A04' },
-    'Reject': { min: 0, max: 59, color: '#DC2626' }
+    'Force Multiplier': { min: 85, max: 100, color: '#16A34A' },
+    'Solid Contributor': { min: 70, max: 84.9, color: '#2563EB' },
+    'Baseline Capable': { min: 60, max: 69.9, color: '#CA8A04' },
+    'Do Not Proceed': { min: 0, max: 59.9, color: '#DC2626' }
   } as const,
 
   rules: {
-    autoRejectIfCoreCompetenciesZero: true,
+    autoRejectIfCoreCompetenciesZero: false,
     treatMissingAsUncertainty: true,
     conservativeScoringOnWeakEvidence: true,
     maxScorePerDimension: 10,
@@ -106,7 +106,7 @@ export function getScoreBand(finalScore: number): ScoreBand {
       return band as ScoreBand;
     }
   }
-  return 'Reject';
+  return 'Do Not Proceed';
 }
 
 /**
