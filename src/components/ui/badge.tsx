@@ -10,7 +10,7 @@ function Badge({ className, variant = "default", ...props }: BadgeProps) {
     default: "border-transparent bg-primary text-paper",
     secondary: "border border-border/60 bg-accent text-primary dark:bg-accent/40 dark:text-accent-foreground",
     destructive: "border-transparent bg-reject/10 text-reject border border-reject/20",
-    outline: "text-muted border-border font-medium",
+    outline: "text-muted border-border font-bold",
     "fit-strong": "border-strong-fit/20 bg-strong-fit/5 text-strong-fit border",
     "fit-good": "border-good-fit/20 bg-good-fit/5 text-good-fit border",
     "fit-borderline": "border-borderline/20 bg-borderline/5 text-borderline border",
@@ -22,7 +22,7 @@ function Badge({ className, variant = "default", ...props }: BadgeProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-xs px-2.5 py-1 text-[11px] font-medium transition-colors focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1",
+        "inline-flex items-center rounded-sm px-2.5 py-1 text-xs font-bold transition-colors focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1",
         variants[variant],
         className
       )}

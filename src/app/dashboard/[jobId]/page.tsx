@@ -282,11 +282,11 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                 action={
                 <div className="flex gap-2">
                     <Button variant="outline" onClick={downloadCSV} disabled={candidates.length === 0}>
-                        <Download className="w-4 h-4 mr-2" />
+                        <Download className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
                         Export CSV
                     </Button>
                     <Button onClick={() => setIsUploadModalOpen(true)} disabled={isUploading}>
-                        <Plus className="w-4 h-4 mr-2" />
+                        <Plus className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
                         Add Candidates
                     </Button>
                 </div>

@@ -153,7 +153,7 @@ export default function ProfilePage() {
           </div>
           
           <div className="p-4 bg-accent/20 border border-border/40 rounded-sm flex gap-3">
-             <Shield className="w-4 h-4 text-primary/60 shrink-0 mt-0.5" />
+             <Shield className="w-5 h-5 text-primary/60 shrink-0 mt-0.5" />
              <p className="text-[11px] text-muted leading-relaxed">
                Your session is protected with biometric-grade encryption. API keys are encrypted at rest.
              </p>
@@ -299,7 +299,7 @@ export default function ProfilePage() {
              <Button 
                onClick={handleSave} 
                disabled={loading}
-               className="w-full h-12 rounded-sm bg-primary text-paper font-bold uppercase tracking-[0.2em] hover:bg-primary/95 transition-all"
+               className="w-full h-[40px] rounded-sm bg-primary text-paper font-bold uppercase tracking-[0.2em] hover:bg-primary/95 transition-all"
              >
                {loading ? 'Processing...' : 'Save Configuration'}
              </Button>

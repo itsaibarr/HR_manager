@@ -200,7 +200,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                         onChange={handleFileChange}
                     />
                     <div className="w-16 h-16 bg-accent/50 text-primary rounded-sm flex items-center justify-center mb-4 border border-border/40">
-                        <UploadCloud className="w-8 h-8" />
+                        <UploadCloud className="w-[14px] h-[14px]" strokeWidth={2.4} />
                     </div>
                     
                     <div className="space-y-2">
@@ -216,7 +216,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                             {files.map((file, idx) => (
                                 <div key={idx} className="flex items-center justify-between p-3 bg-paper rounded-sm border border-border/60">
                                     <div className="flex items-center gap-3 overflow-hidden">
-                                        <File className="w-4 h-4 text-primary shrink-0" />
+                                        <File className="w-[14px] h-[14px] text-primary shrink-0" strokeWidth={2.4} />
                                         <span className="text-sm font-medium text-primary truncate">{file.name}</span>
                                     </div>
                                     <button 
@@ -226,7 +226,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                                         }} 
                                         className="text-muted hover:text-red-500 p-1"
                                     >
-                                        <X className="w-4 h-4" />
+                                        <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
                                     </button>
                                 </div>
                             ))}
@@ -279,7 +279,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                                             onClick={() => removeCandidate(c.id)}
                                             className="p-1.5 text-muted hover:text-red-500 transition-colors"
                                         >
-                                            <Trash2 className="w-5 h-5" />
+                                            <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
                                         </button>
                                     </td>
                                 </tr>

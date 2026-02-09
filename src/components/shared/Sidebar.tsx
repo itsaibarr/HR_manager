@@ -72,7 +72,7 @@ export function Sidebar() {
               )}
               title={item.label}
             >
-              <item.icon className="w-[18px] h-[18px]" strokeWidth={isActive ? 2 : 1.5} />
+              <item.icon className="w-[14px] h-[14px]" strokeWidth={2.4} />
               {isActive && (
                 <div className="absolute left-0 w-[2.5px] h-4 bg-primary rounded-r-full" />
               )}
@@ -98,14 +98,14 @@ export function Sidebar() {
           </div>
           <DropdownItem onClick={() => router.push("/dashboard/profile")}>
             <span className="flex items-center gap-2">
-              <User className="w-3.5 h-3.5" />
+              <User className="w-[14px] h-[14px]" strokeWidth={2.4} />
               Profile Settings
             </span>
           </DropdownItem>
           <DropdownSeparator />
           <DropdownItem onClick={handleSignOut} variant="destructive">
             <span className="flex items-center gap-2">
-              <LogOut className="w-3.5 h-3.5" />
+              <LogOut className="w-4 h-4" strokeWidth={2.4} />
               Sign Out
             </span>
           </DropdownItem>

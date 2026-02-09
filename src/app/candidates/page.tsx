@@ -226,7 +226,7 @@ export default function CandidatesPage() {
         subtitle={`${filteredCandidates.length} ${filteredCandidates.length === candidates.length ? '' : `of ${candidates.length} `}candidates across all jobs`}
         action={
           <Button variant="outline" onClick={downloadCSV} disabled={candidates.length === 0}>
-            <Download className="w-4 h-4 mr-2" />
+            <Download className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
             Export CSV
           </Button>
         }

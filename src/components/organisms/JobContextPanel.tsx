@@ -36,8 +36,8 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
         {/* Original Job Description - MOST IMPORTANT */}
         {hasOriginalDescription && (
           <section className="space-y-3">
-            <h3 className="text-xs font-semibold text-card-foreground uppercase tracking-wider flex items-center gap-2">
-              <FileText className="w-4 h-4" />
+            <h3 className="text-xs font-bold text-card-foreground uppercase tracking-[0.12em] flex items-center gap-2">
+              <FileText className="w-[14px] h-[14px]" strokeWidth={2.4} />
               Original Job Description
             </h3>
             <div className="relative">
@@ -62,7 +62,7 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
 
         {/* Requirements */}
         <section className="space-y-4 pt-4 border-t border-border">
-          <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">
+          <h3 className="text-xs font-bold text-primary uppercase tracking-[0.12em]">
             Requirements
           </h3>
           
@@ -70,12 +70,12 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
           {job.mustHaveSkills && job.mustHaveSkills.length > 0 && (
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <span className="text-xs font-medium text-card-foreground">Must-Have Skills</span>
+                <CheckCircle2 className="w-[14px] h-[14px] text-green-600" strokeWidth={2.4} />
+                <span className="text-xs font-bold text-card-foreground">Must-Have Skills</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {job.mustHaveSkills.map(skill => (
-                  <Badge key={skill} variant="default" className="bg-green-600 text-white text-xs">
+                  <Badge key={skill} variant="default" className="bg-green-600 text-white">
                     {skill}
                   </Badge>
                 ))}
@@ -87,12 +87,12 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
           {job.niceToHaveSkills && job.niceToHaveSkills.length > 0 && (
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-blue-600" />
-                <span className="text-xs font-medium text-card-foreground">Nice-to-Have Skills</span>
+                <CheckCircle2 className="w-[14px] h-[14px] text-blue-600" strokeWidth={2.4} />
+                <span className="text-xs font-bold text-card-foreground">Nice-to-Have Skills</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {job.niceToHaveSkills.map(skill => (
-                  <Badge key={skill} variant="outline" className="text-xs">
+                  <Badge key={skill} variant="outline" className="">
                     {skill}
                   </Badge>
                 ))}
@@ -104,12 +104,12 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
           {job.non_requirements && job.non_requirements.length > 0 && (
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <XCircle className="w-4 h-4 text-red-600" />
-                <span className="text-xs font-medium text-card-foreground">Non-Requirements</span>
+                <XCircle className="w-[14px] h-[14px] text-red-600" strokeWidth={2.4} />
+                <span className="text-xs font-bold text-card-foreground">Non-Requirements</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {job.non_requirements.map((item, i) => (
-                  <Badge key={i} variant="outline" className="text-xs text-red-600 border-red-200">
+                  <Badge key={i} variant="outline" className="text-red-600 border-red-200">
                     {item}
                   </Badge>
                 ))}
@@ -120,25 +120,25 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
 
         {/* Job Info */}
         <section className="space-y-3 pt-4 border-t border-border">
-          <h3 className="text-xs font-semibold text-card-foreground uppercase tracking-wider">
+          <h3 className="text-xs font-bold text-card-foreground uppercase tracking-[0.12em]">
             Job Info
           </h3>
           
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-sm text-card-foreground">
-              <MapPin className="w-4 h-4 text-muted" />
+              <MapPin className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
               <span>Remote</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-card-foreground">
-              <Briefcase className="w-4 h-4 text-muted" />
+              <Briefcase className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
               <span>{exp.level || 'Mid-Senior'} Level</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-card-foreground">
-              <Clock className="w-4 h-4 text-muted" />
+              <Clock className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
               <span>{exp.minYears || 3}+ Years Experience</span>
             </div>
             <div className="flex items-center gap-2 text-sm text-card-foreground">
-              <Calendar className="w-4 h-4 text-muted" />
+              <Calendar className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
               <span>Created {new Date(job.created_at).toLocaleDateString()}</span>
             </div>
           </div>

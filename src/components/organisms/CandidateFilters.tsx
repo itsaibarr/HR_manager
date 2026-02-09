@@ -93,7 +93,7 @@ export function CandidateFilters({
       <div className="flex items-center gap-3 p-2 bg-paper border border-border/80 rounded-sm">
         {/* Search */}
         <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted/60" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-[14px] h-[14px] text-muted/60" strokeWidth={2.4} />
           <Input
             placeholder="Search candidates..."
             value={filters.search}
@@ -138,17 +138,17 @@ export function CandidateFilters({
           <button
             onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-[11px] font-semibold bg-transparent transition-all",
+              "flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-sm font-bold bg-transparent transition-all",
               filters.jobIds.length > 0 ? "border-primary/30 text-primary bg-primary/5" : "text-muted hover:bg-accent/50"
             )}
           >
             <span>Jobs</span>
             {filters.jobIds.length > 0 && (
-              <span className="flex items-center justify-center w-4 h-4 bg-primary text-paper rounded-sm text-[9px] font-bold">
+              <span className="flex items-center justify-center w-5 h-5 bg-primary text-paper rounded-sm text-[12px] font-black px-1 min-w-[20px]">
                 {filters.jobIds.length}
               </span>
             )}
-            <ChevronDown className={cn("w-3 h-3 transition-transform", jobsDropdownOpen ? "rotate-180" : "")} />
+            <ChevronDown className={cn("w-[14px] h-[14px] transition-transform", jobsDropdownOpen ? "rotate-180" : "")} strokeWidth={2.4} />
           </button>
 
           {jobsDropdownOpen && (
@@ -172,7 +172,7 @@ export function CandidateFilters({
                         onChange={() => toggleJob(job.id)}
                         className="w-4 h-4 rounded border-gray-300"
                       />
-                      <span className="text-xs text-card-foreground truncate">{job.title}</span>
+                      <span className="text-xs text-card-foreground truncate font-medium">{job.title}</span>
                     </label>
                   ))
                 )}
@@ -186,17 +186,17 @@ export function CandidateFilters({
           <button
             onClick={() => setSkillsDropdownOpen(!skillsDropdownOpen)}
             className={cn(
-              "flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-[11px] font-semibold bg-transparent transition-all",
+              "flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-sm font-bold bg-transparent transition-all",
               filters.skills.length > 0 ? "border-primary/30 text-primary bg-primary/5" : "text-muted hover:bg-accent/50"
             )}
           >
             <span>Skills</span>
             {filters.skills.length > 0 && (
-              <span className="flex items-center justify-center w-4 h-4 bg-primary text-paper rounded-sm text-[9px] font-bold">
+              <span className="flex items-center justify-center w-5 h-5 bg-primary text-paper rounded-sm text-[12px] font-black px-1 min-w-[20px]">
                 {filters.skills.length}
               </span>
             )}
-            <ChevronDown className={cn("w-3 h-3 transition-transform", skillsDropdownOpen ? "rotate-180" : "")} />
+            <ChevronDown className={cn("w-[14px] h-[14px] transition-transform", skillsDropdownOpen ? "rotate-180" : "")} strokeWidth={2.4} />
           </button>
 
           {skillsDropdownOpen && (
@@ -221,7 +221,7 @@ export function CandidateFilters({
                           onChange={() => toggleSkill(skill)}
                           className="w-3.5 h-3.5 rounded-sm border-border text-primary focus:ring-primary"
                         />
-                        <span className="text-xs text-muted group-hover:text-primary transition-colors">{skill}</span>
+                        <span className="text-sm text-muted group-hover:text-primary font-medium transition-colors">{skill}</span>
                       </label>
                     ))
                   )}
@@ -235,10 +235,10 @@ export function CandidateFilters({
         <div className="relative">
           <button
             onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-[11px] font-semibold text-muted hover:bg-accent/50 transition-all"
+            className="flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-sm font-bold text-muted hover:bg-accent/50 transition-all"
           >
             Sort: {SORT_OPTIONS.find(o => o.value === filters.sortBy)?.label.split(' ')[0]}
-            <ChevronDown className={cn("w-3 h-3 transition-transform", sortDropdownOpen ? "rotate-180" : "")} />
+            <ChevronDown className={cn("w-[14px] h-[14px] transition-transform", sortDropdownOpen ? "rotate-180" : "")} strokeWidth={2.4} />
           </button>
 
           {sortDropdownOpen && (
@@ -256,7 +256,7 @@ export function CandidateFilters({
                       setSortDropdownOpen(false)
                     }}
                     className={cn(
-                      "w-full text-left px-3 py-2 text-[11px] rounded-sm transition-all",
+                      "w-full text-left px-3 py-2 text-sm rounded-sm transition-all font-medium",
                       filters.sortBy === option.value 
                         ? "bg-accent text-primary font-bold" 
                         : "text-muted hover:bg-accent/60 hover:text-primary"

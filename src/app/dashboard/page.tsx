@@ -204,7 +204,7 @@ export default function JobsPage() {
         subtitle="Manage your open roles and screening criteria."
         action={
           <Button onClick={openCreateModal}>
-            <Plus className="w-5 h-5 mr-2" />
+            <Plus className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
             New Job Context
           </Button>
         }
@@ -258,7 +258,7 @@ function EmptyState({ onCreate }: { onCreate: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center p-12 bg-paper rounded-sm border border-border/80 text-center space-y-4 min-h-[400px]">
       <div className="w-14 h-14 bg-accent/40 rounded-sm flex items-center justify-center mb-2">
-        <Briefcase className="w-6 h-6 text-muted/60" />
+        <Briefcase className="w-[14px] h-[14px] text-muted/60" strokeWidth={2.4} />
       </div>
       <div className="space-y-1">
         <h3 className="text-lg font-sora font-semibold text-primary">No Jobs Yet</h3>
@@ -267,7 +267,7 @@ function EmptyState({ onCreate }: { onCreate: () => void }) {
         </p>
       </div>
       <Button className="mt-2" onClick={onCreate}>
-        <Plus className="w-5 h-5 mr-2" />
+        <Plus className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
         Create Job Context
       </Button>
     </div>
@@ -295,26 +295,26 @@ function JobCard({ job, onEdit, onDelete, onToggleStatus }: JobCardProps) {
           <DropdownMenu
             trigger={
               <button className="p-2 hover:bg-accent rounded-sm transition-all duration-200 opacity-40 group-hover:opacity-100">
-                <MoreVertical className="w-5 h-5 text-muted hover:text-primary" />
+                <MoreVertical className="w-[14px] h-[14px] text-muted hover:text-primary" strokeWidth={2.4} />
               </button>
             }
           >
             <DropdownItem onClick={onEdit}>
               <span className="flex items-center gap-2">
-                <Edit2 className="w-4 h-4" />
+                <Edit2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
                 Edit
               </span>
             </DropdownItem>
             <DropdownItem onClick={onToggleStatus}>
               <span className="flex items-center gap-2">
-                <Power className="w-4 h-4" />
+                <Power className="w-[14px] h-[14px]" strokeWidth={2.4} />
                 {job.is_active ? 'Set Inactive' : 'Set Active'}
               </span>
             </DropdownItem>
             <DropdownSeparator />
             <DropdownItem onClick={onDelete} variant="destructive">
               <span className="flex items-center gap-2">
-                <Trash2 className="w-4 h-4" />
+                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
                 Delete
               </span>
             </DropdownItem>
@@ -326,17 +326,16 @@ function JobCard({ job, onEdit, onDelete, onToggleStatus }: JobCardProps) {
             <span className="font-mono text-2xl font-semibold text-primary">
               {job.candidatesCount}
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-muted font-bold">Candidates</span>
+            <span className="text-xs uppercase tracking-wider text-muted font-bold">Candidates</span>
           </div>
 
           <div className="flex justify-between items-center pt-3 border-t border-border/40">
             <Badge 
               variant={job.is_active ? "fit-strong" : "outline"}
-              className="text-[9px] px-1.5 py-0"
             >
               {job.is_active ? 'Active' : 'Inactive'}
             </Badge>
-            <span className="text-[10px] font-mono text-muted/80">
+            <span className="text-xs font-mono text-muted/80">
               {new Date(job.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
           </div>

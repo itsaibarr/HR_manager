@@ -70,7 +70,7 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
           >
             {/* Candidate Info */}
             <div className={cn("flex items-center gap-3", showJobColumn ? "w-[180px]" : "w-[200px]")}>
-              <div className="h-8 w-8 rounded-lg bg-linear-to-br from-primary/10 to-transparent border border-primary/10 flex items-center justify-center shrink-0">
+              <div className="h-8 w-8 rounded-sm bg-primary/5 border border-primary/10 flex items-center justify-center shrink-0">
                 <span className="text-[10px] font-bold font-mono text-primary/80">{candidate.initials || "CA"}</span>
               </div>
               <div className="flex flex-col min-w-0">
@@ -103,7 +103,7 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
             </div>
 
             {/* Status */}
-            <div className="w-[90px]">
+            <div className="w-[110px]">
                         <Badge 
                           variant={
                             candidate.status === 'shortlisted' ? "shortlisted" :
@@ -111,7 +111,7 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
                             candidate.status === 'interviewing' ? "interviewing" :
                             candidate.status === 'offered' ? "offered" :
                             "secondary"
-                          }         className="text-[9px] px-1.5 py-0"
+                          }
               >
                 {statusLabels[candidate.status || 'pending']}
               </Badge>
@@ -119,13 +119,13 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
 
             {/* Experience & Skills */}
             <div className="flex-1 flex items-center gap-2 overflow-hidden">
-              <span className="text-[11px] text-muted font-mono shrink-0">{candidate.experienceRaw}</span>
+              <span className="text-xs text-muted font-mono shrink-0">{candidate.experienceRaw}</span>
               <div className="flex gap-1.5 overflow-hidden">
                 {candidate.topSkills.slice(0, 2).map((skill) => (
                   <Badge 
                     key={skill} 
                     variant="outline" 
-                    className="px-1.5 py-0 text-[10px] font-medium border-border/40 text-muted/80 shrink-0"
+                    className="border-border/40 text-muted/80 shrink-0"
                   >
                     {skill}
                   </Badge>
@@ -155,7 +155,7 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
                   onDelete?.(candidate.id);
                 }}
               >
-                <Trash2 className="h-5 w-5" />
+                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
               </Button>
             </div>
           </div>

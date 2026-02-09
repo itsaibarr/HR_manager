@@ -31,14 +31,14 @@ export function Toast({ toast, onDismiss }: ToastProps) {
       className={`flex items-center gap-3 px-4 py-3 rounded-sm border shadow-sm animate-in slide-in-from-right ${colors[toast.type]}`}
       role="alert"
     >
-      <Icon className="w-5 h-5 shrink-0" />
+      <Icon className="w-[14px] h-[14px] shrink-0" strokeWidth={2.4} />
       <p className="text-sm font-medium flex-1">{toast.message}</p>
       <button
         onClick={() => onDismiss(toast.id)}
         className="shrink-0 hover:opacity-70 transition-opacity"
         aria-label="Dismiss"
       >
-        <X className="w-4 h-4" />
+        <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
       </button>
     </div>
   )

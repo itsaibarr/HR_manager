@@ -193,7 +193,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                 <div className="flex items-start justify-between">
                   <div className="flex gap-5">
                     <Button variant="ghost" size="icon" onClick={onClose} className="mt-1 -ml-2 rounded-sm hover:bg-accent/50">
-                      <X className="w-5 h-5" />
+                      <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
                     </Button>
                     <div className="space-y-1.5">
                       <h1 className="text-2xl font-sora font-extrabold text-primary tracking-tight">
@@ -216,20 +216,20 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                     className="flex items-center justify-between w-full p-4 text-left hover:bg-accent/30 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <Briefcase className="w-4 h-4 text-primary/60" />
+                      <Briefcase className="w-[14px] h-[14px] text-primary/60" strokeWidth={2.4} />
                       <span className="text-[11px] font-bold uppercase tracking-widest text-primary/80">Reference Job Requirements</span>
                     </div>
                     {showJobRequirements ? (
-                      <ChevronUp className="w-4 h-4 text-muted" />
+                      <ChevronUp className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
                     ) : (
-                      <ChevronDown className="w-4 h-4 text-muted" />
+                      <ChevronDown className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
                     )}
                   </button>
                   {showJobRequirements && jobContext && (
                     <div className="p-5 pt-0 space-y-5 border-t border-border/40">
                       {jobContext.original_description && (
                         <div className="space-y-2">
-                          <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted">Core Context</h4>
+                          <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-primary/80">Core Context</h4>
                           <p className="text-[13px] text-primary/80 leading-relaxed whitespace-pre-wrap bg-paper/50 p-4 rounded-sm border border-border/40 font-mono">
                             {jobContext.original_description}
                           </p>
@@ -237,7 +237,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                       )}
                       <div className="grid grid-cols-2 gap-6">
                         <div className="space-y-3">
-                          <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted">Must-Have Precision</h4>
+                          <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-primary/80">Must-Have Precision</h4>
                           <div className="flex flex-wrap gap-1.5">
                             {jobContext.must_have_skills?.map((skill: string) => (
                               <Badge key={skill} variant="secondary" className="bg-accent/50 text-primary border-border/60">{skill}</Badge>
@@ -245,7 +245,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                           </div>
                         </div>
                         <div className="space-y-3">
-                          <h4 className="text-[10px] font-bold uppercase tracking-widest text-muted">Bonus Signals</h4>
+                          <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-primary/80">Bonus Signals</h4>
                           <div className="flex flex-wrap gap-1.5">
                             {jobContext.nice_to_have_skills?.map((skill: string) => (
                               <Badge key={skill} variant="outline" className="text-muted">{skill}</Badge>
@@ -261,14 +261,14 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                 {reasoning.length > 0 && (
                   <div className="space-y-4">
                     <div className="flex items-center gap-3 pb-2 border-b border-border/60">
-                      <Target className="w-4 h-4 text-primary" />
+                      <Target className="w-[14px] h-[14px] text-primary" strokeWidth={2.4} />
                       <h3 className="text-sm font-bold uppercase tracking-widest text-primary">Assessment Reasoning</h3>
                     </div>
 
                     <div className="grid grid-cols-1 gap-2">
                       {reasoning.map((point: string, i: number) => (
                         <div key={i} className="flex gap-3 p-4 bg-accent/20 rounded-sm border border-border/40 hover:bg-accent/30 transition-all group">
-                          <Lightbulb className="w-4 h-4 text-good-fit shrink-0 mt-0.5" />
+                          <Lightbulb className="w-[14px] h-[14px] text-good-fit shrink-0 mt-0.5" strokeWidth={2.4} />
                           <p className="text-[13px] text-primary/80 group-hover:text-primary leading-relaxed font-medium">{point}</p>
                         </div>
                       ))}
@@ -304,21 +304,21 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
               <>
                 <div className="space-y-8 flex-1">
                 <div className="flex flex-col items-center text-center gap-4">
-                  <div className="w-24 h-24 rounded-2xl bg-linear-to-br from-primary/10 to-primary/5 border border-primary/10 flex items-center justify-center shadow-inner relative overflow-hidden group">
+                  <div className="w-24 h-24 rounded-sm bg-accent/40 border border-primary/5 flex items-center justify-center relative overflow-hidden group">
                     <span className="text-3xl font-sora font-extrabold text-primary tracking-tighter drop-shadow-sm">
                       {data.candidate_profiles.full_name 
                         ? data.candidate_profiles.full_name.split(' ').map((n: string) => n[0]).join('').substring(0,2).toUpperCase()
                         : "CA"}
                     </span>
-                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <div className="space-y-1.5">
                     <h2 className="text-xl font-sora font-extrabold text-primary tracking-tight leading-tight">
                       {data.candidate_profiles.full_name || 'Candidate Profile'}
                     </h2>
                     <div className="flex flex-col gap-1 items-center">
-                      <p className="text-[11px] text-muted font-mono uppercase tracking-wider">{data.candidate_profiles.email}</p>
-                      <p className="text-xs font-bold text-primary/70 bg-accent/50 px-2.5 py-1 rounded-sm uppercase tracking-widest border border-border/60">
+                      <p className="text-sm text-muted font-mono uppercase tracking-wider">{data.candidate_profiles.email}</p>
+                      <p className="text-[11px] font-bold text-primary/70 bg-accent/50 px-2 py-1 rounded-sm uppercase tracking-widest border border-border/60">
                         {data.candidate_profiles.experience?.[0]?.title || 'Senior Professional'}
                       </p>
                     </div>
@@ -332,10 +332,10 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
 
                   {/* Skills */}
                   <div className="space-y-4 pt-8 border-t border-border/60">
-                     <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted/60">Technical Skills</h3>
+                     <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-primary/80 mb-4">Technical Skills</h3>
                      <div className="flex flex-wrap gap-1.5">
                         {data.candidate_profiles.skills?.map((s: string) => (
-                            <Badge key={s} variant="secondary" className="bg-accent/40 text-primary border-border/40 font-medium lowercase">
+                            <Badge key={s} variant="secondary" className="bg-accent/40 text-primary border-border/40 font-bold py-1 px-2.5 lowercase">
                                 {s}
                             </Badge>
                         ))}
@@ -351,7 +351,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                         className="w-full justify-center gap-2 font-bold text-[11px] uppercase tracking-widest h-10 border-border/80 hover:bg-accent/50 hover:border-primary/30 text-muted hover:text-primary transition-all"
                         onClick={() => setIsCvOpen(true)}
                     >
-                        <FileTextIcon className="w-3.5 h-3.5" />
+                        <FileTextIcon className="w-[14px] h-[14px]" strokeWidth={2.4} />
                         Original Document
                     </Button>
                 </div>
@@ -390,7 +390,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                             }}
                             disabled={actionLoading}
                             variant="outline"
-                            className="w-full h-11 font-bold rounded-sm uppercase tracking-widest text-[11px]"
+                            className="w-full h-11 font-bold rounded-sm uppercase tracking-widest text-xs"
                           >
                              Restore to New
                           </Button>
@@ -450,7 +450,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                             onClick={handleReject}
                             disabled={actionLoading}
                             variant="ghost" 
-                            className="w-full text-reject hover:text-reject hover:bg-reject/5 h-11 font-bold rounded-sm uppercase tracking-widest text-[11px]"
+                            className="w-full text-reject hover:text-reject hover:bg-reject/5 h-11 font-bold rounded-sm uppercase tracking-widest text-xs"
                           >
                             Reject Application
                           </Button>
@@ -471,7 +471,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
           <div className="h-14 px-6 flex items-center justify-between border-b border-border/60 bg-paper/50 sticky top-0 z-50 backdrop-blur-sm">
              <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-primary/10 text-primary">
-                   <FileTextIcon className="w-4 h-4" />
+                   <FileTextIcon className="w-[14px] h-[14px]" strokeWidth={2.4} />
                 </div>
                 <div>
                    <h2 className="text-sm font-bold font-sora text-primary tracking-tight">Original CV</h2>
@@ -485,12 +485,12 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                   onClick={handleCopyCv}
                   className="h-8 text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary gap-2"
                 >
-                   {isCopied ? <Check className="w-3.5 h-3.5 text-good-fit" /> : <Copy className="w-3.5 h-3.5" />}
+                   {isCopied ? <Check className="w-[14px] h-[14px] text-good-fit" strokeWidth={2.4} /> : <Copy className="w-[14px] h-[14px]" strokeWidth={2.4} />}
                    {isCopied ? "Copied" : "Copy"}
                 </Button>
                 <div className="w-px h-4 bg-border/60 mx-1" />
                 <Button variant="ghost" size="icon" onClick={() => setIsCvOpen(false)} className="h-8 w-8 text-muted hover:text-primary rounded-sm">
-                   <X className="w-4 h-4" />
+                   <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
                 </Button>
              </div>
           </div>
@@ -535,7 +535,7 @@ function ScoreRow({ label, score, max }: { label: string, score: number, max: nu
     return (
         <div className="space-y-2">
             <div className="flex justify-between items-baseline">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-primary/70">{label}</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-primary/80">{label}</span>
                 <span className="font-mono text-xs font-bold text-primary">{score} / {max}</span>
             </div>
             <div className="h-1 w-full bg-accent/40 rounded-sm overflow-hidden">
@@ -552,10 +552,10 @@ function ProfileItem({ icon: Icon, label, value }: { icon: any, label: string, v
     return (
         <div className="flex items-center gap-4">
             <div className="w-9 h-9 rounded-sm bg-accent/30 flex items-center justify-center border border-border/40">
-                <Icon className="w-4 h-4 text-primary/60" />
+                <Icon className="w-[14px] h-[14px] text-primary/60" strokeWidth={2.4} />
             </div>
             <div className="flex flex-col gap-0.5">
-                <span className="text-[10px] uppercase tracking-[0.15em] text-muted/60 font-bold leading-none">{label}</span>
+                <span className="text-[10px] uppercase tracking-[0.12em] text-muted font-bold leading-none">{label}</span>
                 <span className="text-[13px] font-bold text-primary/90 leading-tight">{value}</span>
             </div>
         </div>
