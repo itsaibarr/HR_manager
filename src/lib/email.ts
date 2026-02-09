@@ -83,9 +83,9 @@ export async function sendCandidateEmail(payload: EmailPayload) {
 
   try {
     // FIX: Resend Test Mode Restriction
-    // We can ONLY send to the verified email (aibarerzhuman13@gmail.com) when using the free/test tier.
+    // We can ONLY send to the verified email (cametame001@gmail.com) when using the free/test tier.
     // We cannot send FROM a gmail address due to DMARC, so we keep onboarding@resend.dev.
-    const safeRecipient = 'aibarerzhuman13@gmail.com';
+    const safeRecipient = 'cametame001@gmail.com';
     
     logger.warn(`[TEST MODE] Redirecting email for ${to} to ${safeRecipient} because Resend Test Mode only allows sending to verified address.`, { originalTo: to });
 

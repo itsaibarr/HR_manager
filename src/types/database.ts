@@ -162,6 +162,38 @@ export interface Database {
           }
         ]
       }
+      candidate_feedback: {
+        Row: {
+          id: string
+          evaluation_id: string
+          agreement: 'agree' | 'disagree'
+          note: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          evaluation_id: string
+          agreement: 'agree' | 'disagree'
+          note?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          evaluation_id?: string
+          agreement?: 'agree' | 'disagree'
+          note?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "candidate_feedback_evaluation_id_fkey"
+            columns: ["evaluation_id"]
+            isOneToOne: false
+            referencedRelation: "evaluations"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       evaluations: {
         Row: {
           id: string
@@ -173,6 +205,8 @@ export interface Database {
           cultural_practical_fit_score: number
           education_other_score: number
           final_score: number
+          confidence_score: number | null
+          confidence_reason: string | null
           score_band: 'Force Multiplier' | 'Solid Contributor' | 'Baseline Capable' | 'Do Not Proceed' | 'Reject'
           reasoning: string[]
           potential_concern: string
@@ -192,6 +226,8 @@ export interface Database {
           cultural_practical_fit_score: number
           education_other_score: number
           final_score: number
+          confidence_score?: number | null
+          confidence_reason?: string | null
           score_band: 'Force Multiplier' | 'Solid Contributor' | 'Baseline Capable' | 'Do Not Proceed' | 'Reject'
           reasoning: string[]
           potential_concern: string
@@ -211,6 +247,8 @@ export interface Database {
           cultural_practical_fit_score?: number
           education_other_score?: number
           final_score?: number
+          confidence_score?: number | null
+          confidence_reason?: string | null
           score_band?: 'Strong Fit' | 'Good Fit' | 'Borderline' | 'Reject'
           reasoning?: string[]
           potential_concern?: string

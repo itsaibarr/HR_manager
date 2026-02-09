@@ -144,3 +144,32 @@ export async function deleteCandidates(candidateIds: string[], jobId: string): P
         return { success: false, message: 'An unexpected error occurred' };
     }
 }
+
+export async function bulkUpdateCandidateStatus(
+    candidateIds: string[],
+    newStatus: 'shortlisted' | 'interviewing' | 'offered' | 'rejected' | 'pending',
+    jobId: string
+): Promise<UpdateStatusResult> {
+    const supabase = await createClient();
+    try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return { success: false, message: 'Unauthorized' };
+
+        const { error } = await supabase
+            .from('evaluations')
+            .update({ status: newStatus })
+            .in('candidate_id', candidateIds)
+            .eq('job_context_id', jobId);
+
+        if (error) {
+            logger.error('Failed to update candidates in bulk', { candidateIds, newStatus, error });
+            return { success: false, message: 'Failed to update candidates in bulk' };
+        }
+
+        revalidatePath(`/dashboard/${jobId}`);
+        return { success: true, message: `Successfully updated ${candidateIds.length} candidates to ${newStatus}` };
+    } catch (error) {
+        logger.error('Unexpected error in bulk update', { error });
+        return { success: false, message: 'An unexpected error occurred' };
+    }
+}

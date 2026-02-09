@@ -25,6 +25,7 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
+import { FeedbackComponent } from "@/components/organisms/FeedbackComponent"
 
 interface CandidateDetailFrameProps {
   candidateId: string | null
@@ -69,7 +70,8 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
           .from('evaluations')
           .select(`
             *,
-            candidate_profiles (*)
+            candidate_profiles (*),
+            candidate_feedback (agreement, note)
           `)
           .eq('candidate_id', candidateId)
           .eq('job_context_id', jobId)
@@ -165,6 +167,9 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                             {data.final_score}% Match
                          </div>
                          <Badge variant={data.final_score >= 80 ? 'fit-strong' : (data.final_score >= 60 ? 'fit-good' : 'fit-borderline')}>{data.score_band}</Badge>
+                         {data.confidence_score !== undefined && (
+                            <ConfidenceBadge score={data.confidence_score} reason={data.confidence_reason} />
+                         )}
                       </div>
                     </div>
                   </div>
@@ -251,6 +256,12 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                         <ScoreRow label="Education & Other" score={data.education_other_score} max={10} />
                     </div>
                 </Card>
+
+                {/* Human Feedback */}
+                <FeedbackComponent 
+                  evaluationId={data.id} 
+                  existingFeedback={data.candidate_feedback?.[0] || null} 
+                />
               </>
             ) : (
               <div className="flex items-center justify-center h-full">
@@ -531,3 +542,13 @@ function ProfileItem({ icon: Icon, label, value }: { icon: any, label: string, v
         </div>
     )
 }
+
+function ConfidenceBadge({ score, reason }: { score: number, reason?: string }) {
+    return (
+        <div className="flex items-center gap-2 px-2 py-0.5 rounded-sm bg-accent/30 border border-border/40 text-[10px] font-mono font-medium text-muted">
+            <span className="uppercase tracking-wider">Confidence {score}%</span>
+            {reason && <span className="text-[9px] opacity-70 font-sans italic">— {reason}</span>}
+        </div>
+    )
+}
+

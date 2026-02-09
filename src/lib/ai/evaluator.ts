@@ -49,6 +49,8 @@ export async function evaluateCandidate(
     reasoning: string[];
     potentialConcern: string;
     rejectionReason?: string;
+    confidenceScore?: number;
+    confidenceReason?: string;
   };
 
   try {
@@ -94,6 +96,8 @@ export async function evaluateCandidate(
     rejectionReason: autoReject 
       ? 'Core Competencies score is 0 - automatic rejection per framework rules'
       : parsed.rejectionReason,
+    confidenceScore: parsed.confidenceScore ?? 1.0,
+    confidenceReason: parsed.confidenceReason || "Standard evaluation based on provided details.",
     aiModelVersion: 'gemini-2.0-flash'
   };
 }

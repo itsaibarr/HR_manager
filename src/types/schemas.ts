@@ -112,6 +112,10 @@ export const EvaluationResultSchema = z.object({
   potentialConcern: z.string(),
   rejectionReason: z.string().optional(),
   
+  // Confidence
+  confidenceScore: z.number().min(0).max(1).optional().default(1.0),
+  confidenceReason: z.string().optional(),
+  
   // Metadata
   evaluatedBy: z.string().uuid().optional(),
   aiModelVersion: z.string().optional(),

@@ -4,14 +4,17 @@ import { useState, useEffect, useCallback, use, useMemo } from "react"
 import Papa from "papaparse"
 import { PageHeader } from "@/components/shared/PageHeader"
 import { Button } from "@/components/ui/button"
-import { Plus, Download, Trash2 } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Plus, Download, Trash2, Star } from "lucide-react"
 import { PipelineVisual } from "@/components/organisms/PipelineVisual"
 import { CandidateTable } from "@/components/organisms/CandidateTable"
 import { JobContextPanel } from "@/components/organisms/JobContextPanel"
 import { UploadCandidateModal } from "@/components/organisms/UploadCandidateModal"
+import { TimeSavedMetric } from "@/components/organisms/TimeSavedMetric"
 import { CandidateDetailFrame } from "@/components/organisms/CandidateDetailFrame"
 import { CandidateFilters, FilterState } from "@/components/organisms/CandidateFilters"
-import { deleteCandidates } from "@/app/actions/candidate-actions"
+import { deleteCandidates, bulkUpdateCandidateStatus } from "@/app/actions/candidate-actions"
+import { RoleSwitcher } from "@/components/organisms/RoleSwitcher"
 import { createClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
@@ -39,6 +42,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
     jobIds: [],
     sortBy: 'score'
   })
+  const [shortlistMode, setShortlistMode] = useState<number | null>(null)
   
   const supabase = createClient()
 
@@ -156,6 +160,24 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
       } finally {
           setCandidatesToDelete(null)
       }
+  }
+
+  const handleBulkShortlist = async () => {
+    if (selectedCandidateIds.length === 0) return
+
+    try {
+        const res = await bulkUpdateCandidateStatus(selectedCandidateIds, 'shortlisted', jobId)
+        if (res.success) {
+            showToast(res.message, "success")
+            setSelectedCandidateIds([])
+            fetchJobData()
+        } else {
+            showToast(res.message, "error")
+        }
+    } catch (e) {
+        console.error(e)
+        showToast("Error updating candidates", "error")
+    }
   }
 
   const handleView = (candidateId: string) => {
@@ -300,8 +322,18 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
         break
     }
 
+    // Apply Shortlist Limit
+    if (shortlistMode) {
+        // If sorting isn't score, we should probably sort by score first? 
+        // Or respect current sort? 
+        // "Shortlist" usually implies "Best". 
+        // Let's force score sort if shortlist mode is active AND user hasn't explicitly sorted by something else?
+        // Actually simplest is just slice the resulting list.
+        return filtered.slice(0, shortlistMode)
+    }
+
     return filtered
-  }, [candidates, filters])
+  }, [candidates, filters, shortlistMode])
 
   return (
     <div className="flex h-full min-h-screen">
@@ -313,6 +345,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                 subtitle={`${filteredCandidates.length} ${filteredCandidates.length === candidates.length ? '' : `of ${candidates.length} `}Candidates • Remote`}
                 action={
                 <div className="flex gap-2">
+                    <RoleSwitcher currentJobId={jobId} />
                     <Button variant="outline" onClick={downloadCSV} disabled={candidates.length === 0}>
                         <Download className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
                         Export CSV
@@ -325,11 +358,46 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                 }
             />
 
-            <PipelineVisual counts={pipelineCounts} />
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <div className="lg:col-span-3">
+                    <PipelineVisual counts={pipelineCounts} />
+                </div>
+                <div className="lg:col-span-1">
+                    <TimeSavedMetric candidateCount={candidates.length} />
+                </div>
+            </div>
 
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <h2 className="text-lg font-sora font-semibold text-primary">Active Candidates</h2>
+                        <div className="flex items-center gap-1">
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                onClick={() => setShortlistMode(5)}
+                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3", shortlistMode === 5 ? "bg-primary text-primary-foreground" : "text-muted hover:text-primary")}
+                            >
+                                Top 5
+                            </Button>
+                            <Button 
+                                variant="ghost" 
+                                size="sm" 
+                                onClick={() => setShortlistMode(10)}
+                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3", shortlistMode === 10 ? "bg-primary text-primary-foreground" : "text-muted hover:text-primary")}
+                            >
+                                Top 10
+                            </Button>
+                            {shortlistMode && (
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm" 
+                                    onClick={() => setShortlistMode(null)}
+                                    className="text-[10px] font-bold uppercase tracking-widest text-reject hover:bg-reject/5 rounded-sm px-3"
+                                >
+                                    Clear
+                                </Button>
+                            )}
+                        </div>
                 </div>
                 
                 <CandidateFilters
@@ -361,12 +429,20 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                             <span className="text-sm font-medium text-foreground">{selectedCandidateIds.length} selected</span>
                             <div className="h-4 w-px bg-border"></div>
                             <Button 
+                                variant="secondary" 
+                                className="h-11 rounded-sm px-7 gap-3 shadow-md bg-paper border-border/60 text-primary hover:bg-accent/50 transition-all font-sora text-[12px] font-bold uppercase tracking-widest"
+                                onClick={handleBulkShortlist}
+                            >
+                                <Star className="w-[18px] h-[18px] text-primary/60" strokeWidth={2.4} />
+                                Shortlist Selected
+                            </Button>
+                            <Button 
                                 variant="destructive" 
-                                className="h-10 rounded-full px-6 shadow-sm"
+                                className="h-11 rounded-sm px-7 gap-3 shadow-md transition-all font-sora text-[12px] font-bold uppercase tracking-widest"
                                 onClick={handleBulkDelete}
                             >
-                                <Trash2 className="w-[16px] h-[16px] mr-2" />
-                                Delete Selected
+                                <Trash2 className="w-[18px] h-[18px]" strokeWidth={2.4} />
+                                Delete
                             </Button>
                         </motion.div>
                     )}

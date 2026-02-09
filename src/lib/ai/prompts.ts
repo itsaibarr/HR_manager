@@ -122,8 +122,18 @@ OUTPUT FORMAT (STRICT JSON)
     "<Observation 2>"
   ],
   "potentialConcern": "<risk or 'No major concerns'>",
-  "rejectionReason": "<string or null>"
+  "rejectionReason": "<string or null>",
+  "confidenceScore": <0.0-1.0>,
+  "confidenceReason": "<Short explanation of why confidence is high/low>"
 }
+
+========================
+CONFIDENCE SCORING GUIDE
+========================
+
+- 0.9-1.0 (High): CV is detailed, role is standard, evidence is clear.
+- 0.6-0.8 (Medium): Some ambiguity, "Task Executor" vs "Owner" is unclear, or non-standard title.
+- <0.6 (Low): CV is very sparse, language barrier issues, or wildly changing career path.
 `;
 
 /**

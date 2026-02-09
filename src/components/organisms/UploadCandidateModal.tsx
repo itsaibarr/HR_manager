@@ -4,7 +4,7 @@ import { useState, useRef } from "react"
 import { Modal } from "@/components/ui/modal"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { UploadCloud, File, X, Check, Loader2, AlertCircle, Edit2, Trash2 } from "lucide-react"
+import { UploadCloud, File, X, Check, Loader2, AlertCircle, Edit2, Trash2, ArrowRight } from "lucide-react"
 import Papa from "papaparse"
 import { cn } from "@/lib/utils"
 
@@ -210,29 +210,32 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                     <Button variant="ghost" onClick={() => setStep('UPLOAD')}>Back</Button>
                 )}
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
                 <Button 
                     variant="outline" 
                     onClick={onClose} 
                     disabled={isProcessing}
-                    className="h-10 px-6 font-bold uppercase tracking-widest text-[11px]"
+                    className="h-11 px-8 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider"
                 >
                     Cancel
                 </Button>
                 {step === 'UPLOAD' ? (
-                    <Button onClick={parseFiles} disabled={files.length === 0}>
+                    <Button onClick={parseFiles} disabled={files.length === 0} className="h-11 px-8 gap-2 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider">
                         Continue to Mapping
+                        <ArrowRight className="w-4 h-4" strokeWidth={2.4} />
                     </Button>
                 ) : step === 'MAPPING' ? (
-                    <Button onClick={handleMappingConfirm} className="bg-primary hover:bg-primary/90 text-paper px-8 h-10 font-bold uppercase tracking-widest text-[11px]">
+                    <Button onClick={handleMappingConfirm} className="h-11 px-8 gap-2 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider">
                         Review Candidates
+                        <ArrowRight className="w-4 h-4" strokeWidth={2.4} />
                     </Button>
                 ) : step === 'REVIEW' ? (
-                    <Button onClick={handleStartImport} className="bg-primary hover:bg-primary/90 text-paper px-8 h-10 font-bold uppercase tracking-widest text-[11px]">
+                    <Button onClick={handleStartImport} className="h-11 px-8 gap-2 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider">
                         Confirm & Start Import
+                        <Check className="w-4 h-4" strokeWidth={2.4} />
                     </Button>
                 ) : (
-                    <Button onClick={() => { onClose(); reset(); }} disabled={isProcessing}>
+                    <Button onClick={() => { onClose(); reset(); }} disabled={isProcessing} className="h-11 px-8 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider">
                         Finish
                     </Button>
                 )}

@@ -176,25 +176,24 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false, 
             <div className="w-[110px] flex justify-end gap-1 items-center">
               <Button 
                 variant="ghost" 
-                size="sm" 
-                className="h-9 px-3 text-[11px] font-bold uppercase tracking-widest opacity-40 group-hover:opacity-100 transition-all"
+                className="h-10 px-5 text-[11px] font-bold uppercase tracking-widest opacity-40 group-hover:opacity-100 transition-all hover:bg-primary/5 hover:text-primary rounded-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   onView?.(candidate.id);
                 }}
               >
-                Profile
+                View
               </Button>
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="h-9 w-9 text-muted opacity-40 group-hover:opacity-100 hover:text-reject transition-all"
+                className="h-9 w-9 text-muted opacity-20 group-hover:opacity-100 hover:text-reject hover:bg-reject/5 transition-all rounded-sm"
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete?.(candidate.id);
                 }}
               >
-                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                <Trash2 className="w-[18px] h-[18px]" strokeWidth={2.4} />
               </Button>
             </div>
           </div>
