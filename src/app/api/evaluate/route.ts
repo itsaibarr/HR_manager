@@ -3,31 +3,41 @@ import { evaluateCandidate } from '@/lib/ai/evaluator';
 import { EvaluationRequestSchema, type JobContext, type CandidateProfile } from '@/types/schemas';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { apiError, apiSuccess } from '@/lib/api/error-handler';
+import { rateLimit, getRateLimitIdentifier } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
   try {
+    const ident = getRateLimitIdentifier(request);
+    const limitResult = rateLimit(ident, { limit: 20, windowSeconds: 60 });
+    if (!limitResult.success) {
+      return NextResponse.json(
+        { error: 'Too many evaluation requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return apiError(null, { status: 401, userMessage: 'Unauthorized' });
     }
 
     const body = await request.json();
     const { jobContextId, candidateId } = EvaluationRequestSchema.parse(body);
 
-    // 1. Fetch Job Context
     const { data: jobContextData, error: jobError } = await supabase
       .from('job_contexts')
       .select('*')
       .eq('id', jobContextId)
+      .eq('created_by', user.id)
       .single();
 
     if (jobError || !jobContextData) {
-      return NextResponse.json({ error: 'Job context not found' }, { status: 404 });
+      return apiError(null, { status: 404, userMessage: 'Job context not found' });
     }
 
-    // 2. Fetch Candidate Profile
     const { data: candidateData, error: candidateError } = await supabase
       .from('candidate_profiles')
       .select('*')
@@ -35,45 +45,44 @@ export async function POST(request: Request) {
       .single();
 
     if (candidateError || !candidateData) {
-      return NextResponse.json({ error: 'Candidate profile not found' }, { status: 404 });
+      return apiError(null, { status: 404, userMessage: 'Candidate profile not found' });
     }
 
-    // Map DB types to Schema types for the evaluator
     const jobContext: JobContext = {
       id: jobContextData.id,
       title: jobContextData.title,
       responsibilities: jobContextData.responsibilities,
       mustHaveSkills: jobContextData.must_have_skills,
       niceToHaveSkills: jobContextData.nice_to_have_skills,
-      experienceExpectations: jobContextData.experience_expectations as any,
+      experienceExpectations: jobContextData.experience_expectations as JobContext['experienceExpectations'],
       nonRequirements: jobContextData.non_requirements,
       createdAt: new Date(jobContextData.created_at),
-      updatedAt: new Date(jobContextData.updated_at)
+      updatedAt: new Date(jobContextData.updated_at),
     };
 
     const candidateProfile: CandidateProfile = {
       id: candidateData.id,
-      externalId: candidateData.external_id || undefined,
-      education: (candidateData.education as any) || [],
-      experience: (candidateData.experience as any) || [],
-      projects: (candidateData.projects as any) || [],
-      skills: candidateData.skills || [],
-      collaborationSignals: candidateData.collaboration_signals || [],
-      availability: (candidateData.availability as any) || undefined,
-      otherSignals: (candidateData.other_signals as any) || undefined,
-      rawCvText: candidateData.raw_cv_text || undefined,
-      createdAt: new Date(candidateData.created_at)
+      externalId: candidateData.external_id ?? undefined,
+      education: (candidateData.education as CandidateProfile['education']) ?? [],
+      experience: (candidateData.experience as CandidateProfile['experience']) ?? [],
+      projects: (candidateData.projects as CandidateProfile['projects']) ?? [],
+      skills: candidateData.skills ?? [],
+      collaborationSignals: candidateData.collaboration_signals ?? [],
+      availability: (candidateData.availability as CandidateProfile['availability']) ?? undefined,
+      otherSignals: (candidateData.other_signals as CandidateProfile['otherSignals']) ?? undefined,
+      rawCvText: candidateData.raw_cv_text ?? undefined,
+      createdAt: new Date(candidateData.created_at),
     };
 
-    // 3. Run AI Evaluation
     if (!process.env.GEMINI_API_KEY) {
-       console.error("GEMINI_API_KEY is missing");
-       return NextResponse.json({ error: 'AI configuration error' }, { status: 500 });
+      return apiError(null, {
+        status: 500,
+        userMessage: 'AI configuration error',
+      });
     }
 
-    const evaluationResult = await evaluateCandidate(jobContext, candidateProfile, process.env.GEMINI_API_KEY);
+    const evaluationResult = await evaluateCandidate(jobContext, candidateProfile);
 
-    // 4. Save Evaluation
     const { data: savedEvaluation, error: saveError } = await supabase
       .from('evaluations')
       .insert({
@@ -90,29 +99,29 @@ export async function POST(request: Request) {
         potential_concern: evaluationResult.potentialConcern,
         rejection_reason: evaluationResult.rejectionReason,
         evaluated_by: user.id,
-        ai_model_version: evaluationResult.aiModelVersion
+        ai_model_version: evaluationResult.aiModelVersion,
       })
       .select()
       .single();
 
     if (saveError) {
-      console.error('Failed to save evaluation:', saveError);
-      
-      // If uniqueness constraint violation, it means it was already evaluated
-      if (saveError.code === '23505') { 
-         return NextResponse.json({ error: 'Candidate already evaluated for this job context' }, { status: 409 });
+      if (saveError.code === '23505') {
+        return apiError(null, {
+          status: 409,
+          userMessage: 'Candidate already evaluated for this job context',
+        });
       }
-
-      return NextResponse.json({ error: 'Failed to save evaluation result' }, { status: 500 });
+      return apiError(saveError, {
+        status: 500,
+        userMessage: 'Failed to save evaluation result',
+      });
     }
 
-    return NextResponse.json(savedEvaluation);
-
+    return apiSuccess(savedEvaluation);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Validation error', details: error.errors }, { status: 400 });
+      return apiError(error);
     }
-    console.error('Evaluation error:', error);
-    return NextResponse.json({ error: 'Internal server error during evaluation' }, { status: 500 });
+    return apiError(error, { status: 500 });
   }
 }

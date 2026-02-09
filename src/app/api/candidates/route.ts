@@ -2,71 +2,94 @@ import { createClient } from '@/lib/supabase/server';
 import { CandidateProfileSchema } from '@/types/schemas';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { apiError, apiSuccess } from '@/lib/api/error-handler';
+import type { Database } from '@/types/database';
+
+type SupabaseClient = Awaited<ReturnType<typeof createClient>>;
 
 export async function POST(request: Request) {
   try {
-    const supabase = await createClient();
+    const supabase: SupabaseClient = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return apiError(null, { status: 401, userMessage: 'Unauthorized' });
     }
 
     const body = await request.json();
-
-    // Validate request body
-    const validatedData = CandidateProfileSchema.omit({ 
-      id: true, 
-      createdAt: true 
+    const validatedData = CandidateProfileSchema.omit({
+      id: true,
+      createdAt: true,
     }).parse(body);
 
-    const { data, error } = await (supabase as any)
+    const { data, error } = await supabase
       .from('candidate_profiles')
       .insert({
         external_id: validatedData.externalId,
-        education: validatedData.education as any,
-        experience: validatedData.experience as any,
-        projects: validatedData.projects as any,
+        education: validatedData.education as Database['public']['Tables']['candidate_profiles']['Insert']['education'],
+        experience: validatedData.experience as Database['public']['Tables']['candidate_profiles']['Insert']['experience'],
+        projects: validatedData.projects as Database['public']['Tables']['candidate_profiles']['Insert']['projects'],
         skills: validatedData.skills,
         collaboration_signals: validatedData.collaborationSignals,
-        availability: validatedData.availability as any,
-        other_signals: validatedData.otherSignals as any,
+        availability: validatedData.availability as Database['public']['Tables']['candidate_profiles']['Insert']['availability'],
+        other_signals: validatedData.otherSignals as Database['public']['Tables']['candidate_profiles']['Insert']['other_signals'],
         raw_cv_text: validatedData.rawCvText,
-        created_by: user.id
+        created_by: user.id,
       })
       .select()
       .single();
 
     if (error) {
-      console.error('Database error:', error);
-      return NextResponse.json({ error: 'Failed to create candidate profile' }, { status: 500 });
+      return apiError(error, {
+        status: 500,
+        userMessage: 'Failed to create candidate profile',
+      });
     }
 
-    return NextResponse.json(data);
+    return apiSuccess(data);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Validation error', details: error.issues }, { status: 400 });
+      return apiError(error);
     }
-    console.error('Request error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return apiError(error, { status: 500 });
   }
 }
 
+const DeleteParamsSchema = z.object({
+  jobId: z.string().uuid(),
+  candidateId: z.string().uuid(),
+});
+
 export async function DELETE(request: Request) {
   try {
-    const supabase = await createClient();
+    const supabase: SupabaseClient = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return apiError(null, { status: 401, userMessage: 'Unauthorized' });
     }
 
     const { searchParams } = new URL(request.url);
-    const jobId = searchParams.get('jobId');
-    const candidateId = searchParams.get('candidateId');
+    const parsed = DeleteParamsSchema.safeParse({
+      jobId: searchParams.get('jobId'),
+      candidateId: searchParams.get('candidateId'),
+    });
 
-    if (!jobId || !candidateId) {
-      return NextResponse.json({ error: 'Missing jobId or candidateId' }, { status: 400 });
+    if (!parsed.success) {
+      return apiError(parsed.error);
+    }
+
+    const { jobId, candidateId } = parsed.data;
+
+    const { data: job } = await supabase
+      .from('job_contexts')
+      .select('id')
+      .eq('id', jobId)
+      .eq('created_by', user.id)
+      .single();
+
+    if (!job) {
+      return apiError(null, { status: 404, userMessage: 'Job not found' });
     }
 
     const { error } = await supabase
@@ -76,13 +99,17 @@ export async function DELETE(request: Request) {
       .eq('candidate_id', candidateId);
 
     if (error) {
-      console.error('Delete error:', error);
-      return NextResponse.json({ error: 'Failed to delete evaluation' }, { status: 500 });
+      return apiError(error, {
+        status: 500,
+        userMessage: 'Failed to delete evaluation',
+      });
     }
 
-    return NextResponse.json({ success: true });
+    return apiSuccess({ success: true });
   } catch (error) {
-    console.error('Request error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return apiError(error);
+    }
+    return apiError(error, { status: 500 });
   }
 }

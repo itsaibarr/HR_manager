@@ -8,7 +8,8 @@ import { UploadCloud, File, X, Check, Loader2, AlertCircle, Edit2, Trash2 } from
 import Papa from "papaparse"
 import { cn } from "@/lib/utils"
 
-type Step = 'UPLOAD' | 'REVIEW' | 'PROCESSING'
+
+type Step = 'UPLOAD' | 'MAPPING' | 'REVIEW' | 'PROCESSING'
 
 interface CandidateToImport {
     id: string
@@ -28,6 +29,17 @@ interface UploadCandidateModalProps {
 export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandidateModalProps) {
   const [step, setStep] = useState<Step>('UPLOAD')
   const [files, setFiles] = useState<File[]>([])
+  
+  // CSV Mapping State
+  const [csvHeaders, setCsvHeaders] = useState<string[]>([])
+  const [csvData, setCsvData] = useState<any[]>([])
+  const [columnMapping, setColumnMapping] = useState({
+      name: '',
+      email: '',
+      cv: ''
+  })
+  const [additionalColumns, setAdditionalColumns] = useState<string[]>([])
+
   const [candidates, setCandidates] = useState<CandidateToImport[]>([])
   const [isProcessing, setIsProcessing] = useState(false)
   const [progress, setProgress] = useState({ current: 0, total: 0 })
@@ -37,6 +49,11 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
       setStep('UPLOAD')
       setFiles([])
       setCandidates([])
+      setCsvHeaders([])
+      setCsvData([])
+      setCsvData([])
+      setColumnMapping({ name: '', email: '', cv: '' })
+      setAdditionalColumns([])
       setIsProcessing(false)
       setProgress({ current: 0, total: 0 })
   }
@@ -49,86 +66,114 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
   }
 
   const parseFiles = async () => {
-    const list: CandidateToImport[] = []
+    // Only handle the first CSV file for mapping simplicity in this version
+    const csvFile = files.find(f => f.name.endsWith('.csv'))
     
-    for (const file of files) {
-        if (file.name.endsWith('.csv')) {
-            const text = await file.text()
-            const result = Papa.parse(text, { header: true, skipEmptyLines: true })
-            const rows = result.data as any[]
+    if (csvFile) {
+        const text = await csvFile.text()
+        const result = Papa.parse(text, { header: true, skipEmptyLines: true })
+        
+        if (result.meta.fields && result.meta.fields.length > 0) {
+            setCsvHeaders(result.meta.fields)
+            setCsvData(result.data as any[])
             
-            // Smart column detection helper
-            const findValue = (row: any, synonyms: string[]): string => {
-                const keys = Object.keys(row)
-                const lowerKeys = keys.map(k => k.toLowerCase())
-                
+            // Smart Pre-selection
+            const lowerHeaders = result.meta.fields.map(h => h.toLowerCase())
+            
+            const findBestMatch = (terms: string[], exclusions: string[] = []) => {
                 // 1. Exact match
-                for (const synonym of synonyms) {
-                    const idx = lowerKeys.indexOf(synonym)
-                    if (idx !== -1) return row[keys[idx]]
+                for (const term of terms) {
+                    const idx = lowerHeaders.indexOf(term)
+                    if (idx !== -1) return result.meta.fields![idx]
                 }
-                
-                // 2. Partial match (key contains synonym)
-                for (const synonym of synonyms) {
-                    const idx = lowerKeys.findIndex(k => k.includes(synonym))
-                    if (idx !== -1) return row[keys[idx]]
+                // 2. Contains match
+                for (const term of terms) {
+                    const idx = lowerHeaders.findIndex(h => h.includes(term) && !exclusions.some(e => h.includes(e)))
+                    if (idx !== -1) return result.meta.fields![idx]
                 }
-                
-                return ""
+                return ''
             }
 
-            rows.forEach((row, i) => {
-                // Try to find Name
-                const name = findValue(row, ['name', 'candidate', 'applicant', 'full name', 'fullname']) 
-                             || `Candidate ${list.length + 1}`
-                
-                // Try to find Email
-                const email = findValue(row, ['email', 'e-mail', 'mail', 'contact'])
-
-                // Try to find CV Content
-                let rawText = findValue(row, ['cv', 'resume', 'summary', 'profile', 'content', 'text', 'about'])
-                
-                // Fallback: If no explicit CV text, aggregate useful columns
-                if (!rawText || rawText.length < 50) {
-                     // Filter out metadata and columns we already extracted (name, email)
-                     const irrelevantKeys = ['id', 'timestamp', 'created', 'updated', ...Object.keys(row).filter(k => {
-                        const lower = k.toLowerCase()
-                        return lower.includes('name') || lower.includes('email')
-                     })]
-                     
-                     // Construct text from remaining columns (Experience, Education, etc.)
-                     const contentParts = Object.entries(row)
-                        .filter(([k]) => !irrelevantKeys.some(i => k.toLowerCase().includes(i)))
-                        .map(([k, v]) => `${k}: ${v}`)
-                     
-                     if (contentParts.length > 0) {
-                        rawText = contentParts.join('\n')
-                     }
-                }
-
-                // Final Fallback: just dump the whole row if we still have nothing useful
-                if (!rawText || rawText.length < 10) rawText = JSON.stringify(row)
-
-                list.push({
-                    id: `csv-${i}-${Date.now()}`,
-                    name,
-                    email,
-                    rawText,
-                    status: 'pending'
-                })
+            setColumnMapping({
+                name: findBestMatch(['name', 'candidate', 'applicant', 'full name'], ['file', 'company', 'project', 'recruiter', 'summary', 'desc']),
+                email: findBestMatch(['email', 'e-mail', 'mail'], ['id', 'date', 'name', 'recruiter']),
+                cv: findBestMatch(['cv', 'resume', 'summary', 'profile', 'content', 'about'], ['name', 'email', 'date', 'id'])
             })
-        } else {
-            // Non-CSV files will be handled as individual candidates
+            
+            setStep('MAPPING')
+            return
+        }
+    }
+    
+    // Fallback for non-CSV or empty CSV
+    processNonCsvFiles()
+  }
+
+  const processNonCsvFiles = () => {
+      const list: CandidateToImport[] = []
+      files.forEach((file, i) => {
+         if (!file.name.endsWith('.csv')) {
             list.push({
-                id: `file-${Date.now()}-${list.length}`,
+                id: `file-${Date.now()}-${i}`,
                 name: file.name.replace(/\.[^/.]+$/, ""),
                 rawText: "File content will be extracted on upload...",
                 status: 'pending'
             })
-        }
-    }
-    setCandidates(list)
-    setStep('REVIEW')
+         }
+      })
+      setCandidates(list)
+      setStep('REVIEW')
+  }
+
+  const handleMappingConfirm = () => {
+      const list: CandidateToImport[] = []
+      
+      csvData.forEach((row, i) => {
+          const name = columnMapping.name ? row[columnMapping.name] : `Candidate ${i + 1}`
+          const email = columnMapping.email ? row[columnMapping.email] : undefined
+          const rawText = columnMapping.cv ? row[columnMapping.cv] : "" // Only map if column selected
+          
+          if (name || email || rawText) {
+             let finalRawText = rawText || ""
+             
+             // Append additional columns data if selected
+             if (additionalColumns.length > 0) {
+                 const extras = additionalColumns.map(col => {
+                     const val = row[col]
+                     return val ? `${col}: ${val}` : null
+                 }).filter(Boolean)
+                 
+                 if (extras.length > 0) {
+                     finalRawText += `\n\n--- ADDITIONAL DATA ---\n${extras.join('\n')}`
+                 }
+             }
+
+             if (!finalRawText) finalRawText = "No content mapped"
+
+             list.push({
+                id: `csv-${i}-${Date.now()}`,
+                name: name || "Unknown Candidate",
+                email,
+                rawText: finalRawText,
+                status: 'pending'
+             })
+          }
+      })
+
+      // Add non-CSV files if any
+      files.forEach((file, i) => {
+         if (!file.name.endsWith('.csv')) {
+            list.push({
+                id: `file-${Date.now()}-${list.length + i}`,
+                name: file.name.replace(/\.[^/.]+$/, ""),
+                rawText: "File content will be extracted on upload...",
+                status: 'pending'
+            })
+         }
+      })
+      
+      setCandidates(list)
+      setStep('REVIEW')
   }
 
   const handleStartImport = async () => {
@@ -156,20 +201,31 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
     <Modal
       isOpen={isOpen}
       onClose={isProcessing ? () => {} : onClose}
-      title={step === 'UPLOAD' ? 'Upload Candidates' : step === 'REVIEW' ? `Review Candidates (${candidates.length})` : 'Processing...'}
-      className={cn(step === 'REVIEW' && "max-w-6xl")}
+      title={step === 'UPLOAD' ? 'Upload Candidates' : step === 'MAPPING' ? 'Map CSV Columns' : step === 'REVIEW' ? `Review Candidates (${candidates.length})` : 'Processing...'}
+      className={cn((step === 'REVIEW' || step === 'MAPPING') && "max-w-6xl")}
       footer={
         <div className="flex justify-between w-full">
             <div>
-                {step === 'REVIEW' && (
+                {(step === 'REVIEW' || step === 'MAPPING') && (
                     <Button variant="ghost" onClick={() => setStep('UPLOAD')}>Back</Button>
                 )}
             </div>
             <div className="flex gap-2">
-                <Button variant="outline" onClick={onClose} disabled={isProcessing}>Cancel</Button>
+                <Button 
+                    variant="outline" 
+                    onClick={onClose} 
+                    disabled={isProcessing}
+                    className="h-10 px-6 font-bold uppercase tracking-widest text-[11px]"
+                >
+                    Cancel
+                </Button>
                 {step === 'UPLOAD' ? (
                     <Button onClick={parseFiles} disabled={files.length === 0}>
-                        Continue to Review
+                        Continue to Mapping
+                    </Button>
+                ) : step === 'MAPPING' ? (
+                    <Button onClick={handleMappingConfirm} className="bg-primary hover:bg-primary/90 text-paper px-8 h-10 font-bold uppercase tracking-widest text-[11px]">
+                        Review Candidates
                     </Button>
                 ) : step === 'REVIEW' ? (
                     <Button onClick={handleStartImport} className="bg-primary hover:bg-primary/90 text-paper px-8 h-10 font-bold uppercase tracking-widest text-[11px]">
@@ -234,6 +290,145 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                     </div>
                 )}
             </>
+        )}
+
+        {step === 'MAPPING' && (
+            <div className="space-y-6">
+                <div className="bg-accent/10 p-4 rounded-sm border border-accent/20">
+                    <p className="text-sm text-primary/80">
+                        Map the columns from your CSV to the candidate fields below. We've auto-detected likely matches, but you can adjust them.
+                    </p>
+                </div>
+                
+                <div className="grid gap-6">
+                    {/* Name Mapping */}
+                    <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-wider text-muted">Candidate Name (Optional)</label>
+                        <div className="flex gap-4">
+                            <select 
+                                className="h-10 w-1/3 rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                value={columnMapping.name}
+                                onChange={(e) => setColumnMapping(prev => ({ ...prev, name: e.target.value }))}
+                            >
+                                <option value="">Do not import</option>
+                                {csvHeaders.map(h => (
+                                    <option key={h} value={h}>{h}</option>
+                                ))}
+                            </select>
+                            {columnMapping.name && csvData.length > 0 && (
+                                <div className="flex-1 flex items-center px-3 py-2 bg-paper border border-border/60 rounded-sm text-sm text-muted italic truncate">
+                                    <span className="truncate w-full block">Preview: {csvData[0][columnMapping.name]}</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Email Mapping */}
+                    <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-wider text-muted">Email Address (Optional)</label>
+                        <div className="flex gap-4">
+                            <select 
+                                className="h-10 w-1/3 rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                value={columnMapping.email}
+                                onChange={(e) => setColumnMapping(prev => ({ ...prev, email: e.target.value }))}
+                            >
+                                <option value="">Do not import</option>
+                                {csvHeaders.map(h => (
+                                    <option key={h} value={h}>{h}</option>
+                                ))}
+                            </select>
+                            {columnMapping.email && csvData.length > 0 && (
+                                <div className="flex-1 flex items-center px-3 py-2 bg-paper border border-border/60 rounded-sm text-sm text-muted italic truncate">
+                                    <span className="truncate w-full block">Preview: {csvData[0][columnMapping.email]}</span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* CV Content Mapping */}
+                    <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-wider text-muted">CV / Resume Content (Optional)</label>
+                        <div className="flex gap-4">
+                            <select 
+                                className="h-10 w-1/3 rounded-sm border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                value={columnMapping.cv}
+                                onChange={(e) => setColumnMapping(prev => ({ ...prev, cv: e.target.value }))}
+                            >
+                                <option value="">Do not import</option>
+                                {csvHeaders.map(h => (
+                                    <option key={h} value={h}>{h}</option>
+                                ))}
+                            </select>
+                            {columnMapping.cv && csvData.length > 0 && (
+                                <div className="flex-1 px-3 py-2 bg-paper border border-border/60 rounded-sm text-sm text-muted italic max-h-20 overflow-hidden relative">
+                                    <p className="line-clamp-2">Preview: {csvData[0][columnMapping.cv]}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    </div>
+
+                    {/* Additional Columns Selection */}
+                    <div className="space-y-3 pt-4 border-t border-border/50">
+                         <div className="flex items-center justify-between">
+                            <label className="text-xs font-bold uppercase tracking-wider text-muted">Include Additional Data</label>
+                            <div className="flex gap-2">
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm"
+                                    onClick={() => {
+                                        const mapped = Object.values(columnMapping).filter(Boolean)
+                                        const available = csvHeaders.filter(h => !mapped.includes(h))
+                                        setAdditionalColumns(available)
+                                    }}
+                                    className="h-6 text-[10px]"
+                                >
+                                    Select All
+                                </Button>
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm"
+                                    onClick={() => setAdditionalColumns([])}
+                                    className="h-6 text-[10px]"
+                                >
+                                    Clear
+                                </Button>
+                            </div>
+                         </div>
+                         
+                         <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-2 border border-border/40 rounded-sm bg-accent/5">
+                            {csvHeaders.filter(h => !Object.values(columnMapping).includes(h)).map(header => (
+                                <div key={header} className="flex items-center space-x-2">
+                                    <input 
+                                        type="checkbox" 
+                                        id={`col-${header}`}
+                                        className="h-4 w-4 rounded-sm border-input text-primary focus:ring-primary"
+                                        checked={additionalColumns.includes(header)}
+                                        onChange={(e) => {
+                                            if (e.target.checked) {
+                                                setAdditionalColumns(prev => [...prev, header])
+                                            } else {
+                                                setAdditionalColumns(prev => prev.filter(h => h !== header))
+                                            }
+                                        }}
+                                    />
+                                    <label htmlFor={`col-${header}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 truncate cursor-pointer select-none">
+                                        {header}
+                                    </label>
+                                </div>
+                            ))}
+                            {csvHeaders.filter(h => !Object.values(columnMapping).includes(h)).length === 0 && (
+                                <div className="col-span-2 text-center text-xs text-muted py-2 italic">
+                                    All columns are already mapped above.
+                                </div>
+                            )}
+                         </div>
+                         <p className="text-[10px] text-muted">
+                            Selected columns will be appended to the CV text so the AI can read them.
+                         </p>
+                    </div>
+                </div>
+
         )}
 
         {step === 'REVIEW' && (

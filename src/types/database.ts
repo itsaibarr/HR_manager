@@ -107,6 +107,8 @@ export interface Database {
         Row: {
           id: string
           external_id: string | null
+          email: string | null
+          full_name: string | null
           education: Json
           experience: Json
           projects: Json
@@ -121,6 +123,8 @@ export interface Database {
         Insert: {
           id?: string
           external_id?: string | null
+          email?: string | null
+          full_name?: string | null
           education?: Json
           experience?: Json
           projects?: Json
@@ -135,6 +139,8 @@ export interface Database {
         Update: {
           id?: string
           external_id?: string | null
+          email?: string | null
+          full_name?: string | null
           education?: Json
           experience?: Json
           projects?: Json
@@ -167,7 +173,7 @@ export interface Database {
           cultural_practical_fit_score: number
           education_other_score: number
           final_score: number
-          score_band: 'Strong Fit' | 'Good Fit' | 'Borderline' | 'Reject'
+          score_band: 'Force Multiplier' | 'Solid Contributor' | 'Baseline Capable' | 'Do Not Proceed' | 'Reject'
           reasoning: string[]
           potential_concern: string
           rejection_reason: string | null
@@ -186,7 +192,7 @@ export interface Database {
           cultural_practical_fit_score: number
           education_other_score: number
           final_score: number
-          score_band: 'Strong Fit' | 'Good Fit' | 'Borderline' | 'Reject'
+          score_band: 'Force Multiplier' | 'Solid Contributor' | 'Baseline Capable' | 'Do Not Proceed' | 'Reject'
           reasoning: string[]
           potential_concern: string
           rejection_reason?: string | null

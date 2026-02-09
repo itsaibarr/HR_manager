@@ -25,6 +25,8 @@ interface CandidateTableProps {
   onView?: (candidateId: string) => void
   onDelete?: (candidateId: string) => void
   showJobColumn?: boolean
+  selectedIds?: string[]
+  onSelectionChange?: (ids: string[]) => void
 }
 
 const statusLabels: Record<string, string> = {
@@ -35,7 +37,25 @@ const statusLabels: Record<string, string> = {
   offered: 'Offered'
 }
 
-export function CandidateTable({ data, onView, onDelete, showJobColumn = false }: CandidateTableProps) {
+export function CandidateTable({ data, onView, onDelete, showJobColumn = false, selectedIds = [], onSelectionChange }: CandidateTableProps) {
+  const allSelected = data.length > 0 && selectedIds.length === data.length
+  
+  const toggleSelectAll = () => {
+      if (allSelected) {
+          onSelectionChange?.([])
+      } else {
+          onSelectionChange?.(data.map(c => c.id))
+      }
+  }
+
+  const toggleSelection = (id: string) => {
+      if (selectedIds.includes(id)) {
+          onSelectionChange?.(selectedIds.filter(prevId => prevId !== id))
+      } else {
+          onSelectionChange?.([...selectedIds, id])
+      }
+  }
+
   if (!data || data.length === 0) {
     return (
       <div className="p-12 text-center text-muted border border-border border-dashed rounded-sm">
@@ -47,7 +67,15 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
   return (
     <div className="w-full bg-paper rounded-sm border border-border/80 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center px-5 py-2.5 bg-accent/40 border-b border-border/60 gap-4">
+      <div className="flex items-center px-[var(--density-row-px)] py-[var(--density-row-py)] bg-accent/40 border-b border-border/60 gap-[var(--density-gap)]">
+        <div className="w-[40px] flex items-center justify-center">
+            <input 
+                type="checkbox" 
+                checked={allSelected}
+                onChange={toggleSelectAll}
+                className="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary cursor-pointer"
+            />
+        </div>
         <div className={cn("text-[10px] font-bold text-muted uppercase tracking-widest", showJobColumn ? "w-[180px]" : "w-[200px]")}>
           Candidate
         </div>
@@ -66,8 +94,19 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false }
           <div
             key={candidate.id}
             onClick={() => onView?.(candidate.id)}
-            className="flex items-center px-5 py-3 gap-4 border-b border-border/40 last:border-0 hover:bg-accent/60 transition-all duration-150 group cursor-pointer"
+            className={cn(
+                "flex items-center px-[var(--density-row-px)] py-[var(--density-row-py)] gap-[var(--density-gap)] border-b last:border-0 transition-all duration-150 group cursor-pointer",
+                selectedIds.includes(candidate.id) ? "bg-accent/20 border-primary/20" : "border-border/40 hover:bg-accent/60"
+            )}
           >
+            <div className="w-[40px] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                <input 
+                    type="checkbox" 
+                    checked={selectedIds.includes(candidate.id)}
+                    onChange={() => toggleSelection(candidate.id)}
+                    className="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary cursor-pointer"
+                />
+            </div>
             {/* Candidate Info */}
             <div className={cn("flex items-center gap-3", showJobColumn ? "w-[180px]" : "w-[200px]")}>
               <div className="h-8 w-8 rounded-sm bg-primary/5 border border-primary/10 flex items-center justify-center shrink-0">

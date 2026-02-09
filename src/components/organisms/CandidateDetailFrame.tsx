@@ -1,4 +1,5 @@
-"use client"
+
+import { updateCandidateStatus } from "@/app/actions/candidate-actions"
 
 import { useState, useEffect, useMemo } from "react"
 import { createClient } from "@/lib/supabase/client"
@@ -30,8 +31,9 @@ interface CandidateDetailFrameProps {
   jobId: string
   isOpen: boolean
   onClose: () => void
-  onStatusChange?: () => void
+  onStatusChange?: (message?: string, type?: 'success' | 'error') => void
 }
+
 
 export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onStatusChange }: CandidateDetailFrameProps) {
   const [data, setData] = useState<any>(null)
@@ -46,27 +48,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
   const [emailNotification, setEmailNotification] = useState(true)
   const supabase = createClient()
 
-  const sendEmail = async (type: 'shortlist' | 'interview' | 'offer' | 'reject') => {
-    if (!emailNotification || !candidateId) return
-    
-    // Non-blocking email send
-    fetch('/api/email/send', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        candidateId,
-        jobId,
-        type
-      })
-    }).then(async (res) => {
-        const data = await res.json()
-        if (data.mocked) {
-             console.log("Email mocked:", data)
-        } else if (!res.ok) {
-             console.error("Failed to send email", data)
-        }
-    }).catch(err => console.error("Email API Error", err))
-  }
+
 
   const handleCopyCv = async () => {
     const text = data?.candidate_profiles?.raw_cv_text
@@ -118,27 +100,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
   // Reasoning points from AI
   const reasoning = useMemo(() => data?.reasoning || [], [data])
 
-  const handleShortlist = async () => {
-    if (!data) return
-    
-    setActionLoading(true)
-    try {
-      const { error } = await (supabase as any)
-        .from('evaluations')
-        .update({ status: 'shortlisted' })
-        .eq('id', data.id)
-      
-      if (error) throw error
-      
-      sendEmail('shortlist')
-      onStatusChange?.()
-      onClose()
-    } catch (error) {
-      console.error('Error shortlisting candidate:', error)
-    } finally {
-      setActionLoading(false)
-    }
-  }
+
 
   const handleReject = async () => {
     setShowRejectConfirm(true)
@@ -149,18 +111,17 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
     
     setActionLoading(true)
     try {
-      const { error } = await (supabase as any)
-        .from('evaluations')
-        .update({ status: 'rejected' })
-        .eq('id', data.id)
+      const result = await updateCandidateStatus(data.id, 'rejected', jobId, emailNotification)
       
-      if (error) throw error
-      
-      sendEmail('reject')
-      onStatusChange?.()
-      onClose()
+      if (result.success) {
+        onStatusChange?.(result.message, 'success')
+        onClose()
+      } else {
+        onStatusChange?.(result.message, 'error')
+      }
     } catch (error) {
       console.error('Error rejecting candidate:', error)
+      onStatusChange?.('An unexpected error occurred', 'error')
     } finally {
       setActionLoading(false)
     }
@@ -383,9 +344,13 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                             onClick={async () => {
                               setActionLoading(true)
                               try {
-                                await (supabase as any).from('evaluations').update({ status: 'pending' }).eq('id', data.id)
-                                onStatusChange?.()
-                                onClose()
+                                const result = await updateCandidateStatus(data.id, 'pending', jobId, false) // No email to "restore"
+                                if (result.success) {
+                                  onStatusChange?.(result.message, 'success')
+                                  onClose()
+                                } else {
+                                  onStatusChange?.(result.message, 'error')
+                                }
                               } catch (e) { console.error(e) } finally { setActionLoading(false) }
                             }}
                             disabled={actionLoading}
@@ -408,29 +373,34 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                       return (
                         <>
                           <Button 
-                            onClick={async () => {
+                             onClick={async () => {
                                 setActionLoading(true)
                                 try {
-                                    let nextStatus = 'shortlisted'
+                                    let nextStatus: 'shortlisted' | 'interviewing' | 'offered' = 'shortlisted'
                                     if (status === 'shortlisted') nextStatus = 'interviewing'
                                     if (status === 'interviewing') nextStatus = 'offered'
                                     
-                                    const { error } = await (supabase as any)
-                                        .from('evaluations')
-                                        .update({ status: nextStatus })
-                                        .eq('id', data.id)
+                                    const result = await updateCandidateStatus(data.id, nextStatus, jobId, emailNotification)
                                     
-                                    
-                                    if (error) throw error
-                                    
-                                    // Send email based on new status
-                                    if (nextStatus === 'shortlisted') sendEmail('shortlist')
-                                    if (nextStatus === 'interviewing') sendEmail('interview')
-                                    if (nextStatus === 'offered') sendEmail('offer')
+                                    if (result.success) {
+                                      onStatusChange?.(result.message, 'success')
+                                      onClose()
+                                    } else {
+                                      // If failure, keep dialog open but show error (or maybe close and show error via parent?)
+                                      // Actually if we call onStatusChange with error, parent will show toast.
+                                      // But we might want to keep dialog open. 
+                                      // For now, let's close on success, and just log on error unless we pass a callback to show toast without closing?
+                                      // The current pattern relies on parent toast.
+                                      // Let's assume onStatusChange handles toast.
+                                      onStatusChange?.(result.message, 'error')
+                                    }
 
-                                    onStatusChange?.()
-                                    onClose()
-                                } catch (e) { console.error(e) } finally { setActionLoading(false) }
+                                } catch (e) { 
+                                  console.error(e)
+                                  onStatusChange?.('An unexpected error occurred', 'error')
+                                } finally { 
+                                  setActionLoading(false) 
+                                }
                             }}
                             disabled={actionLoading}
                             className={cn(

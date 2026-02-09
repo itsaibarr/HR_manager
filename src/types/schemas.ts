@@ -105,7 +105,7 @@ export const EvaluationResultSchema = z.object({
   
   // Computed
   finalScore: z.number().min(0).max(100),
-  scoreBand: z.enum(['Strong Fit', 'Good Fit', 'Borderline', 'Reject']),
+  scoreBand: z.enum(['Force Multiplier', 'Solid Contributor', 'Baseline Capable', 'Do Not Proceed', 'Reject']),
   
   // Explanations
   reasoning: z.array(z.string()),

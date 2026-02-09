@@ -148,30 +148,21 @@ class ClaudeProvider implements AIProvider {
 
 // --- Factory & Exports ---
 
-export function getProvider(config?: AIConfig): AIProvider {
-    const providerType = config?.provider || 'gemini';
-    const apiKey = config?.apiKey || process.env.GEMINI_API_KEY;
-
+export function getProvider(): AIProvider {
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-        throw new Error(`API Key missing for provider: ${providerType}`);
+        throw new Error('GEMINI_API_KEY is not set in .env or .env.local');
     }
-
-    switch (providerType) {
-        case 'openai': return new OpenAIProvider(apiKey);
-        case 'claude': return new ClaudeProvider(apiKey);
-        case 'gemini':
-        default: return new GeminiProvider(apiKey);
-    }
+    return new GeminiProvider(apiKey);
 }
 
 // --- Public API ---
 
 export async function parseCvText(
-  rawText: string, 
-  config?: AIConfig
+  rawText: string
 ): Promise<z.infer<typeof CandidateProfileSchema>> {
    try {
-     const provider = getProvider(config);
+     const provider = getProvider();
      const parsed = await provider.generateJSON(
         `Extract structured information from this resume/CV. Handle any format gracefully:\n\n${rawText.substring(0, 30000)}`, 
         CV_SYSTEM_PROMPT
@@ -268,8 +259,7 @@ export async function parseCvText(
 
 export async function parseJobDescription(
   title: string,
-  description: string,
-  config?: AIConfig
+  description: string
 ): Promise<{
   responsibilities: string[];
   mustHaveSkills: string[];
@@ -278,7 +268,7 @@ export async function parseJobDescription(
   nonRequirements: string[];
 }> {
     try {
-        const provider = getProvider(config);
+        const provider = getProvider();
         const parsed = await provider.generateJSON(
             `Parse this JD:\nTitle: ${title}\nDescription: ${description.substring(0, 30000)}`,
             JD_SYSTEM_PROMPT

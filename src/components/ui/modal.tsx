@@ -29,8 +29,8 @@ export function Modal({ isOpen, onClose, title, children, footer, className }: M
       <div className={cn("relative bg-paper w-full max-w-lg rounded-sm shadow-[0_0_40px_rgba(0,0,0,0.12)] border border-border animate-in fade-in zoom-in-95 duration-200", className)}>
         <div className="flex items-center justify-between px-6 py-4 border-b border-border/60">
           <h2 className="text-lg font-sora font-extrabold text-primary tracking-tight">{title}</h2>
-          <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 rounded-sm hover:bg-accent/50">
-            <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
+          <Button variant="ghost" size="icon" onClick={onClose} className="h-9 w-9 rounded-sm hover:bg-accent/50">
+            <X className="w-[18px] h-[18px]" strokeWidth={2.4} />
           </Button>
         </div>
         

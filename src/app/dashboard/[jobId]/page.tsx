@@ -4,13 +4,14 @@ import { useState, useEffect, useCallback, use, useMemo } from "react"
 import Papa from "papaparse"
 import { PageHeader } from "@/components/shared/PageHeader"
 import { Button } from "@/components/ui/button"
-import { Plus, Download } from "lucide-react"
+import { Plus, Download, Trash2 } from "lucide-react"
 import { PipelineVisual } from "@/components/organisms/PipelineVisual"
 import { CandidateTable } from "@/components/organisms/CandidateTable"
 import { JobContextPanel } from "@/components/organisms/JobContextPanel"
 import { UploadCandidateModal } from "@/components/organisms/UploadCandidateModal"
 import { CandidateDetailFrame } from "@/components/organisms/CandidateDetailFrame"
 import { CandidateFilters, FilterState } from "@/components/organisms/CandidateFilters"
+import { deleteCandidates } from "@/app/actions/candidate-actions"
 import { createClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
@@ -28,6 +29,8 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
   const [candidateToDelete, setCandidateToDelete] = useState<string | null>(null)
+  const [candidatesToDelete, setCandidatesToDelete] = useState<string[] | null>(null)
+  const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>([])
   const { toasts, showToast, dismissToast } = useToast()
   const [filters, setFilters] = useState<FilterState>({
     search: '',
@@ -74,6 +77,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             id: ev.candidate_id,
             evaluationId: ev.id,
             name: ev.candidate_profiles?.full_name || `Candidate ${ev.candidate_id.substring(0,6)}`, 
+            email: ev.candidate_profiles?.email || null, 
             initials: ev.candidate_profiles?.full_name ? ev.candidate_profiles.full_name.split(' ').map((n: string) => n[0]).join('').substring(0,2) : "CA",
             role: ev.candidate_profiles?.experience?.[0]?.title || "Applicant",
             experienceRaw: ev.candidate_profiles?.experience?.length ? `${ev.candidate_profiles.experience.length} roles` : "N/A",
@@ -125,6 +129,33 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
     } finally {
         setCandidateToDelete(null)
     }
+  }
+
+  const handleBulkDelete = () => {
+      setCandidatesToDelete(selectedCandidateIds)
+  }
+
+  const confirmBulkDelete = async () => {
+      if (!candidatesToDelete) return
+
+      try {
+          const res = await deleteCandidates(candidatesToDelete, jobId)
+          
+          if (res.success) {
+              setCandidates(prev => prev.filter(c => !candidatesToDelete.includes(c.id)))
+              setPipelineCounts(prev => ({ ...prev })) // Simplified update
+              fetchJobData()
+              setSelectedCandidateIds([])
+              showToast(res.message, "success")
+          } else {
+              showToast(res.message, "error")
+          }
+      } catch (e) {
+          console.error(e)
+          showToast("Error deleting candidates", "error")
+      } finally {
+          setCandidatesToDelete(null)
+      }
   }
 
   const handleView = (candidateId: string) => {
@@ -191,9 +222,10 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   const downloadCSV = () => {
     if (candidates.length === 0) return
     
-    const headers = ['Name', 'Role', 'Experience', 'Score', 'Band', 'Top Skills', 'Applied At']
+    const headers = ['Name', 'Email', 'Role', 'Experience', 'Score', 'Band', 'Top Skills', 'Applied At']
     const rows = candidates.map(c => [
         `"${c.name}"`,
+        `"${c.email || ''}"`,
         `"${c.role}"`,
         `"${c.experienceRaw}"`,
         c.score,
@@ -313,7 +345,32 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                     data={filteredCandidates} 
                     onView={handleView}
                     onDelete={handleDelete}
+                    selectedIds={selectedCandidateIds}
+                    onSelectionChange={setSelectedCandidateIds}
                 />
+
+                {/* Bulk Action Floating Bar */}
+                <AnimatePresence>
+                    {selectedCandidateIds.length > 0 && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 50 }}
+                            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-popover border border-border/80 shadow-2xl rounded-full px-6 py-3 flex items-center gap-4 z-50 backdrop-blur-md"
+                        >
+                            <span className="text-sm font-medium text-foreground">{selectedCandidateIds.length} selected</span>
+                            <div className="h-4 w-px bg-border"></div>
+                            <Button 
+                                variant="destructive" 
+                                className="h-10 rounded-full px-6 shadow-sm"
+                                onClick={handleBulkDelete}
+                            >
+                                <Trash2 className="w-[16px] h-[16px] mr-2" />
+                                Delete Selected
+                            </Button>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
         
@@ -329,7 +386,10 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             jobId={jobId}
             isOpen={isDetailOpen}
             onClose={() => setIsDetailOpen(false)}
-            onStatusChange={fetchJobData}
+            onStatusChange={(message, type) => {
+                if (message) showToast(message, type || 'info')
+                fetchJobData()
+            }}
           />
         )}
 
@@ -340,6 +400,16 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
           title="Remove Candidate"
           description="Are you sure you want to remove this candidate? This will delete all evaluation data for this candidate. This action cannot be undone."
           confirmText="Remove"
+          variant="destructive"
+        />
+
+        <ConfirmDialog
+          isOpen={!!candidatesToDelete}
+          onClose={() => setCandidatesToDelete(null)}
+          onConfirm={confirmBulkDelete}
+          title={`Remove ${candidatesToDelete?.length} Candidates`}
+          description={`Are you sure you want to remove these ${candidatesToDelete?.length} candidates? This will delete all evaluation data for them. This action cannot be undone.`}
+          confirmText="Remove Candidates"
           variant="destructive"
         />
       </div>

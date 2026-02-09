@@ -1,23 +1,23 @@
 import { HR_SCREENING_SYSTEM_PROMPT, buildEvaluationPrompt } from './prompts';
-import { 
-  calculateFinalScore, 
-  getScoreBand, 
+import {
+  calculateFinalScore,
+  getScoreBand,
   shouldAutoReject,
-  type DimensionId 
+  type DimensionId,
 } from '../evaluation/framework';
 import type { JobContext, CandidateProfile, EvaluationResult } from '@/types/schemas';
-import { getProvider, type AIConfig } from './parser';
+import { getProvider } from './parser';
+import { logger } from '@/lib/logger';
 
 /**
  * Evaluate a candidate against a job context using AI Strategy
  */
 export async function evaluateCandidate(
   jobContext: JobContext,
-  candidateProfile: CandidateProfile,
-  config?: AIConfig
+  candidateProfile: CandidateProfile
 ): Promise<Omit<EvaluationResult, 'id' | 'jobContextId' | 'candidateId' | 'evaluatedBy' | 'createdAt'>> {
   
-  const provider = getProvider(config);
+  const provider = getProvider();
   
   const prompt = buildEvaluationPrompt(
     {
@@ -60,7 +60,7 @@ export async function evaluateCandidate(
   // Validate scores are within range
   const validateScore = (score: number, name: string): number => {
     if (typeof score !== 'number' || score < 0 || score > 10) {
-      console.warn(`Invalid ${name} score: ${score}, defaulting to 0`);
+      logger.warn('Invalid score, defaulting to 0', { dimension: name, score });
       return 0;
     }
     return Math.round(score * 10) / 10; // Round to 1 decimal
@@ -94,7 +94,7 @@ export async function evaluateCandidate(
     rejectionReason: autoReject 
       ? 'Core Competencies score is 0 - automatic rejection per framework rules'
       : parsed.rejectionReason,
-    aiModelVersion: config?.provider || 'gemini-2.0-flash'
+    aiModelVersion: 'gemini-2.0-flash'
   };
 }
 
@@ -104,7 +104,6 @@ export async function evaluateCandidate(
 export async function evaluateCandidatesBatch(
   jobContext: JobContext,
   candidateProfiles: CandidateProfile[],
-  config?: AIConfig,
   onProgress?: (completed: number, total: number) => void
 ): Promise<Array<{
   candidateId: string;
@@ -121,7 +120,7 @@ export async function evaluateCandidatesBatch(
     const candidate = candidateProfiles[i];
     
     try {
-      const result = await evaluateCandidate(jobContext, candidate, config);
+      const result = await evaluateCandidate(jobContext, candidate);
       results.push({
         candidateId: candidate.id || `candidate-${i}`,
         result

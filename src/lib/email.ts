@@ -1,7 +1,8 @@
 import { Resend } from 'resend';
+import { logger } from '@/lib/logger';
 
-const resend = process.env.RESEND_API_KEY 
-  ? new Resend(process.env.RESEND_API_KEY) 
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
   : null;
 
 type EmailType = 'shortlist' | 'interview' | 'offer' | 'reject';
@@ -75,23 +76,28 @@ export async function sendCandidateEmail(payload: EmailPayload) {
   const { to, type, ...templateData } = payload;
   const { subject, html } = TEMPLATES[type](templateData);
 
-  // Mock send if no API key
   if (!resend) {
-    console.log(`[MOCK EMAIL] To: ${to} | Subject: ${subject}`);
-    console.log(`[MOCK EMAIL] Body: ${html}`);
+    logger.warn('Mock email send (no RESEND_API_KEY)', { to, subject });
     return { success: true, mocked: true };
   }
 
   try {
+    // FIX: Resend Test Mode Restriction
+    // We can ONLY send to the verified email (aibarerzhuman13@gmail.com) when using the free/test tier.
+    // We cannot send FROM a gmail address due to DMARC, so we keep onboarding@resend.dev.
+    const safeRecipient = 'aibarerzhuman13@gmail.com';
+    
+    logger.warn(`[TEST MODE] Redirecting email for ${to} to ${safeRecipient} because Resend Test Mode only allows sending to verified address.`, { originalTo: to });
+
     const data = await resend.emails.send({
-      from: 'Acme HR <onboarding@resend.dev>', // Default Resend testing domain
-      to: [to], // Resend free tier only sends to verified email (usually your own)
-      subject,
+      from: 'Acme HR <onboarding@resend.dev>',
+      to: [safeRecipient], // Override recipient
+      subject: `[TEST for ${to}] ${subject}`, // Add original recipient to subject
       html,
     });
     return { success: true, data };
   } catch (error) {
-    console.error('Error sending email:', error);
+    logger.error('Error sending email', { error, to });
     return { success: false, error };
   }
 }

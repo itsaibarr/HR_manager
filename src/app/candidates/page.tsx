@@ -76,9 +76,9 @@ export default function CandidatesPage() {
           ? `${ev.candidate_profiles.experience.length} roles` 
           : "N/A",
         score: ev.final_score,
-        scoreBand: ev.score_band === 'Force Multiplier' ? 'strong' 
-          : ev.score_band === 'Solid Contributor' ? 'good' 
-          : ev.score_band === 'Baseline Capable' ? 'borderline' 
+        scoreBand: ev.final_score >= 85 ? 'strong' 
+          : ev.final_score >= 70 ? 'good' 
+          : ev.final_score >= 60 ? 'borderline' 
           : 'reject',
         status: ev.status || 'pending',
         topSkills: ev.candidate_profiles?.skills?.slice(0,3) || [],

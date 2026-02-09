@@ -8,29 +8,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
 import { 
-  Key, 
   Palette, 
-  User as UserIcon, 
   Shield, 
-  Languages, 
-  Database,
-  Check,
-  ExternalLink,
-  ChevronRight,
-  Info,
-  LogOut
+  Database
 } from "lucide-react"
 import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
 import type { UserPreferences } from "@/types/database"
 import { cn } from "@/lib/utils"
-
-interface AIConfig {
-  provider: string
-  keys: { gemini?: string; openai?: string; claude?: string }
-}
 
 interface UserProfile {
   id: string
@@ -40,10 +26,9 @@ interface UserProfile {
 }
 
 export default function ProfilePage() {
-  const { theme, setTheme } = useTheme()
+  const { theme, setTheme, density, setDensity } = useTheme()
   const [loading, setLoading] = useState(false)
   const [user, setUser] = useState<UserProfile | null>(null)
-  const [config, setConfig] = useState<AIConfig>({ provider: 'gemini', keys: {} })
   const [preferences, setPreferences] = useState<UserPreferences>({
     theme: 'system',
     defaultView: 'dashboard',
@@ -66,7 +51,6 @@ export default function ProfilePage() {
       
       if (data) {
         setUser({ id: data.id, email: data.email, full_name: data.full_name, role: data.role })
-        if (data.ai_config) setConfig(data.ai_config as unknown as AIConfig)
         if (data.preferences) setPreferences({ ...preferences, ...(data.preferences as unknown as UserPreferences) })
       }
     }
@@ -86,7 +70,6 @@ export default function ProfilePage() {
           id: authUser.id,
           email: authUser.email!,
           full_name: user?.full_name,
-          ai_config: config as any,
           preferences: preferences as any
         })
       
@@ -109,7 +92,7 @@ export default function ProfilePage() {
       
       <PageHeader 
         title="Account & Personalization" 
-        subtitle="Configure your professional workspace and AI intelligence." 
+        subtitle="Configure your professional workspace." 
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -184,13 +167,13 @@ export default function ProfilePage() {
 
                 <SettingBox label="Information Density" description="Adjust information throughput per view.">
                     <div className="flex bg-accent/40 p-1 rounded-sm border border-border/40">
-                       {['compact', 'comfortable', 'spacious'].map((d) => (
+                       {(['compact', 'comfortable', 'spacious'] as const).map((d) => (
                          <button
                            key={d}
-                           onClick={() => setPreferences(prev => ({ ...prev, density: d as any }))}
+                           onClick={() => setDensity(d)}
                            className={cn(
                              "flex-1 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-sm transition-all",
-                             preferences.density === d ? "bg-paper text-primary shadow-sm" : "text-muted hover:text-primary hover:bg-paper/30"
+                             density === d ? "bg-paper text-primary shadow-sm" : "text-muted hover:text-primary hover:bg-paper/30"
                            )}
                          >
                            {d}
@@ -198,71 +181,6 @@ export default function ProfilePage() {
                        ))}
                     </div>
                 </SettingBox>
-             </div>
-          </Section>
-
-          {/* AI Intelligence */}
-          <Section title="AI Intelligence Core" icon={Key} description="Manage the models powering your candidate analysis.">
-             <div className="space-y-6">
-                <div className="space-y-3">
-                   <label className="text-[11px] font-bold text-primary/80 uppercase tracking-widest flex items-center gap-2">
-                     Active Engine
-                     <Badge variant="outline" className="text-[8px] border-primary/20 text-primary/60 lowercase font-mono px-1 h-3.5">llm-v4</Badge>
-                   </label>
-                   <div className="grid grid-cols-3 gap-3">
-                      {[
-                        { id: 'gemini', name: 'Gemini 1.5', brand: 'Google' },
-                        { id: 'openai', name: 'GPT-4o', brand: 'OpenAI' },
-                        { id: 'claude', name: 'Claude 3.5', brand: 'Anthropic' }
-                      ].map(provider => (
-                        <button
-                          key={provider.id}
-                          onClick={() => setConfig(prev => ({ ...prev, provider: provider.id }))}
-                          className={cn(
-                            "flex flex-col items-start p-4 rounded-sm border transition-all text-left group relative h-24 justify-between",
-                            config.provider === provider.id 
-                              ? "bg-primary text-paper border-primary" 
-                              : "bg-paper border-border/60 hover:border-primary/30"
-                          )}
-                        >
-                          <span className="text-[11px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100 transition-opacity">{provider.brand}</span>
-                          <span className="text-sm font-extrabold tracking-tight">{provider.name}</span>
-                          {config.provider === provider.id && (
-                            <div className="absolute top-2 right-2">
-                              <Check className="w-3.5 h-3.5" />
-                            </div>
-                          )}
-                        </button>
-                      ))}
-                   </div>
-                </div>
-
-                <div className="pt-4 space-y-4">
-                   <div className="space-y-2">
-                      <div className="flex justify-between items-baseline">
-                        <label className="text-[11px] font-bold text-primary/80 uppercase tracking-widest">
-                          {config.provider === 'gemini' ? 'AI Studio Key' : config.provider === 'openai' ? 'OpenAI API Key' : 'Anthropic API Key'}
-                        </label>
-                        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-[10px] text-muted hover:text-primary transition-colors flex items-center gap-1 font-bold uppercase tracking-widest group">
-                          Get Key <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </a>
-                      </div>
-                      <Input 
-                        type="password"
-                        value={config.keys[config.provider as keyof typeof config.keys] || ''}
-                        onChange={e => setConfig(prev => ({
-                          ...prev,
-                          keys: { ...prev.keys, [prev.provider]: e.target.value }
-                        }))}
-                        placeholder={`sk-...${config.provider.substring(0,3)}`}
-                        className="font-mono text-sm tracking-widest h-10 border-border/60 bg-paper/50 rounded-sm focus:bg-paper"
-                      />
-                   </div>
-                   <div className="flex items-center gap-3 p-3 bg-blue-500/5 border border-blue-500/10 rounded-sm">
-                      <Info className="w-3.5 h-3.5 text-blue-500 shrink-0" />
-                      <p className="text-[11px] text-blue-500/80 font-medium">Your API keys are stored locally for development and encrypted in production.</p>
-                   </div>
-                </div>
              </div>
           </Section>
 

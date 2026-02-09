@@ -1,5 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import { apiError, apiSuccess } from '@/lib/api/error-handler';
+import { z } from 'zod';
+
+const QuerySchema = z.object({
+  jobContextId: z.string().uuid().optional(),
+  candidateId: z.string().uuid().optional(),
+});
 
 export async function GET(request: Request) {
   try {
@@ -7,12 +14,29 @@ export async function GET(request: Request) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return apiError(null, { status: 401, userMessage: 'Unauthorized' });
     }
 
     const { searchParams } = new URL(request.url);
-    const jobContextId = searchParams.get('jobContextId');
-    const candidateId = searchParams.get('candidateId');
+    const parsed = QuerySchema.safeParse({
+      jobContextId: searchParams.get('jobContextId') ?? undefined,
+      candidateId: searchParams.get('candidateId') ?? undefined,
+    });
+
+    if (!parsed.success) {
+      return apiError(parsed.error);
+    }
+
+    const { jobContextId, candidateId } = parsed.data;
+
+    const { data: userJobs } = await supabase
+      .from('job_contexts')
+      .select('id')
+      .eq('created_by', user.id);
+    const jobIds = (userJobs ?? []).map((j) => j.id);
+    if (jobIds.length === 0) {
+      return apiSuccess([]);
+    }
 
     let query = supabase
       .from('evaluations')
@@ -25,9 +49,13 @@ export async function GET(request: Request) {
           external_id
         )
       `)
+      .in('job_context_id', jobIds)
       .order('created_at', { ascending: false });
 
     if (jobContextId) {
+      if (!jobIds.includes(jobContextId)) {
+        return apiSuccess([]);
+      }
       query = query.eq('job_context_id', jobContextId);
     }
 
@@ -38,13 +66,17 @@ export async function GET(request: Request) {
     const { data, error } = await query;
 
     if (error) {
-      console.error('Database error:', error);
-      return NextResponse.json({ error: 'Failed to fetch evaluations' }, { status: 500 });
+      return apiError(error, {
+        status: 500,
+        userMessage: 'Failed to fetch evaluations',
+      });
     }
 
-    return NextResponse.json(data);
+    return apiSuccess(data ?? []);
   } catch (error) {
-    console.error('Request error:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    if (error instanceof z.ZodError) {
+      return apiError(error);
+    }
+    return apiError(error, { status: 500 });
   }
 }
