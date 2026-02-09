@@ -12,6 +12,10 @@ import { UploadCandidateModal } from "@/components/organisms/UploadCandidateModa
 import { CandidateDetailFrame } from "@/components/organisms/CandidateDetailFrame"
 import { CandidateFilters, FilterState } from "@/components/organisms/CandidateFilters"
 import { createClient } from "@/lib/supabase/client"
+import { useToast } from "@/hooks/useToast"
+import { ToastContainer } from "@/components/ui/toast"
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function JobDashboardPage({ params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = use(params)
@@ -20,13 +24,16 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   const [candidates, setCandidates] = useState<any[]>([])
   const [jobTitle, setJobTitle] = useState("Loading...")
   const [jobContext, setJobContext] = useState<any>(null)
-  const [pipelineCounts, setPipelineCounts] = useState({ new: 0, screening: 0, interview: 0, offer: 0 })
+  const [pipelineCounts, setPipelineCounts] = useState({ new: 0, screening: 0, interview: 0, offer: 0, unfit: 0 })
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [candidateToDelete, setCandidateToDelete] = useState<string | null>(null)
+  const { toasts, showToast, dismissToast } = useToast()
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     scoreBands: [],
     skills: [],
+    jobIds: [],
     sortBy: 'score'
   })
   
@@ -80,35 +87,42 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
         
         // Compute pipeline counts from actual statuses
         const counts = {
-          new: evaluations.filter((e: any) => !e.status || e.status === 'pending' || e.status === 'rejected').length,
+          new: evaluations.filter((e: any) => !e.status || e.status === 'pending').length,
           screening: evaluations.filter((e: any) => e.status === 'shortlisted').length,
           interview: evaluations.filter((e: any) => e.status === 'interviewing').length,
-          offer: evaluations.filter((e: any) => e.status === 'offered').length
+          offer: evaluations.filter((e: any) => e.status === 'offered').length,
+          unfit: evaluations.filter((e: any) => e.status === 'rejected').length
         }
         setPipelineCounts(counts)
     }
   }, [supabase, jobId])
 
   const handleDelete = async (candidateId: string) => {
-    if (!confirm("Are you sure you want to remove this candidate?")) return
+    setCandidateToDelete(candidateId)
+  }
+
+  const confirmDeleteCandidate = async () => {
+    if (!candidateToDelete) return
 
     try {
-        const res = await fetch(`/api/candidates?jobId=${jobId}&candidateId=${candidateId}`, {
+        const res = await fetch(`/api/candidates?jobId=${jobId}&candidateId=${candidateToDelete}`, {
             method: 'DELETE'
         })
         if (res.ok) {
             // Optimistic update or refetch
-            setCandidates(prev => prev.filter(c => c.id !== candidateId))
+            setCandidates(prev => prev.filter(c => c.id !== candidateToDelete))
             setPipelineCounts(prev => ({ ...prev })) // Trigger re-render, though ideally we'd recalc counts
             fetchJobData() // Full refresh to be safe
-            // showToast("Candidate removed", "success") // Toast not available in this component yet, using alert for now but cleaner
+            showToast("Candidate removed successfully", "success")
         } else {
             console.error("Delete failed")
-            alert("Failed to delete candidate. Please check console.")
+            showToast("Failed to delete candidate.", "error")
         }
     } catch (e) {
         console.error(e)
-        alert("Error deleting candidate.")
+        showToast("Error deleting candidate.", "error")
+    } finally {
+        setCandidateToDelete(null)
     }
   }
 
@@ -259,8 +273,9 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   return (
     <div className="flex h-full min-h-screen">
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="p-8 space-y-6">
-            <PageHeader
+        <div className="p-8 max-w-7xl mx-auto space-y-8">
+          <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+          <PageHeader
                 title={jobTitle}
                 subtitle={`${filteredCandidates.length} ${filteredCandidates.length === candidates.length ? '' : `of ${candidates.length} `}Candidates • Remote`}
                 action={
@@ -281,13 +296,14 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
 
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-sora font-semibold text-black-soft">Active Candidates</h2>
+                    <h2 className="text-lg font-sora font-semibold text-primary">Active Candidates</h2>
                 </div>
                 
                 <CandidateFilters
                     filters={filters}
                     onFiltersChange={setFilters}
                     availableSkills={availableSkills}
+                    availableJobs={[]}
                     totalCount={candidates.length}
                     filteredCount={filteredCandidates.length}
                 />
@@ -306,12 +322,24 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             onUpload={handleUpload}
         />
 
-        <CandidateDetailFrame
+        {isDetailOpen && selectedCandidateId && (
+          <CandidateDetailFrame
             candidateId={selectedCandidateId}
             jobId={jobId}
             isOpen={isDetailOpen}
             onClose={() => setIsDetailOpen(false)}
             onStatusChange={fetchJobData}
+          />
+        )}
+
+        <ConfirmDialog
+          isOpen={!!candidateToDelete}
+          onClose={() => setCandidateToDelete(null)}
+          onConfirm={confirmDeleteCandidate}
+          title="Remove Candidate"
+          description="Are you sure you want to remove this candidate? This will delete all evaluation data for this candidate. This action cannot be undone."
+          confirmText="Remove"
+          variant="destructive"
         />
       </div>
 

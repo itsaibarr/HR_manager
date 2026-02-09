@@ -8,6 +8,9 @@ import { CandidateTable } from "@/components/organisms/CandidateTable"
 import { CandidateDetailFrame } from "@/components/organisms/CandidateDetailFrame"
 import { CandidateFilters, FilterState } from "@/components/organisms/CandidateFilters"
 import { createClient } from "@/lib/supabase/client"
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
+import { useToast } from "@/hooks/useToast"
+import { ToastContainer } from "@/components/ui/toast"
 
 export default function CandidatesPage() {
   const [candidates, setCandidates] = useState<any[]>([])
@@ -20,8 +23,11 @@ export default function CandidatesPage() {
     search: '',
     scoreBands: [],
     skills: [],
+    jobIds: [],
     sortBy: 'score'
   })
+  const [candidateToDelete, setCandidateToDelete] = useState<string | null>(null)
+  const { toasts, showToast, dismissToast } = useToast()
   
   const supabase = createClient()
 
@@ -98,22 +104,29 @@ export default function CandidatesPage() {
   }
 
   const handleDelete = async (candidateId: string) => {
-    const candidate = candidates.find(c => c.id === candidateId)
+    setCandidateToDelete(candidateId)
+  }
+
+  const confirmDeleteCandidate = async () => {
+    if (!candidateToDelete) return
+    const candidate = candidates.find(c => c.id === candidateToDelete)
     if (!candidate) return
-    if (!confirm("Are you sure you want to remove this candidate?")) return
 
     try {
-      const res = await fetch(`/api/candidates?jobId=${candidate.jobContextId}&candidateId=${candidateId}`, {
+      const res = await fetch(`/api/candidates?jobId=${candidate.jobContextId}&candidateId=${candidateToDelete}`, {
         method: 'DELETE'
       })
       if (res.ok) {
+        showToast("Candidate removed successfully", "success")
         fetchData()
       } else {
-        alert("Failed to delete candidate.")
+        showToast("Failed to delete candidate.", "error")
       }
     } catch (e) {
       console.error(e)
-      alert("Error deleting candidate.")
+      showToast("Error deleting candidate.", "error")
+    } finally {
+      setCandidateToDelete(null)
     }
   }
 
@@ -138,6 +151,12 @@ export default function CandidatesPage() {
         c.role.toLowerCase().includes(searchLower) ||
         jobContexts[c.jobContextId]?.toLowerCase().includes(searchLower)
       )
+
+    }
+
+    // Apply job filter
+    if (filters.jobIds.length > 0) {
+      filtered = filtered.filter(c => filters.jobIds.includes(c.jobContextId))
     }
 
     // Apply score band filter
@@ -201,6 +220,7 @@ export default function CandidatesPage() {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
+      <ToastContainer toasts={toasts} onDismiss={dismissToast} />
       <PageHeader
         title="All Candidates"
         subtitle={`${filteredCandidates.length} ${filteredCandidates.length === candidates.length ? '' : `of ${candidates.length} `}candidates across all jobs`}
@@ -224,6 +244,7 @@ export default function CandidatesPage() {
             filters={filters}
             onFiltersChange={setFilters}
             availableSkills={availableSkills}
+            availableJobs={Object.entries(jobContexts).map(([id, title]) => ({ id, title }))}
             totalCount={candidates.length}
             filteredCount={filteredCandidates.length}
           />
@@ -249,6 +270,16 @@ export default function CandidatesPage() {
           onStatusChange={fetchData}
         />
       )}
+
+      <ConfirmDialog
+        isOpen={!!candidateToDelete}
+        onClose={() => setCandidateToDelete(null)}
+        onConfirm={confirmDeleteCandidate}
+        title="Remove Candidate"
+        description="Are you sure you want to remove this candidate? This will delete all evaluation data for this candidate. This action cannot be undone."
+        confirmText="Remove"
+        variant="destructive"
+      />
     </div>
   )
 }

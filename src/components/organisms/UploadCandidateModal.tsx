@@ -120,7 +120,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                         Continue to Review
                     </Button>
                 ) : step === 'REVIEW' ? (
-                    <Button onClick={handleStartImport} className="bg-navy hover:bg-navy/90">
+                    <Button onClick={handleStartImport} className="bg-primary hover:bg-primary/90 text-paper px-8 h-10 font-bold uppercase tracking-widest text-[11px]">
                         Confirm & Start Import
                     </Button>
                 ) : (
@@ -136,7 +136,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
         {step === 'UPLOAD' && (
             <>
                 <div 
-                    className="border-2 border-dashed border-border rounded-lg p-12 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-paper transition-colors relative"
+                    className="border-2 border-dashed border-border/60 rounded-sm p-12 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-accent/30 transition-colors relative"
                     onClick={() => fileInputRef.current?.click()}
                 >
                     <input 
@@ -147,12 +147,12 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                         accept=".pdf,.doc,.docx,.txt,.csv"
                         onChange={handleFileChange}
                     />
-                    <div className="w-16 h-16 bg-blue-50 text-navy rounded-full flex items-center justify-center mb-4">
+                    <div className="w-16 h-16 bg-accent/50 text-primary rounded-sm flex items-center justify-center mb-4 border border-border/40">
                         <UploadCloud className="w-8 h-8" />
                     </div>
                     
                     <div className="space-y-2">
-                        <p className="text-lg font-semibold text-black-soft">Drop files here or click to upload</p>
+                        <p className="text-lg font-semibold text-primary">Drop files here or click to upload</p>
                         <p className="text-sm text-muted">Upload CSV for bulk import or individual PDF/DOCX resumes</p>
                     </div>
                 </div>
@@ -162,10 +162,10 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                         <p className="text-xs font-bold uppercase tracking-wider text-muted">Selected Files</p>
                         <div className="grid grid-cols-2 gap-2">
                             {files.map((file, idx) => (
-                                <div key={idx} className="flex items-center justify-between p-3 bg-white rounded border border-border">
+                                <div key={idx} className="flex items-center justify-between p-3 bg-paper rounded-sm border border-border/60">
                                     <div className="flex items-center gap-3 overflow-hidden">
-                                        <File className="w-4 h-4 text-navy shrink-0" />
-                                        <span className="text-sm font-medium text-black-soft truncate">{file.name}</span>
+                                        <File className="w-4 h-4 text-primary shrink-0" />
+                                        <span className="text-sm font-medium text-primary truncate">{file.name}</span>
                                     </div>
                                     <button 
                                         onClick={(e) => {
@@ -203,7 +203,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                                         <Input 
                                             value={c.name} 
                                             onChange={(e) => updateCandidate(c.id, { name: e.target.value })}
-                                            className="h-8 text-sm border-transparent hover:border-border focus:border-navy bg-transparent"
+                                            className="h-8 text-sm border-transparent hover:border-border focus:border-primary bg-transparent"
                                         />
                                     </td>
                                     <td className="px-4 py-3">
@@ -211,7 +211,10 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                                             value={c.email || ""} 
                                             placeholder="Enter email..."
                                             onChange={(e) => updateCandidate(c.id, { email: e.target.value })}
-                                            className="h-8 text-sm border-transparent hover:border-border focus:border-navy bg-transparent"
+                                            className={cn(
+                                                "h-8 text-sm border-transparent hover:border-border focus:border-primary bg-transparent",
+                                                c.email && "border-primary bg-primary/5"
+                                            )}
                                         />
                                     </td>
                                     <td className="px-4 py-3">
@@ -222,9 +225,9 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                                     <td className="px-4 py-3 text-right">
                                         <button 
                                             onClick={() => removeCandidate(c.id)}
-                                            className="text-muted hover:text-red-500 transition-colors"
+                                            className="p-1.5 text-muted hover:text-red-500 transition-colors"
                                         >
-                                            <Trash2 className="w-4 h-4" />
+                                            <Trash2 className="w-5 h-5" />
                                         </button>
                                     </td>
                                 </tr>
@@ -260,18 +263,18 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                             strokeDasharray={251.32}
                             strokeDashoffset={251.32 - (251.32 * (progress.total > 0 ? progress.current / progress.total : 0))}
                             strokeLinecap="round"
-                            className="text-navy transition-all duration-500 ease-out"
+                            className="text-primary transition-all duration-500 ease-out"
                         />
                     </svg>
                     <div className="absolute flex flex-col items-center justify-center">
-                        <span className="text-xl font-sora font-bold text-navy">
+                        <span className="text-xl font-sora font-bold text-primary">
                             {progress.total > 0 ? Math.round((progress.current / progress.total) * 100) : 0}%
                         </span>
                     </div>
                 </div>
                 
                 <div className="space-y-3">
-                    <h3 className="text-xl font-sora font-bold text-black-soft">Analyzing Candidates...</h3>
+                    <h3 className="text-xl font-sora font-bold text-primary">Analyzing Candidates...</h3>
                     <p className="text-sm text-muted max-w-sm leading-relaxed px-4">
                         AI is reviewing skills, experience and cultural fit for <strong>{progress.total}</strong> candidates. 
                         This ensures high quality matches for your role.
@@ -282,7 +285,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
                     <div className="text-[10px] font-bold text-muted uppercase tracking-[0.2em]">
                         Current Batch Progress
                     </div>
-                    <div className="text-sm font-medium text-black-soft">
+                    <div className="text-sm font-medium text-primary">
                         Processed {progress.current} of {progress.total}
                     </div>
                 </div>

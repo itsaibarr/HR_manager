@@ -31,17 +31,17 @@ export function PipelineVisual({ counts, activeStage, onStageClick }: PipelinePr
             onClick={() => onStageClick?.(stage.id)}
             disabled={!isClickable}
             className={cn(
-              "flex flex-col gap-1 px-4 py-3 rounded-sm bg-card border h-[64px] transition-all text-left",
+              "flex flex-col gap-1 px-4 py-3 rounded-sm bg-paper border h-[64px] transition-all text-left",
               isActive
-                ? "border-navy shadow-sm ring-1 ring-navy/5"
-                : "border-border",
-              isClickable && "hover:border-navy/50 cursor-pointer"
+                ? "border-primary bg-primary/5"
+                : "border-border/60",
+              isClickable && "hover:border-primary/50 cursor-pointer"
             )}
           >
             <span
               className={cn(
                 "text-xs font-sora font-semibold uppercase tracking-wider",
-                isActive ? "text-navy" : "text-muted"
+                isActive ? "text-primary" : "text-muted"
               )}
             >
               {stage.label}
@@ -49,7 +49,7 @@ export function PipelineVisual({ counts, activeStage, onStageClick }: PipelinePr
             <span
               className={cn(
                 "text-2xl font-mono font-medium",
-                isActive ? "text-navy" : "text-card-foreground"
+                isActive ? "text-primary" : "text-card-foreground"
               )}
             >
               {stage.count}

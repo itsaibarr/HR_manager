@@ -114,6 +114,13 @@ BEHAVIOR CONSTRAINTS
 - Prefer conservative scoring when evidence is weak.
 - If something is not explicitly stated, treat as "Not stated" - do not infer.
 
+REQUIRED EVIDENCE CITATION:
+- For every point in the "reasoning" array, you MUST cite specific evidence from the candidate's profile.
+- Use direct quotes where possible (e.g., "Candidate states: 'Managed a team of 5'").
+- Reference specific projects, companies, or years (e.g., "In the 'E-commerce Redesign' project at TechCorp...").
+- If a skill is missing, explicitly state "No evidence found for [Skill] in CV".
+- Vague statements like "The candidate has good experience" are UNACCEPTABLE. You must say "The candidate has 5 years of experience at [Company] working on [Topic]".
+
 This output will be reviewed by humans.`;
 
 /**

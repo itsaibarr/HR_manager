@@ -57,7 +57,7 @@ export function CreateJobModal({ isOpen, onClose, onCreate }: CreateJobModalProp
 
         <div className="space-y-4">
             <div className="space-y-2">
-            <label className="text-sm font-medium text-black-soft">Job Title</label>
+            <label className="text-sm font-medium text-primary">Job Title</label>
             <Input 
                 placeholder="e.g. Senior Product Designer" 
                 value={title}
@@ -68,7 +68,7 @@ export function CreateJobModal({ isOpen, onClose, onCreate }: CreateJobModalProp
 
             {isFullJd ? (
                 <div className="space-y-2">
-                <label className="text-sm font-medium text-black-soft">Job Description (Paste Full Text)</label>
+                <label className="text-sm font-medium text-primary">Job Description (Paste Full Text)</label>
                 <div className="text-xs text-gray-500 mb-1">We'll extract skills & requirements automatically.</div>
                 <Textarea 
                     placeholder="Paste the full job description here..." 
@@ -79,7 +79,7 @@ export function CreateJobModal({ isOpen, onClose, onCreate }: CreateJobModalProp
                 </div>
             ) : (
                 <div className="space-y-2">
-                <label className="text-sm font-medium text-black-soft">Short Summary</label>
+                <label className="text-sm font-medium text-primary">Short Summary</label>
                 <div className="text-xs text-gray-500 mb-1">We'll generate requirements based on the title and this summary.</div>
                 <Input 
                     placeholder="e.g. Looking for a senior designer with Fintech experience..." 

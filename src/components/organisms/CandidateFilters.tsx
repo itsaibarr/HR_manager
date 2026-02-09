@@ -11,6 +11,7 @@ export interface FilterState {
   search: string
   scoreBands: string[]
   skills: string[]
+  jobIds: string[]
   sortBy: 'score' | 'name' | 'date'
 }
 
@@ -18,6 +19,7 @@ interface CandidateFiltersProps {
   filters: FilterState
   onFiltersChange: (filters: FilterState) => void
   availableSkills: string[]
+  availableJobs: { id: string, title: string }[]
   totalCount: number
   filteredCount: number
 }
@@ -39,10 +41,12 @@ export function CandidateFilters({
   filters, 
   onFiltersChange, 
   availableSkills,
+  availableJobs,
   totalCount,
   filteredCount
 }: CandidateFiltersProps) {
   const [skillsDropdownOpen, setSkillsDropdownOpen] = useState(false)
+  const [jobsDropdownOpen, setJobsDropdownOpen] = useState(false)
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false)
 
   const toggleScoreBand = (band: string) => {
@@ -59,11 +63,19 @@ export function CandidateFilters({
     onFiltersChange({ ...filters, skills: newSkills })
   }
 
+  const toggleJob = (jobId: string) => {
+    const newJobs = filters.jobIds.includes(jobId)
+      ? filters.jobIds.filter(id => id !== jobId)
+      : [...filters.jobIds, jobId]
+    onFiltersChange({ ...filters, jobIds: newJobs })
+  }
+
   const clearFilters = () => {
     onFiltersChange({
       search: '',
       scoreBands: [],
       skills: [],
+      jobIds: [],
       sortBy: 'score'
     })
   }
@@ -72,36 +84,45 @@ export function CandidateFilters({
     (filters.search ? 1 : 0) +
     filters.scoreBands.length +
     filters.skills.length +
+    filters.jobIds.length +
     (filters.sortBy !== 'score' ? 1 : 0)
 
   return (
     <div className="space-y-3">
       {/* Filter Bar */}
-      <div className="flex items-center gap-2 p-3 bg-card border border-border rounded-sm">
+      <div className="flex items-center gap-3 p-2 bg-paper border border-border/80 rounded-sm">
         {/* Search */}
         <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted/60" />
           <Input
-            placeholder="Search by name or role..."
+            placeholder="Search candidates..."
             value={filters.search}
             onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
-            className="pl-9 h-9 text-sm"
+            className="pl-9 h-8 text-[13px] bg-transparent border-border/60"
           />
         </div>
 
+        <div className="h-4 w-px bg-border/60 mx-1" />
+
         {/* Score Band Chips */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           {SCORE_BANDS.map((band) => {
             const isActive = filters.scoreBands.includes(band.value)
+            const colorClass = 
+              band.value === 'strong' ? 'bg-strong-fit hover:bg-strong-fit/90' :
+              band.value === 'good' ? 'bg-good-fit hover:bg-good-fit/90' :
+              band.value === 'borderline' ? 'bg-borderline hover:bg-borderline/90' :
+              'bg-muted hover:bg-muted/90'
+
             return (
               <button
                 key={band.value}
                 onClick={() => toggleScoreBand(band.value)}
                 className={cn(
-                  "px-3 py-1.5 rounded text-xs font-medium transition-colors",
+                  "px-2.5 py-1 rounded-sm text-[10px] font-bold uppercase tracking-wider transition-all",
                   isActive
-                    ? `${band.color} text-white`
-                    : "border border-border bg-card text-muted hover:bg-accent hover:text-accent-foreground"
+                    ? `${colorClass} text-white`
+                    : "border border-border/60 bg-transparent text-muted hover:bg-accent/50 hover:text-primary"
                 )}
               >
                 {band.label}
@@ -110,19 +131,72 @@ export function CandidateFilters({
           })}
         </div>
 
+        <div className="h-4 w-px bg-border/60 mx-1" />
+
+        {/* Jobs Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setJobsDropdownOpen(!jobsDropdownOpen)}
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-[11px] font-semibold bg-transparent transition-all",
+              filters.jobIds.length > 0 ? "border-primary/30 text-primary bg-primary/5" : "text-muted hover:bg-accent/50"
+            )}
+          >
+            <span>Jobs</span>
+            {filters.jobIds.length > 0 && (
+              <span className="flex items-center justify-center w-4 h-4 bg-primary text-paper rounded-sm text-[9px] font-bold">
+                {filters.jobIds.length}
+              </span>
+            )}
+            <ChevronDown className={cn("w-3 h-3 transition-transform", jobsDropdownOpen ? "rotate-180" : "")} />
+          </button>
+
+          {jobsDropdownOpen && (
+            <>
+              <div 
+                className="fixed inset-0 z-10" 
+                onClick={() => setJobsDropdownOpen(false)}
+              />
+              <div className="absolute top-full left-0 mt-1 w-64 bg-popover border border-border rounded-sm shadow-lg z-20 max-h-64 overflow-y-auto">
+                {availableJobs.length === 0 ? (
+                  <div className="p-3 text-xs text-muted">No jobs available</div>
+                ) : (
+                  availableJobs.map((job) => (
+                    <label
+                      key={job.id}
+                      className="flex items-center gap-2 px-3 py-2 hover:bg-accent cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={filters.jobIds.includes(job.id)}
+                        onChange={() => toggleJob(job.id)}
+                        className="w-4 h-4 rounded border-gray-300"
+                      />
+                      <span className="text-xs text-card-foreground truncate">{job.title}</span>
+                    </label>
+                  ))
+                )}
+              </div>
+            </>
+          )}
+        </div>
+
         {/* Skills Dropdown */}
         <div className="relative">
           <button
             onClick={() => setSkillsDropdownOpen(!skillsDropdownOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 border border-border rounded text-xs font-medium bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
-          >
-            Skills
-            {filters.skills.length > 0 && (
-              <Badge variant="secondary" className="px-1.5 py-0 text-[10px] bg-navy text-white">
-                {filters.skills.length}
-              </Badge>
+            className={cn(
+              "flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-[11px] font-semibold bg-transparent transition-all",
+              filters.skills.length > 0 ? "border-primary/30 text-primary bg-primary/5" : "text-muted hover:bg-accent/50"
             )}
-            <ChevronDown className="w-3 h-3" />
+          >
+            <span>Skills</span>
+            {filters.skills.length > 0 && (
+              <span className="flex items-center justify-center w-4 h-4 bg-primary text-paper rounded-sm text-[9px] font-bold">
+                {filters.skills.length}
+              </span>
+            )}
+            <ChevronDown className={cn("w-3 h-3 transition-transform", skillsDropdownOpen ? "rotate-180" : "")} />
           </button>
 
           {skillsDropdownOpen && (
@@ -131,25 +205,27 @@ export function CandidateFilters({
                 className="fixed inset-0 z-10" 
                 onClick={() => setSkillsDropdownOpen(false)}
               />
-              <div className="absolute top-full left-0 mt-1 w-56 bg-popover border border-border rounded-sm shadow-lg z-20 max-h-64 overflow-y-auto">
-                {availableSkills.length === 0 ? (
-                  <div className="p-3 text-xs text-muted">No skills available</div>
-                ) : (
-                  availableSkills.map((skill) => (
-                    <label
-                      key={skill}
-                      className="flex items-center gap-2 px-3 py-2 hover:bg-accent cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={filters.skills.includes(skill)}
-                        onChange={() => toggleSkill(skill)}
-                        className="w-4 h-4 rounded border-gray-300"
-                      />
-                      <span className="text-xs text-card-foreground">{skill}</span>
-                    </label>
-                  ))
-                )}
+              <div className="absolute top-full left-0 mt-1 w-56 bg-paper border border-border rounded-sm shadow-xl z-20 max-h-64 overflow-y-auto">
+                <div className="p-1">
+                  {availableSkills.length === 0 ? (
+                    <div className="p-3 text-xs text-muted">No skills available</div>
+                  ) : (
+                    availableSkills.map((skill) => (
+                      <label
+                        key={skill}
+                        className="flex items-center gap-2 px-3 py-2 hover:bg-accent rounded-sm cursor-pointer group"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={filters.skills.includes(skill)}
+                          onChange={() => toggleSkill(skill)}
+                          className="w-3.5 h-3.5 rounded-sm border-border text-primary focus:ring-primary"
+                        />
+                        <span className="text-xs text-muted group-hover:text-primary transition-colors">{skill}</span>
+                      </label>
+                    ))
+                  )}
+                </div>
               </div>
             </>
           )}
@@ -159,10 +235,10 @@ export function CandidateFilters({
         <div className="relative">
           <button
             onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
-            className="flex items-center gap-2 px-3 py-1.5 border border-border rounded text-xs font-medium bg-card hover:bg-accent hover:text-accent-foreground transition-colors"
+            className="flex items-center gap-2 px-3 py-1.5 border border-border/60 rounded-sm text-[11px] font-semibold text-muted hover:bg-accent/50 transition-all"
           >
             Sort: {SORT_OPTIONS.find(o => o.value === filters.sortBy)?.label.split(' ')[0]}
-            <ChevronDown className="w-3 h-3" />
+            <ChevronDown className={cn("w-3 h-3 transition-transform", sortDropdownOpen ? "rotate-180" : "")} />
           </button>
 
           {sortDropdownOpen && (
@@ -171,7 +247,7 @@ export function CandidateFilters({
                 className="fixed inset-0 z-10" 
                 onClick={() => setSortDropdownOpen(false)}
               />
-              <div className="absolute top-full right-0 mt-1 w-48 bg-popover border border-border rounded-sm shadow-lg z-20">
+              <div className="absolute top-full right-0 mt-1 w-48 bg-paper border border-border rounded-sm shadow-xl z-20 p-1">
                 {SORT_OPTIONS.map((option) => (
                   <button
                     key={option.value}
@@ -180,8 +256,10 @@ export function CandidateFilters({
                       setSortDropdownOpen(false)
                     }}
                     className={cn(
-                      "w-full text-left px-3 py-2 text-xs hover:bg-accent hover:text-accent-foreground transition-colors",
-                      filters.sortBy === option.value ? "bg-accent/50 text-primary font-medium" : "text-card-foreground"
+                      "w-full text-left px-3 py-2 text-[11px] rounded-sm transition-all",
+                      filters.sortBy === option.value 
+                        ? "bg-accent text-primary font-bold" 
+                        : "text-muted hover:bg-accent/60 hover:text-primary"
                     )}
                   >
                     {option.label}
@@ -198,12 +276,12 @@ export function CandidateFilters({
             variant="ghost"
             size="sm"
             onClick={clearFilters}
-            className="h-9 px-3 text-xs text-muted hover:text-card-foreground"
+            className="h-8 px-2 text-[11px] text-muted hover:text-primary"
           >
             Clear
-            <Badge variant="secondary" className="ml-2 px-1.5 py-0 text-[10px]">
+            <span className="ml-1.5 px-1 bg-accent text-[9px] font-bold rounded-sm border border-border/60">
               {activeFilterCount}
-            </Badge>
+            </span>
           </Button>
         )}
 

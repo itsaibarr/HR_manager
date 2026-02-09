@@ -2,20 +2,21 @@
 
 @theme {
   /* Colors - referencing CSS variables for dark mode support */
-  --color-navy: var(--navy);
+  --color-primary: var(--primary);
+  --color-navy: var(--primary); /* Maintain alias for compatibility */
   --color-paper: var(--paper);
   --color-cream: var(--cream);
   --color-muted: var(--muted);
   --color-black-soft: var(--black-soft);
   
-  --color-strong-fit: #16A34A;
-  --color-good-fit: #2563EB;
+  --color-strong-fit: #10B981; /* Emerald 500 */
+  --color-good-fit: #3B82F6; /* Blue 500 */
   --color-border: var(--border);
   --color-border-hover: var(--border-hover);
-  --color-borderline: #CA8A04;
+  --color-borderline: #F59E0B; /* Amber 500 */
   --color-amber-warning: #F59E0B;
   --color-teal-success: #10B981;
-  --color-reject: #DC2626;
+  --color-reject: #EF4444; /* Red 500 */
 
   /* Typography */
   --font-sora: var(--font-sora);
@@ -33,8 +34,9 @@
   --spacing-32: 2rem;
   
   /* Radius */
-  --radius-sm: 2px;
-  --radius-md: 4px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
 
   /* Component Colors */
   --color-card: var(--card);
@@ -50,51 +52,54 @@
 /* Custom Utilities */
 @layer utilities {
   .paper-shadow {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+  .subtle-border {
+    @apply border border-border/60;
   }
 }
 
 /* Theme Variables */
 :root {
-  /* Light Theme (Default) */
-  --navy: #3D5A80;
-  --paper: #F7F6F3;
-  --cream: #FAF9F6; /* Sidebar/Cards background in light */
-  --muted: #9CA3AF;
-  --black-soft: #2D2D2D;
-  --border: #E8E6E1;
-  --border-hover: #D1D5DB;
+  /* High-end Neutral Palette (Light) */
+  --primary: #09090B; /* Zinc 950 */
+  --paper: #FFFFFF;
+  --cream: #FBFBFA;
+  --muted: #71717A; /* Zinc 500 */
+  --black-soft: #18181B; /* Zinc 900 */
+  --border: #E4E4E7; /* Zinc 200 */
+  --border-hover: #D4D4D8; /* Zinc 300 */
 
   /* Component Colors */
   --card: #FFFFFF;
-  --card-foreground: #2D2D2D;
+  --card-foreground: #18181B;
   --popover: #FFFFFF;
-  --popover-foreground: #2D2D2D;
+  --popover-foreground: #18181B;
   --input-bg: #FFFFFF;
-  --muted-foreground: #6B7280;
-  --accent: #F4F4F5;
-  --accent-foreground: #2D2D2D;
+  --muted-foreground: #71717A;
+  --accent: #F4F4F5; /* Zinc 100 */
+  --accent-foreground: #18181B;
 }
 
 .dark {
-  /* Dark Theme */
-  --navy: #4A6FA5; /* Adjusted for better contrast with white text */
-  --paper: #0B0E14; /* Deep dark background */
-  --cream: #151A23; /* Slightly lighter for cards/sidebar */
-  --muted: #9CA3AF; /* Keep muted same or slightly lighter */
-  --black-soft: #F1F5F9; /* Text becomes light */
-  --border: #2A303C;
-  --border-hover: #4B5563;
+  /* High-end Neutral Palette (Dark) */
+  --primary: #FAFAFA; /* Zinc 50 */
+  --paper: #09090B; /* Zinc 950 */
+  --cream: #121214; 
+  --muted: #A1A1AA; /* Zinc 400 */
+  --black-soft: #FAFAFA; 
+  --border: #27272A; /* Zinc 800 */
+  --border-hover: #3F3F46; /* Zinc 700 */
 
   /* Component Colors Dark */
-  --card: #151A23;
-  --card-foreground: #F1F5F9;
-  --popover: #151A23;
-  --popover-foreground: #F1F5F9;
-  --input-bg: #0F1218; /* Slightly darker than card */
-  --muted-foreground: #9CA3AF;
-  --accent: #1F2937;
-  --accent-foreground: #F1F5F9;
+  --card: #0C0C0E;
+  --card-foreground: #FAFAFA;
+  --popover: #0C0C0E;
+  --popover-foreground: #FAFAFA;
+  --input-bg: #09090B;
+  --muted-foreground: #A1A1AA;
+  --accent: #18181B; /* Zinc 900 */
+  --accent-foreground: #FAFAFA;
 }
 
 body {

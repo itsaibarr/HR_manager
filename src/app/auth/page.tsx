@@ -12,9 +12,9 @@ export default function AuthPage() {
     <div className="min-h-screen grid lg:grid-cols-2">
       
       {/* Left: Visual */}
-      <div className="hidden lg:flex flex-col bg-navy items-center justify-center relative overflow-hidden">
+      <div className="hidden lg:flex flex-col bg-primary items-center justify-center relative overflow-hidden">
          {/* Pattern Circle */}
-         <div className="absolute w-[400px] h-[400px] bg-white opacity-10 rounded-full blur-none" />
+         <div className="absolute w-[400px] h-[400px] bg-white opacity-10 rounded-sm blur-none" />
          
          <div className="relative z-10 text-center space-y-6">
             <h1 className="text-4xl font-normal font-sora text-white">HR Screen</h1>
@@ -24,7 +24,7 @@ export default function AuthPage() {
       {/* Right: Form */}
       <div className="flex items-center justify-center p-8 bg-paper">
          <div className="w-full max-w-md space-y-8">
-            <Link href="/" className="inline-flex items-center text-sm text-muted hover:text-navy mb-8">
+            <Link href="/" className="inline-flex items-center text-sm text-muted hover:text-primary mb-8">
                 <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
             </Link>
             

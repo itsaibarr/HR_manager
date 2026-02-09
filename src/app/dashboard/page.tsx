@@ -4,6 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { Briefcase, Plus, MoreVertical, Edit2, Trash2, Power } from "lucide-react"
 import { motion } from "framer-motion"
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
 
 const container = {
   hidden: { opacity: 0 },
@@ -47,6 +48,7 @@ export default function JobsPage() {
   const [isLoading, setIsLoading] = React.useState(true)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [editingJob, setEditingJob] = React.useState<JobData | null>(null)
+  const [jobToDelete, setJobToDelete] = React.useState<string | null>(null) // Added state for jobToDelete
   const supabase = createClient()
   const { toasts, showToast, dismissToast } = useToast()
 
@@ -131,12 +133,15 @@ export default function JobsPage() {
   }
 
   const handleDeleteJob = async (jobId: string) => {
-    if (!confirm('Are you sure you want to delete this job context? This will also remove all candidate evaluations.')) {
-      return
-    }
-    
+    // Open confirmation dialog
+    setJobToDelete(jobId)
+  }
+
+  const confirmDeleteJob = async () => {
+    if (!jobToDelete) return
+
     try {
-      const res = await fetch(`/api/jobs/${jobId}`, {
+      const res = await fetch(`/api/jobs/${jobToDelete}`, {
         method: 'DELETE'
       })
       if (res.ok) {
@@ -148,6 +153,8 @@ export default function JobsPage() {
     } catch (e) {
       console.error("Failed to delete job", e)
       showToast('Failed to delete job context', 'error')
+    } finally {
+      setJobToDelete(null)
     }
   }
 
@@ -233,21 +240,33 @@ export default function JobsPage() {
         onSubmit={handleModalSubmit}
         editingJob={editingJob}
       />
+
+      <ConfirmDialog
+        isOpen={!!jobToDelete}
+        onClose={() => setJobToDelete(null)}
+        onConfirm={confirmDeleteJob}
+        title="Delete Job Context"
+        description="Are you sure you want to delete this job context? This will also remove all candidate evaluations. This action cannot be undone."
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   )
 }
 
 function EmptyState({ onCreate }: { onCreate: () => void }) {
   return (
-    <div className="flex flex-col items-center justify-center p-12 bg-white rounded-lg border border-border text-center space-y-4 min-h-[400px]">
-      <div className="w-16 h-16 bg-cream rounded-full flex items-center justify-center mb-2">
-        <Briefcase className="w-8 h-8 text-black-soft/20" />
+    <div className="flex flex-col items-center justify-center p-12 bg-paper rounded-sm border border-border/80 text-center space-y-4 min-h-[400px]">
+      <div className="w-14 h-14 bg-accent/40 rounded-sm flex items-center justify-center mb-2">
+        <Briefcase className="w-6 h-6 text-muted/60" />
       </div>
-      <h3 className="text-xl font-sora font-semibold text-black-soft">No Jobs Yet</h3>
-      <p className="text-muted text-sm max-w-sm">
-        Create your first job context to start screening candidates.
-      </p>
-      <Button className="mt-4" onClick={onCreate}>
+      <div className="space-y-1">
+        <h3 className="text-lg font-sora font-semibold text-primary">No Jobs Yet</h3>
+        <p className="text-muted text-sm max-w-[280px] mx-auto leading-relaxed">
+          Create your first job context to start screening candidates with AI.
+        </p>
+      </div>
+      <Button className="mt-2" onClick={onCreate}>
         <Plus className="w-4 h-4 mr-2" />
         Create Job Context
       </Button>
@@ -264,19 +283,19 @@ interface JobCardProps {
 
 function JobCard({ job, onEdit, onDelete, onToggleStatus }: JobCardProps) {
   return (
-    <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }}>
-    <Card className={`hover:shadow-lg transition-all duration-300 h-full group ${!job.is_active ? 'opacity-60' : ''}`}>
-      <CardContent className="p-6 space-y-6">
+    <motion.div>
+    <Card className={`subtle-border hover:border-primary/30 transition-all duration-200 h-full group bg-card ${!job.is_active ? 'opacity-60' : ''}`}>
+      <CardContent className="p-5 space-y-4">
         <div className="flex justify-between items-start">
           <Link href={`/dashboard/${job.id}`} className="flex-1">
-            <h3 className="font-sora font-semibold text-lg text-black-soft group-hover:text-navy transition-colors">
+            <h3 className="font-sora font-extrabold text-base text-primary tracking-tight group-hover:text-primary/70 transition-colors leading-tight">
               {job.title}
             </h3>
           </Link>
           <DropdownMenu
             trigger={
-              <button className="p-2 hover:bg-accent rounded-md transition-colors group-hover:block">
-                <MoreVertical className="w-5 h-5 text-muted-foreground hover:text-accent-foreground" />
+              <button className="p-2 hover:bg-accent rounded-sm transition-all duration-200 opacity-40 group-hover:opacity-100">
+                <MoreVertical className="w-5 h-5 text-muted hover:text-primary" />
               </button>
             }
           >
@@ -302,24 +321,23 @@ function JobCard({ job, onEdit, onDelete, onToggleStatus }: JobCardProps) {
           </DropdownMenu>
         </div>
 
-        <Link href={`/dashboard/${job.id}`} className="block">
-          <div className="flex gap-4">
-            <div className="flex flex-col gap-1">
-              <span className="font-mono text-xl font-medium text-black-soft">
-                {job.candidatesCount}
-              </span>
-              <span className="text-xs text-muted font-sora">Candidates</span>
-            </div>
+        <Link href={`/dashboard/${job.id}`} className="block space-y-4">
+          <div className="flex items-baseline gap-2">
+            <span className="font-mono text-2xl font-semibold text-primary">
+              {job.candidatesCount}
+            </span>
+            <span className="text-[10px] uppercase tracking-wider text-muted font-bold">Candidates</span>
           </div>
 
-          <div className="flex justify-between items-center pt-2 border-t border-border/50 mt-4">
+          <div className="flex justify-between items-center pt-3 border-t border-border/40">
             <Badge 
               variant={job.is_active ? "fit-strong" : "outline"}
+              className="text-[9px] px-1.5 py-0"
             >
               {job.is_active ? 'Active' : 'Inactive'}
             </Badge>
-            <span className="text-xs text-muted font-sora">
-              {new Date(job.created_at).toLocaleDateString()}
+            <span className="text-[10px] font-mono text-muted/80">
+              {new Date(job.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
           </div>
         </Link>

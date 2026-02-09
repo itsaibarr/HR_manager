@@ -22,13 +22,30 @@ export function useTheme() {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = React.useState<Theme>("system")
-  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">("light")
+  // Initialize from localStorage immediately to match the blocking script
+  const [theme, setThemeState] = React.useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('theme') as Theme) || 'system'
+    }
+    return 'system'
+  })
+  
+  const [resolvedTheme, setResolvedTheme] = React.useState<"light" | "dark">(() => {
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme') as Theme || 'system'
+      if (savedTheme === 'system') {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      }
+      return savedTheme as "light" | "dark"
+    }
+    return 'light'
+  })
+  
   const supabase = createClient()
 
-  // Load theme from user preferences on mount
+  // Sync with Supabase in the background (non-blocking)
   React.useEffect(() => {
-    const loadTheme = async () => {
+    const syncTheme = async () => {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
 
@@ -38,11 +55,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         .eq("id", user.id)
         .single()
       
-      if (profile?.preferences?.theme) {
-        setThemeState(profile.preferences.theme as Theme)
+      // Only update if Supabase has a different preference
+      const prefs = profile?.preferences as Record<string, any> | null
+      if (prefs?.theme && prefs.theme !== theme) {
+        const supabaseTheme = prefs.theme as Theme
+        setThemeState(supabaseTheme)
+        localStorage.setItem('theme', supabaseTheme)
       }
     }
-    loadTheme()
+    syncTheme()
   }, [supabase])
 
   // Handle system theme changes
@@ -72,7 +93,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setTheme = React.useCallback(async (newTheme: Theme) => {
     setThemeState(newTheme)
     
-    // Persist to database
+    // Persist to localStorage immediately
+    localStorage.setItem('theme', newTheme)
+    
+    // Sync to Supabase in background
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
       const { data: profile } = await supabase
@@ -81,7 +105,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         .eq("id", user.id)
         .single()
       
-      const currentPrefs = profile?.preferences || {}
+      const currentPrefs = (profile?.preferences as Record<string, any>) || {}
       await supabase
         .from("profiles")
         .update({ 

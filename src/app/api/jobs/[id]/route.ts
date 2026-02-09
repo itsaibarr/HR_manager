@@ -97,10 +97,15 @@ export async function DELETE(
     }
 
     // First delete related evaluations
-    await supabase
+    const { error: evalError } = await supabase
       .from('evaluations')
       .delete()
       .eq('job_context_id', id);
+
+    if (evalError) {
+      console.error('Database error (evaluations):', evalError);
+      return NextResponse.json({ error: 'Failed to delete related evaluations' }, { status: 500 });
+    }
 
     // Then delete the job context
     const { error } = await supabase

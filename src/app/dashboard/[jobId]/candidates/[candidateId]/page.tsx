@@ -54,7 +54,7 @@ export default function CandidateDetailPage({
       <div className="flex-1 flex flex-col min-w-0 p-8 space-y-8">
         
         {/* Back Nav */}
-        <Link href={`/dashboard/${jobId}`} className="flex items-center text-sm text-muted hover:text-navy transition-colors">
+        <Link href={`/dashboard/${jobId}`} className="flex items-center text-sm text-muted hover:text-primary transition-colors">
           <ChevronLeft className="w-4 h-4 mr-1" />
           Back to Dashboard
         </Link>
@@ -66,7 +66,7 @@ export default function CandidateDetailPage({
               <AvatarFallback>CA</AvatarFallback>
             </Avatar>
             <div className="space-y-1">
-              <h1 className="text-2xl font-sora font-bold text-black-soft">Candidate {candidateId.substring(0,6)}</h1>
+              <h1 className="text-2xl font-sora font-bold text-primary">Candidate {candidateId.substring(0,6)}</h1>
               <p className="text-muted text-sm">
                   {profile.experience?.[0]?.title} • {profile.experience?.length || 0} roles
               </p>
@@ -100,7 +100,7 @@ export default function CandidateDetailPage({
                     <CardHeader>
                         <CardTitle className="text-lg">AI Analysis</CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-4 text-sm leading-relaxed text-black-soft">
+                    <CardContent className="space-y-4 text-sm leading-relaxed text-primary">
                         <ul className="space-y-2">
                             {data.reasoning?.map((r: string, i: number) => (
                                 <li key={i} className="flex gap-2 items-start">
@@ -141,8 +141,8 @@ export default function CandidateDetailPage({
                          <CardTitle className="text-base">Source Documents</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                        <div className="flex items-center gap-3 p-3 border border-border rounded-md hover:bg-paper cursor-pointer transition-colors">
-                            <FileText className="w-8 h-8 text-navy" />
+                        <div className="flex items-center gap-3 p-3 border border-border rounded-sm hover:bg-paper cursor-pointer transition-colors">
+                            <FileText className="w-8 h-8 text-primary" />
                             <div className="flex flex-col overflow-hidden">
                                 <span className="text-sm font-medium truncate">Resume</span>
                                 <span className="text-xs text-muted">Original Text</span>
@@ -164,12 +164,12 @@ function ScoreRow({ label, score, max }: { label: string, score: number, max: nu
     return (
         <div className="space-y-1">
             <div className="flex justify-between text-sm">
-                <span className="font-medium text-black-soft">{label}</span>
+                <span className="font-medium text-primary">{label}</span>
                 <span className="font-mono text-muted">{score}/{max}</span>
             </div>
-            <div className="h-2 w-full bg-paper rounded-full overflow-hidden">
+            <div className="h-2 w-full bg-paper rounded-sm overflow-hidden">
                 <div 
-                    className="h-full bg-navy rounded-full" 
+                    className="h-full bg-primary rounded-sm" 
                     style={{ width: `${fillPercent}%` }}
                 />
             </div>

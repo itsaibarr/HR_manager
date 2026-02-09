@@ -13,12 +13,28 @@ export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
   const supabase = createClient()
+  const [userProfile, setUserProfile] = React.useState<{ full_name: string | null; email: string } | null>(null)
+
+  React.useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('full_name, email')
+          .eq('id', user.id)
+          .single()
+        
+        setUserProfile(profile || { full_name: null, email: user.email! })
+      }
+    }
+    getUser()
+  }, [supabase])
 
   const navItems = [
-    { icon: Home, label: "Home", href: "/dashboard" },
     { icon: Briefcase, label: "Jobs", href: "/dashboard" },
     { icon: Users, label: "Candidates", href: "/candidates" },
-    { icon: Settings, label: "Settings", href: "/settings" },
+    { icon: User, label: "Profile", href: "/dashboard/profile" },
   ]
 
   const handleSignOut = async () => {
@@ -26,56 +42,70 @@ export function Sidebar() {
     router.push("/auth")
   }
 
+  const initials = userProfile?.full_name 
+    ? userProfile.full_name.split(' ').map(n => n[0]).join('').substring(0, 2)
+    : userProfile?.email?.charAt(0).toUpperCase() || 'U'
+
   return (
-    <div className="flex flex-col w-14 h-screen bg-card border-r border-border items-center py-4 gap-4 fixed left-0 top-0 z-50">
+    <div className="flex flex-col w-14 h-screen bg-paper border-r border-border/60 items-center py-6 gap-6 fixed left-0 top-0 z-50">
       {/* Logo */}
-      <Link href="/dashboard" className="w-8 h-8 bg-navy rounded-sm flex items-center justify-center mb-4">
-        <span className="text-white font-sora font-bold text-xs">HR</span>
+      <Link href="/dashboard" className="w-10 h-10 bg-primary rounded-sm flex items-center justify-center mb-2 transition-all hover:scale-105 active:scale-95 group">
+        <span className="text-paper font-sora font-extrabold text-[11px] tracking-tighter group-hover:tracking-normal transition-all">HR</span>
       </Link>
 
       {/* Nav */}
-      <nav className="flex flex-col gap-2 w-full items-center">
+      <nav className="flex flex-col gap-3 w-full items-center">
         {navItems.map((item) => {
           const isActive = pathname === item.href || 
-            (item.href === "/dashboard" && pathname.startsWith("/dashboard"))
+            (item.href === "/dashboard" && pathname === "/dashboard") ||
+            (item.href !== "/dashboard" && pathname.startsWith(item.href))
           
           return (
             <Link
               key={item.label}
               href={item.href}
               className={cn(
-                "w-10 h-10 flex items-center justify-center rounded-md transition-colors",
+                "w-10 h-10 flex items-center justify-center rounded-sm transition-all relative group",
                 isActive
-                  ? "bg-accent text-accent-foreground" 
-                  : "text-muted hover:text-foreground hover:bg-accent/50"
+                  ? "text-primary bg-accent/60" 
+                  : "text-muted/60 hover:text-primary hover:bg-accent/40"
               )}
               title={item.label}
             >
-              <item.icon className="w-5 h-5" strokeWidth={2} />
+              <item.icon className="w-[18px] h-[18px]" strokeWidth={isActive ? 2 : 1.5} />
+              {isActive && (
+                <div className="absolute left-0 w-[2.5px] h-4 bg-primary rounded-r-full" />
+              )}
             </Link>
           )
         })}
       </nav>
 
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col items-center gap-4">
         <DropdownMenu
           trigger={
-            <button className="w-10 h-10 flex items-center justify-center text-muted hover:bg-accent hover:text-accent-foreground rounded-md transition-colors">
-              <User className="w-5 h-5" />
+            <button className="w-10 h-10 flex items-center justify-center rounded-sm transition-all border border-transparent hover:border-border/60 hover:bg-accent/50 group overflow-hidden">
+               <div className="w-7 h-7 bg-primary text-paper rounded-sm flex items-center justify-center text-[10px] font-mono font-bold uppercase">
+                  {initials}
+               </div>
             </button>
           }
           align="left"
         >
-          <DropdownItem onClick={() => router.push("/settings")}>
+          <div className="px-3 py-2 border-b border-border/40 mb-1">
+             <p className="text-[10px] font-bold text-primary truncate leading-tight">{userProfile?.full_name || 'User Account'}</p>
+             <p className="text-[9px] text-muted truncate">{userProfile?.email}</p>
+          </div>
+          <DropdownItem onClick={() => router.push("/dashboard/profile")}>
             <span className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
-              Settings
+              <User className="w-3.5 h-3.5" />
+              Profile Settings
             </span>
           </DropdownItem>
           <DropdownSeparator />
           <DropdownItem onClick={handleSignOut} variant="destructive">
             <span className="flex items-center gap-2">
-              <LogOut className="w-4 h-4" />
+              <LogOut className="w-3.5 h-3.5" />
               Sign Out
             </span>
           </DropdownItem>

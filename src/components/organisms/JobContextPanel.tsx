@@ -51,7 +51,7 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
               {job.original_description && job.original_description.length > 200 && (
                 <button
                   onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                  className="text-xs text-navy hover:underline mt-2"
+                  className="text-xs text-primary hover:underline mt-2"
                 >
                   {isDescriptionExpanded ? 'Show less' : 'Show more'}
                 </button>
@@ -62,7 +62,7 @@ export function JobContextPanel({ job }: JobContextPanelProps) {
 
         {/* Requirements */}
         <section className="space-y-4 pt-4 border-t border-border">
-          <h3 className="text-xs font-semibold text-black-soft uppercase tracking-wider">
+          <h3 className="text-xs font-semibold text-primary uppercase tracking-wider">
             Requirements
           </h3>
           

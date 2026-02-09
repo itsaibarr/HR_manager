@@ -81,7 +81,7 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-black-soft">Job Title</label>
+            <label className="text-sm font-medium text-primary">Job Title</label>
             <Input 
               placeholder="e.g. Senior Product Designer" 
               value={title}
@@ -92,7 +92,7 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
 
           {(isFullJd || isEditing) ? (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-black-soft">
+              <label className="text-sm font-medium text-primary">
                 {isEditing ? "Job Description" : "Job Description (Paste Full Text)"}
               </label>
               <div className="text-xs text-gray-500 mb-1">
@@ -110,7 +110,7 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
             </div>
           ) : (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-black-soft">Short Summary</label>
+              <label className="text-sm font-medium text-primary">Short Summary</label>
               <div className="text-xs text-gray-500 mb-1">We'll generate requirements based on the title and this summary.</div>
               <Input 
                 placeholder="e.g. Looking for a senior designer with Fintech experience..." 

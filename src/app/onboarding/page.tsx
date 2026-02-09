@@ -7,10 +7,10 @@ import { Input } from "@/components/ui/input"
 export default function OnboardingPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-paper p-4">
-      <div className="max-w-[480px] w-full bg-white rounded-sm shadow-lg border border-border/50 p-12 space-y-8">
+      <div className="max-w-[480px] w-full bg-paper rounded-sm border border-border/60 p-12 space-y-8">
         <div className="text-center space-y-2">
-            <div className="w-12 h-12 bg-navy rounded-sm mx-auto flex items-center justify-center mb-4">
-                 <span className="text-white font-bold text-sm">HR</span>
+            <div className="w-12 h-12 bg-primary rounded-sm mx-auto flex items-center justify-center mb-4">
+                 <span className="text-paper font-bold text-sm">HR</span>
             </div>
             <h2 className="text-2xl font-bold font-sora">Create Workspace</h2>
             <p className="text-muted">
@@ -20,15 +20,15 @@ export default function OnboardingPage() {
         
         <div className="space-y-4">
             <div className="space-y-2">
-                <label className="text-sm font-medium text-black-soft">Company Name</label>
+                <label className="text-sm font-medium text-primary">Company Name</label>
                 <Input placeholder="Acme Inc." />
             </div>
             <div className="space-y-2">
-                <label className="text-sm font-medium text-black-soft">Industry</label>
+                <label className="text-sm font-medium text-primary">Industry</label>
                 <Input placeholder="e.g. Technology, Healthcare" />
             </div>
              <div className="space-y-2">
-                <label className="text-sm font-medium text-black-soft">Role</label>
+                <label className="text-sm font-medium text-primary">Role</label>
                 <Input placeholder="e.g. HR Manager" />
             </div>
         </div>

@@ -43,7 +43,7 @@ export function AuthForm() {
   return (
     <div className="space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold font-sora text-navy">
+        <h1 className="text-3xl font-bold font-sora text-primary">
           {isLogin ? "Welcome Back" : "Create Account"}
         </h1>
         <p className="text-muted">
@@ -56,18 +56,18 @@ export function AuthForm() {
       <form action={handleSubmit} className="space-y-4">
         {!isLogin && (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-black-soft">
+            <label className="text-sm font-medium text-primary">
               Full Name
             </label>
             <Input name="name" placeholder="John Doe" required />
           </div>
         )}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-black-soft">Email</label>
+          <label className="text-sm font-medium text-primary">Email</label>
           <Input name="email" placeholder="name@company.com" type="email" required />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-black-soft">
+          <label className="text-sm font-medium text-primary">
             Password
           </label>
           <Input name="password" placeholder="••••••••" type="password" required />
@@ -112,7 +112,7 @@ export function AuthForm() {
             setError(null);
             setSuccess(null);
           }}
-          className="font-semibold text-navy hover:underline"
+          className="font-semibold text-primary hover:underline"
         >
           {isLogin ? "Sign up" : "Log in"}
         </button>

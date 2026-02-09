@@ -2,24 +2,27 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "secondary" | "destructive" | "outline" | "fit-strong" | "fit-good" | "fit-borderline"
+  variant?: "default" | "secondary" | "destructive" | "outline" | "fit-strong" | "fit-good" | "fit-borderline" | "shortlisted" | "interviewing" | "offered"
 }
 
 function Badge({ className, variant = "default", ...props }: BadgeProps) {
   const variants = {
-    default: "border-transparent bg-navy text-white hover:bg-navy/80",
-    secondary: "border-transparent bg-cream text-black-soft hover:bg-cream/80 dark:bg-muted/30 dark:text-muted-foreground dark:hover:bg-muted/40",
-    destructive: "border-transparent bg-red-600 text-white hover:bg-red-600/80",
-    outline: "text-black-soft border-border dark:text-gray-300 dark:border-gray-700",
-    "fit-strong": "border-transparent bg-green-100 text-green-800 hover:bg-green-100/80 dark:bg-green-600 dark:text-white hover:dark:bg-green-700",
-    "fit-good": "border-transparent bg-blue-100 text-blue-800 hover:bg-blue-100/80 dark:bg-blue-600 dark:text-white hover:dark:bg-blue-700",
-    "fit-borderline": "border-transparent bg-yellow-100 text-yellow-800 hover:bg-yellow-100/80 dark:bg-yellow-600 dark:text-white hover:dark:bg-yellow-700",
+    default: "border-transparent bg-primary text-paper",
+    secondary: "border border-border/60 bg-accent text-primary dark:bg-accent/40 dark:text-accent-foreground",
+    destructive: "border-transparent bg-reject/10 text-reject border border-reject/20",
+    outline: "text-muted border-border font-medium",
+    "fit-strong": "border-strong-fit/20 bg-strong-fit/5 text-strong-fit border",
+    "fit-good": "border-good-fit/20 bg-good-fit/5 text-good-fit border",
+    "fit-borderline": "border-borderline/20 bg-borderline/5 text-borderline border",
+    "shortlisted": "border-primary/20 bg-primary/5 text-primary border",
+    "interviewing": "border-purple-500/20 bg-purple-500/10 text-purple-700 dark:text-purple-400 border",
+    "offered": "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border",
   }
 
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-sm border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+        "inline-flex items-center rounded-xs px-2.5 py-1 text-[11px] font-medium transition-colors focus:outline-none focus:ring-1 focus:ring-primary focus:ring-offset-1",
         variants[variant],
         className
       )}

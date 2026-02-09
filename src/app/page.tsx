@@ -10,24 +10,24 @@ export default function LandingPage() {
       <header className="px-6 lg:px-8 h-20 flex items-center justify-between bg-transparent sticky top-0 z-50">
         {/* Left: Logo */}
         <div className="flex items-center gap-3 z-20">
-           <div className="w-8 h-8 bg-navy rounded-sm flex items-center justify-center">
-             <span className="text-white font-bold text-xs">HR</span>
+           <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+             <span className="text-paper font-bold text-xs font-mono">HR</span>
            </div>
-           <span className="font-normal text-xl text-black-soft hidden sm:block">HR Screen</span>
+           <span className="font-extrabold text-xl text-primary font-sora tracking-tighter">HR SCREEN</span>
         </div>
 
         {/* Center: Nav Options */}
-        <nav className="hidden md:flex gap-8 text-sm font-medium text-black-soft absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-            <Link href="#features" className="hover:text-navy">Features</Link>
-            <Link href="#" className="hover:text-navy">Pricing</Link>
-            <Link href="#" className="hover:text-navy">About</Link>
+        <nav className="hidden md:flex gap-8 text-sm font-medium text-primary absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <Link href="#features" className="hover:text-primary">Features</Link>
+            <Link href="#" className="hover:text-primary">Pricing</Link>
+            <Link href="#" className="hover:text-primary">About</Link>
         </nav>
 
         {/* Right: Auth */}
         <div className="flex gap-4 items-center z-20">
-            <Link href="/auth" className="text-sm font-medium text-navy hover:text-navy/80">Log in</Link>
+            <Link href="/auth" className="text-sm font-bold text-primary hover:text-primary/70 uppercase tracking-widest text-[11px]">Log in</Link>
             <Link href="/auth">
-                <Button className="bg-navy text-white rounded-sm px-6 h-10">Get Started</Button>
+                <Button className="bg-primary text-paper rounded-sm px-6 h-10 font-bold uppercase tracking-widest text-[11px]">Get Started</Button>
             </Link>
         </div>
       </header>
@@ -37,7 +37,7 @@ export default function LandingPage() {
         <section className="pt-12 pb-24 px-6 lg:px-8 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center relative">
             {/* Left Column: Text */}
             <div className="flex flex-col items-start text-left space-y-6 max-w-2xl relative z-10">
-                <h1 className="text-5xl md:text-[56px] font-normal tracking-tight text-black-soft leading-[1.1] font-sora">
+                <h1 className="text-5xl md:text-[56px] font-normal tracking-tight text-primary leading-[1.1] font-sora">
                     Intelligent Screening for <br/>
                     Modern Teams
                 </h1>
@@ -49,7 +49,7 @@ export default function LandingPage() {
                         <Button size="lg" className="h-14 px-8 text-base rounded-sm bg-reject hover:bg-reject/90 text-white border-none shadow-none">Start Free Trial</Button>
                     </Link>
                     <Link href="#features">
-                        <Button variant="ghost" size="lg" className="h-14 px-8 text-base rounded-sm text-black-soft hover:bg-transparent hover:text-navy">View Demo</Button>
+                        <Button variant="ghost" size="lg" className="h-14 px-8 text-base rounded-sm text-primary hover:bg-transparent hover:text-primary">View Demo</Button>
                     </Link>
                 </div>
             </div>
@@ -57,14 +57,14 @@ export default function LandingPage() {
             {/* Right Column: Visuals (Exact Shapes from Design) */}
             <div className="relative h-[500px] w-full hidden lg:block">
                 <div className="relative w-full h-full">
-                    {/* Gray Circle (lShape1) */}
-                    <div className="absolute top-[50px] right-[50px] w-[400px] h-[400px] bg-[#E5E7EB] rounded-full z-0 opacity-50" />
+                    {/* Minimalist Shapes */}
+                    <div className="absolute top-[50px] right-[50px] w-[400px] h-[400px] bg-accent/20 border border-border/40 rounded-sm z-0" />
                     
-                    {/* Red Accent Circle (lShape3) */}
-                    <div className="absolute top-0 right-[100px] w-[150px] h-[150px] bg-reject rounded-full z-10 opacity-90 shadow-lg" />
+                    {/* Precision Marker */}
+                    <div className="absolute top-0 right-[100px] w-[150px] h-[150px] bg-reject/10 border border-reject/30 rounded-sm z-10" />
 
-                    {/* Navy Rectangle (lShape2) */}
-                    <div className="absolute bottom-[50px] left-[50px] w-[300px] h-[200px] bg-navy rounded-sm z-20 shadow-xl" />
+                    {/* Primary Focus */}
+                    <div className="absolute bottom-[50px] left-[50px] w-[300px] h-[200px] bg-primary rounded-sm z-20 border border-primary/20" />
                 </div>
             </div>
         </section>
@@ -101,7 +101,7 @@ export default function LandingPage() {
 function FeatureCard({ icon: Icon, title, desc }: { icon: any, title: string, desc: string }) {
     return (
         <div className="flex flex-col items-start text-left bg-cream/50 rounded-sm h-full px-6 py-12">
-            <h3 className="text-xl font-normal text-black-soft font-sora mb-2">{title}</h3>
+            <h3 className="text-xl font-normal text-primary font-sora mb-2">{title}</h3>
             <p className="text-sm max-w-[300px] text-muted leading-relaxed font-sora">{desc}</p>
         </div>
     )

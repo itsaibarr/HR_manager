@@ -11,24 +11,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", ...props }, ref) => {
     
     const variants = {
-      default: "bg-navy text-white hover:bg-navy/90 shadow-sm",
-      secondary: "bg-cream text-black-soft hover:bg-cream/80 dark:bg-accent dark:text-accent-foreground dark:hover:bg-accent/80",
-      outline: "border border-border bg-transparent hover:bg-cream/50 text-black-soft",
-      ghost: "hover:bg-cream/50 text-black-soft",
-      destructive: "bg-red-600 text-white hover:bg-red-600/90",
+      default: "bg-primary text-paper hover:bg-primary/90 transition-all active:scale-[0.98]",
+      secondary: "bg-accent text-primary hover:bg-accent/80 dark:bg-accent/10 dark:text-accent-foreground",
+      outline: "border border-border bg-transparent hover:bg-accent/50 text-primary",
+      ghost: "hover:bg-accent/50 text-muted hover:text-primary",
+      destructive: "bg-reject text-white hover:bg-reject/90",
     }
 
     const sizes = {
-      default: "h-10 px-4 py-2",
-      sm: "h-9 rounded-md px-3",
-      lg: "h-11 rounded-md px-8",
-      icon: "h-10 w-10",
+      default: "h-9 px-4 py-2",
+      sm: "h-8 rounded-sm px-3 text-xs",
+      lg: "h-10 rounded-sm px-8",
+      icon: "h-9 w-9",
     }
 
     return (
       <button
         className={cn(
-          "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+          "inline-flex items-center justify-center whitespace-nowrap rounded-sm text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50",
           variants[variant],
           sizes[size],
           className
