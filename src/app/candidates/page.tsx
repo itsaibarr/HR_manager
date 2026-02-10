@@ -11,6 +11,11 @@ import { createClient } from "@/lib/supabase/client"
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
 import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
+import { AnimatePresence, motion } from "framer-motion"
+import { Star, Trash2 } from "lucide-react"
+import { bulkUpdateCandidateStatus, deleteCandidates } from "@/app/actions/candidate-actions"
+
+import { BulkShortlistDialog } from "@/components/organisms/BulkShortlistDialog"
 
 export default function CandidatesPage() {
   const [candidates, setCandidates] = useState<any[]>([])
@@ -18,7 +23,9 @@ export default function CandidatesPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null)
   const [selectedJobId, setSelectedJobId] = useState<string | null>(null)
+  const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>([])
   const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [isShortlistDialogOpen, setIsShortlistDialogOpen] = useState(false)
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     scoreBands: [],
@@ -239,7 +246,7 @@ export default function CandidatesPage() {
           <p className="text-muted">No candidates found. Start by creating a job and uploading candidates.</p>
         </div>
       ) : (
-        <div className="space-y-4">
+      <div className="space-y-4">
           <CandidateFilters
             filters={filters}
             onFiltersChange={setFilters}
@@ -257,9 +264,97 @@ export default function CandidatesPage() {
             onView={handleView}
             onDelete={handleDelete}
             showJobColumn={true}
+            selectedIds={selectedCandidateIds}
+            onSelectionChange={setSelectedCandidateIds}
           />
         </div>
       )}
+
+      {/* Bulk Action Floating Bar */}
+      <AnimatePresence>
+        {selectedCandidateIds.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed bottom-[35px] left-1/2 transform -translate-x-1/2 bg-popover border border-border/80 shadow-2xl rounded-[10px] px-5 py-2.5 flex items-center gap-3 z-50 backdrop-blur-md"
+          >
+            <span className="text-xs font-bold text-muted ml-1 uppercase tracking-wider">{selectedCandidateIds.length} selected</span>
+            <div className="h-4 w-px bg-border"></div>
+            <Button 
+                variant="secondary" 
+                className="h-9 rounded-sm px-4 gap-2 shadow-sm bg-paper border-border/60 text-primary hover:bg-accent/50 transition-all font-sora text-[11px] font-bold uppercase tracking-widest"
+                onClick={() => setIsShortlistDialogOpen(true)}
+            >
+                <Star className="w-[14px] h-[14px] text-primary/60" strokeWidth={2.4} />
+                Shortlist
+            </Button>
+            <Button 
+                variant="destructive" 
+                className="h-9 rounded-sm px-4 gap-2 shadow-sm transition-all font-sora text-[11px] font-bold uppercase tracking-widest"
+                onClick={() => setCandidateToDelete(selectedCandidateIds.length > 0 ? "bulk" : null)}
+            >
+                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                Delete
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <BulkShortlistDialog 
+        isOpen={isShortlistDialogOpen}
+        onClose={() => setIsShortlistDialogOpen(false)}
+        onConfirm={async (shouldSendEmail) => {
+            setIsShortlistDialogOpen(false) // Close immediately to show loading on toast if needed, or keep open. Let's close.
+            
+            const updates = selectedCandidateIds.map(id => {
+                const candidate = candidates.find(c => c.id === id)
+                if (!candidate || ['interviewing', 'offered'].includes(candidate.status)) return null
+                return { id, jobId: candidate.jobContextId }
+            }).filter(Boolean) as { id: string, jobId: string }[]
+
+            if (updates.length === 0) {
+                showToast("Selected candidates are already in advanced stages.", "info")
+                return
+            }
+
+            const skippedCount = selectedCandidateIds.length - updates.length
+            
+            // Group by job for bulk update
+            const updatesByJob = updates.reduce((acc, curr) => {
+                if (!acc[curr.jobId]) acc[curr.jobId] = []
+                acc[curr.jobId].push(curr.id)
+                return acc
+            }, {} as Record<string, string[]>)
+
+            let successCount = 0
+            
+            try {
+                // Show loading toast potentially? Or just toast at end.
+                for (const [jobId, ids] of Object.entries(updatesByJob)) {
+                        const res = await bulkUpdateCandidateStatus(ids, 'shortlisted', jobId, shouldSendEmail)
+                        if (res.success) successCount += ids.length
+                }
+                
+                if (successCount > 0) {
+                        const message = skippedCount > 0 
+                        ? `Shortlisted ${successCount} candidates. (${skippedCount} advanced candidates skipped).${shouldSendEmail ? " Emails sent." : ""}`
+                        : `Shortlisted ${successCount} candidates.${shouldSendEmail ? " Emails sent." : ""}`
+                    showToast(message, "success")
+                    fetchData()
+                    setSelectedCandidateIds([])
+                }
+            } catch (e) {
+                console.error(e)
+                showToast("Error updating candidates", "error")
+            }
+        }}
+        count={selectedCandidateIds.length}
+        skippedCount={selectedCandidateIds.filter(id => {
+            const candidate = candidates.find(c => c.id === id)
+            return candidate && ['interviewing', 'offered'].includes(candidate.status)
+        }).length}
+      />
 
       {selectedJobId && (
         <CandidateDetailFrame
@@ -274,9 +369,43 @@ export default function CandidatesPage() {
       <ConfirmDialog
         isOpen={!!candidateToDelete}
         onClose={() => setCandidateToDelete(null)}
-        onConfirm={confirmDeleteCandidate}
+        onConfirm={async () => {
+            if (candidateToDelete === "bulk") {
+                const updates = selectedCandidateIds.map(id => {
+                    const candidate = candidates.find(c => c.id === id)
+                    return candidate ? { id, jobId: candidate.jobContextId } : null
+                }).filter(Boolean) as { id: string, jobId: string }[]
+
+                const updatesByJob = updates.reduce((acc, curr) => {
+                    if (!acc[curr.jobId]) acc[curr.jobId] = []
+                    acc[curr.jobId].push(curr.id)
+                    return acc
+                }, {} as Record<string, string[]>)
+
+                try {
+                    let successCount = 0
+                    for (const [jobId, ids] of Object.entries(updatesByJob)) {
+                            const res = await deleteCandidates(ids, jobId)
+                            if (res.success) successCount += ids.length
+                    }
+                    if (successCount > 0) {
+                        showToast(`Deleted ${successCount} candidates`, "success")
+                        fetchData()
+                        setSelectedCandidateIds([])
+                    }
+                } catch(e) {
+                    console.error(e)
+                    showToast("Error deleting candidates", "error")
+                }
+                setCandidateToDelete(null)
+            } else {
+                confirmDeleteCandidate()
+            }
+        }}
         title="Remove Candidate"
-        description="Are you sure you want to remove this candidate? This will delete all evaluation data for this candidate. This action cannot be undone."
+        description={candidateToDelete === "bulk" 
+            ? `Are you sure you want to delete ${selectedCandidateIds.length} candidates? This action cannot be undone.` 
+            : "Are you sure you want to remove this candidate? This will delete all evaluation data for this candidate. This action cannot be undone."}
         confirmText="Remove"
         variant="destructive"
       />

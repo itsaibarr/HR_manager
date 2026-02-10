@@ -1,0 +1,56 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - link "HR Hirer" [ref=e5] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [ref=e7]: HR
+          - generic [ref=e8]: Hirer
+        - button [ref=e9]:
+          - img [ref=e10]
+      - navigation [ref=e12]:
+        - link "Jobs" [ref=e13] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e14]
+          - generic [ref=e17]: Jobs
+        - link "Candidates" [ref=e19] [cursor=pointer]:
+          - /url: /candidates
+          - img [ref=e20]
+          - generic [ref=e25]: Candidates
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]: U
+          - generic [ref=e30]:
+            - paragraph [ref=e31]: User Account
+            - paragraph
+        - generic [ref=e32]:
+          - button "Config" [ref=e33]:
+            - img [ref=e34]
+            - text: Config
+          - button "Exit" [ref=e37]:
+            - img [ref=e38]
+            - text: Exit
+    - main [ref=e41]:
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - heading "Job Contexts" [level=1] [ref=e45]
+            - paragraph [ref=e46]: Manage your open roles and screening criteria.
+          - button "New Job Context" [ref=e48]:
+            - img [ref=e49]
+            - text: New Job Context
+        - generic [ref=e50]:
+          - img [ref=e52]
+          - generic [ref=e55]:
+            - heading "No Jobs Yet" [level=3] [ref=e56]
+            - paragraph [ref=e57]: Create your first job context to start screening candidates with AI.
+          - button "Create Job Context" [ref=e58]:
+            - img [ref=e59]
+            - text: Create Job Context
+  - button "Open Next.js Dev Tools" [ref=e65] [cursor=pointer]:
+    - img [ref=e66]
+  - alert [ref=e69]
+```

@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
 import type { UserPreferences } from "@/types/database"
 import { cn } from "@/lib/utils"
+import { CandidateTable } from "@/components/organisms/CandidateTable"
 
 interface UserProfile {
   id: string
@@ -148,37 +149,69 @@ export default function ProfilePage() {
           
           {/* Aesthetic Preferences */}
           <Section title="Interface Aesthetics" icon={Palette} description="Tune the workspace density and theme to your preference.">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <SettingBox label="Global Theme" description="Switch between high-contrast modes.">
-                   <select 
-                     className="w-full bg-paper border border-border/60 rounded-sm h-9 px-3 text-xs font-medium focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer hover:border-primary/30"
-                     value={preferences.theme}
-                     onChange={e => {
-                        const val = e.target.value as any
-                        setTheme(val)
-                        setPreferences(prev => ({ ...prev, theme: val }))
-                     }}
-                   >
-                     <option value="light">Refined Light</option>
-                     <option value="dark">Deep Night</option>
-                     <option value="system">Adaptive System</option>
-                   </select>
-                </SettingBox>
+             <div className="space-y-8">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <SettingBox label="Global Theme" description="Switch between high-contrast modes.">
+                       <select 
+                         className="w-full bg-paper border border-border/60 rounded-sm h-9 px-3 text-xs font-medium focus:ring-1 focus:ring-primary outline-none transition-all appearance-none cursor-pointer hover:border-primary/30"
+                         value={preferences.theme}
+                         onChange={e => {
+                            const val = e.target.value as any
+                            setTheme(val)
+                            setPreferences(prev => ({ ...prev, theme: val }))
+                         }}
+                       >
+                         <option value="light">Refined Light</option>
+                         <option value="dark">Deep Night</option>
+                         <option value="system">Adaptive System</option>
+                       </select>
+                    </SettingBox>
+                 </div>
 
-                <SettingBox label="Information Density" description="Adjust information throughput per view.">
-                    <div className="flex bg-accent/40 p-1 rounded-sm border border-border/40">
-                       {(['compact', 'comfortable', 'spacious'] as const).map((d) => (
-                         <button
-                           key={d}
-                           onClick={() => setDensity(d)}
-                           className={cn(
-                             "flex-1 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-sm transition-all",
-                             density === d ? "bg-paper text-primary shadow-sm" : "text-muted hover:text-primary hover:bg-paper/30"
-                           )}
-                         >
-                           {d}
-                         </button>
-                       ))}
+                 <SettingBox label="Information Density" description="Adjust information throughput per view.">
+                    <div className="flex flex-col gap-4">
+                        <div className="flex bg-accent/40 p-1 rounded-sm border border-border/40 w-full md:w-fit">
+                           {(['compact', 'comfortable', 'spacious'] as const).map((d) => (
+                             <button
+                               key={d}
+                               onClick={() => setDensity(d)}
+                               className={cn(
+                                 "px-6 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-sm transition-all",
+                                 density === d ? "bg-paper text-primary shadow-sm" : "text-muted hover:text-primary hover:bg-paper/30"
+                               )}
+                             >
+                               {d}
+                             </button>
+                           ))}
+                        </div>
+                        
+                        <div className="border border-border/60 rounded-sm overflow-hidden bg-paper flex flex-col shadow-sm">
+                            <div className="bg-accent/30 px-3 py-2 text-[10px] font-bold text-muted uppercase tracking-widest border-b border-border/60 flex items-center justify-between shrink-0">
+                                <span>Live Preview</span>
+                                <span className="text-[9px] opacity-60">Visualizes list density</span>
+                            </div>
+                            <div className="overflow-x-auto flex-1 scrollbar-thin scrollbar-thumb-border scrollbar-track-transparent">
+                                <div>
+                                    <CandidateTable 
+                                        className="border-0 rounded-none w-full min-w-[650px]"
+                                        showJobColumn={true}
+                                        data={[{
+                                            id: "preview-1",
+                                            name: "Sarah Jenkins",
+                                            initials: "SJ",
+                                            role: "Senior Product Designer",
+                                            experienceRaw: "8y exp",
+                                            score: 92,
+                                            scoreBand: "strong",
+                                            status: "shortlisted",
+                                            topSkills: ["Figma", "React", "Systems"],
+                                            appliedAt: "2h ago",
+                                            jobContextName: "Product Designer"
+                                        }]} 
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </SettingBox>
              </div>

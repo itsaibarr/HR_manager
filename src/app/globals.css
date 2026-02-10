@@ -3,6 +3,7 @@
 @theme {
   /* Colors - referencing CSS variables for dark mode support */
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-navy: var(--primary); /* Maintain alias for compatibility */
   --color-paper: var(--paper);
   --color-cream: var(--cream);
@@ -47,6 +48,8 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 }
 
 /* Custom Utilities */
@@ -63,6 +66,7 @@
 :root {
   /* High-end Neutral Palette (Light) */
   --primary: #09090b; /* Zinc 950 */
+  --primary-foreground: #fafafa; /* Zinc 50 */
   --paper: #ffffff;
   --cream: #fbfbfa;
   --muted: #71717a; /* Zinc 500 */
@@ -79,11 +83,14 @@
   --muted-foreground: #71717a;
   --accent: #f4f4f5; /* Zinc 100 */
   --accent-foreground: #18181b;
+  --destructive: #ef4444; /* Red 500 */
+  --destructive-foreground: #fafafa;
 }
 
 .dark {
   /* High-end Neutral Palette (Dark) */
   --primary: #fafafa; /* Zinc 50 */
+  --primary-foreground: #18181b; /* Zinc 900 */
   --paper: #141415; /* Lighter Dark Background */
   --cream: #1c1c1e;
   --muted: #a1a1aa; /* Zinc 400 */
@@ -100,6 +107,8 @@
   --muted-foreground: #a1a1aa;
   --accent: #27272a; /* Zinc 800 */
   --accent-foreground: #fafafa;
+  --destructive: #ef4444; /* Red 500 */
+  --destructive-foreground: #fafafa;
 }
 
 body {

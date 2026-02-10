@@ -19,6 +19,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
+import { BulkShortlistDialog } from "@/components/organisms/BulkShortlistDialog"
 import { motion, AnimatePresence } from "framer-motion"
 
 export default function JobDashboardPage({ params }: { params: Promise<{ jobId: string }> }) {
@@ -34,6 +35,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   const [candidateToDelete, setCandidateToDelete] = useState<string | null>(null)
   const [candidatesToDelete, setCandidatesToDelete] = useState<string[] | null>(null)
   const [selectedCandidateIds, setSelectedCandidateIds] = useState<string[]>([])
+  const [isShortlistDialogOpen, setIsShortlistDialogOpen] = useState(false)
   const { toasts, showToast, dismissToast } = useToast()
   const [filters, setFilters] = useState<FilterState>({
     search: '',
@@ -165,10 +167,29 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   const handleBulkShortlist = async () => {
     if (selectedCandidateIds.length === 0) return
 
+    // Prevent moving candidates backward from advanced stages
+    const candidatesToUpdate = selectedCandidateIds.filter(id => {
+        const candidate = candidates.find(c => c.id === id)
+        // Only allow update if status is NOT 'interviewing' or 'offered'
+        // We allow 'shortlisted' (no-op), 'pending', 'rejected'
+        return candidate && !['interviewing', 'offered'].includes(candidate.status)
+    })
+
+    if (candidatesToUpdate.length === 0) {
+        showToast("Selected candidates are already in advanced stages (Interviewing/Offered).", "info")
+        return
+    }
+
+    const skippedCount = selectedCandidateIds.length - candidatesToUpdate.length
+
     try {
-        const res = await bulkUpdateCandidateStatus(selectedCandidateIds, 'shortlisted', jobId)
+        const res = await bulkUpdateCandidateStatus(candidatesToUpdate, 'shortlisted', jobId)
         if (res.success) {
-            showToast(res.message, "success")
+            const message = skippedCount > 0 
+                ? `${res.message}. (${skippedCount} advanced candidates skipped)`
+                : res.message
+            
+            showToast(message, "success")
             setSelectedCandidateIds([])
             fetchJobData()
         } else {
@@ -338,7 +359,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   return (
     <div className="flex h-full min-h-screen">
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="p-8 max-w-7xl mx-auto space-y-8">
+        <div className="p-6 w-full space-y-8">
           <ToastContainer toasts={toasts} onDismiss={dismissToast} />
           <PageHeader
                 title={jobTitle}
@@ -370,12 +391,12 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
                     <h2 className="text-lg font-sora font-semibold text-primary">Active Candidates</h2>
-                        <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1">
                             <Button 
                                 variant="ghost" 
                                 size="sm" 
                                 onClick={() => setShortlistMode(5)}
-                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3", shortlistMode === 5 ? "bg-primary text-primary-foreground" : "text-muted hover:text-primary")}
+                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3 py-2 transition-colors", shortlistMode === 5 ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" : "text-muted-foreground hover:text-primary")}
                             >
                                 Top 5
                             </Button>
@@ -383,7 +404,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                                 variant="ghost" 
                                 size="sm" 
                                 onClick={() => setShortlistMode(10)}
-                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3", shortlistMode === 10 ? "bg-primary text-primary-foreground" : "text-muted hover:text-primary")}
+                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3 py-2 transition-colors", shortlistMode === 10 ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" : "text-muted-foreground hover:text-primary")}
                             >
                                 Top 10
                             </Button>
@@ -392,12 +413,12 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                                     variant="ghost" 
                                     size="sm" 
                                     onClick={() => setShortlistMode(null)}
-                                    className="text-[10px] font-bold uppercase tracking-widest text-reject hover:bg-reject/5 rounded-sm px-3"
+                                    className="text-[10px] font-bold uppercase tracking-widest text-destructive hover:bg-destructive/5 rounded-sm px-3 py-2"
                                 >
                                     Clear
                                 </Button>
                             )}
-                        </div>
+                    </div>
                 </div>
                 
                 <CandidateFilters
@@ -417,36 +438,78 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                     onSelectionChange={setSelectedCandidateIds}
                 />
 
-                {/* Bulk Action Floating Bar */}
                 <AnimatePresence>
                     {selectedCandidateIds.length > 0 && (
                         <motion.div
                             initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 50 }}
-                            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-popover border border-border/80 shadow-2xl rounded-full px-6 py-3 flex items-center gap-4 z-50 backdrop-blur-md"
+                            className="fixed bottom-[35px] left-1/2 transform -translate-x-1/2 bg-popover border border-border/80 shadow-2xl rounded-[10px] px-5 py-2.5 flex items-center gap-3 z-50 backdrop-blur-md"
                         >
-                            <span className="text-sm font-medium text-foreground">{selectedCandidateIds.length} selected</span>
+                            <span className="text-xs font-bold text-muted ml-1 uppercase tracking-wider">{selectedCandidateIds.length} selected</span>
                             <div className="h-4 w-px bg-border"></div>
                             <Button 
                                 variant="secondary" 
-                                className="h-11 rounded-sm px-7 gap-3 shadow-md bg-paper border-border/60 text-primary hover:bg-accent/50 transition-all font-sora text-[12px] font-bold uppercase tracking-widest"
-                                onClick={handleBulkShortlist}
+                                className="h-9 rounded-sm px-4 gap-2 shadow-sm bg-paper border-border/60 text-primary hover:bg-accent/50 transition-all font-sora text-[11px] font-bold uppercase tracking-widest"
+                                onClick={() => setIsShortlistDialogOpen(true)}
                             >
-                                <Star className="w-[18px] h-[18px] text-primary/60" strokeWidth={2.4} />
-                                Shortlist Selected
+                                <Star className="w-[14px] h-[14px] text-primary/60" strokeWidth={2.4} />
+                                Shortlist
                             </Button>
                             <Button 
                                 variant="destructive" 
-                                className="h-11 rounded-sm px-7 gap-3 shadow-md transition-all font-sora text-[12px] font-bold uppercase tracking-widest"
+                                className="h-9 rounded-sm px-4 gap-2 shadow-sm transition-all font-sora text-[11px] font-bold uppercase tracking-widest"
                                 onClick={handleBulkDelete}
                             >
-                                <Trash2 className="w-[18px] h-[18px]" strokeWidth={2.4} />
+                                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
                                 Delete
                             </Button>
                         </motion.div>
                     )}
                 </AnimatePresence>
+
+                <BulkShortlistDialog 
+                    isOpen={isShortlistDialogOpen}
+                    onClose={() => setIsShortlistDialogOpen(false)}
+                    onConfirm={async (shouldSendEmail) => {
+                        setIsShortlistDialogOpen(false)
+
+                        const candidatesToUpdate = selectedCandidateIds.filter(id => {
+                            const candidate = candidates.find(c => c.id === id)
+                            return candidate && !['interviewing', 'offered'].includes(candidate.status)
+                        })
+
+                        if (candidatesToUpdate.length === 0) {
+                            showToast("Selected candidates are already in advanced stages (Interviewing/Offered).", "info")
+                            return
+                        }
+
+                        const skippedCount = selectedCandidateIds.length - candidatesToUpdate.length
+
+                        try {
+                            const res = await bulkUpdateCandidateStatus(candidatesToUpdate, 'shortlisted', jobId, shouldSendEmail)
+                            if (res.success) {
+                                const message = skippedCount > 0 
+                                    ? `${res.message}. (${skippedCount} advanced candidates skipped)`
+                                    : res.message
+                                
+                                showToast(message, "success")
+                                setSelectedCandidateIds([])
+                                fetchJobData()
+                            } else {
+                                showToast(res.message, "error")
+                            }
+                        } catch (e) {
+                            console.error(e)
+                            showToast("Error updating candidates", "error")
+                        }
+                    }}
+                    count={selectedCandidateIds.length}
+                    skippedCount={selectedCandidateIds.filter(id => {
+                        const candidate = candidates.find(c => c.id === id)
+                        return candidate && ['interviewing', 'offered'].includes(candidate.status)
+                    }).length}
+                />
             </div>
         </div>
         

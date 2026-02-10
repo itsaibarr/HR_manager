@@ -148,13 +148,15 @@ export async function deleteCandidates(candidateIds: string[], jobId: string): P
 export async function bulkUpdateCandidateStatus(
     candidateIds: string[],
     newStatus: 'shortlisted' | 'interviewing' | 'offered' | 'rejected' | 'pending',
-    jobId: string
+    jobId: string,
+    shouldSendEmail: boolean = false
 ): Promise<UpdateStatusResult> {
     const supabase = await createClient();
     try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return { success: false, message: 'Unauthorized' };
 
+        // 1. Update Status
         const { error } = await supabase
             .from('evaluations')
             .update({ status: newStatus })
@@ -166,8 +168,64 @@ export async function bulkUpdateCandidateStatus(
             return { success: false, message: 'Failed to update candidates in bulk' };
         }
 
+        // 2. Send Emails (if requested)
+        let emailCount = 0;
+        if (shouldSendEmail && newStatus !== 'pending') {
+             const { data: evaluations, error: fetchError } = await supabase
+                .from('evaluations')
+                .select(`
+                    candidate_id,
+                    candidate_profiles (
+                        full_name,
+                        email
+                    ),
+                    job_contexts (
+                        title
+                    )
+                `)
+                .in('candidate_id', candidateIds)
+                .eq('job_context_id', jobId);
+
+            if (!fetchError && evaluations) {
+                // Map status to email type
+                let emailType: 'shortlist' | 'interview' | 'offer' | 'reject' | null = null;
+                if (newStatus === 'shortlisted') emailType = 'shortlist';
+                if (newStatus === 'interviewing') emailType = 'interview';
+                if (newStatus === 'offered') emailType = 'offer';
+                if (newStatus === 'rejected') emailType = 'reject';
+
+                if (emailType) {
+                    const emailPromises = evaluations.map(async (ev: any) => {
+                        const { email, full_name } = ev.candidate_profiles;
+                        const { title: jobTitle } = ev.job_contexts;
+                        
+                        if (email && email.includes('@')) {
+                            // @ts-ignore
+                            const res = await sendCandidateEmail({
+                                to: email,
+                                candidateName: full_name || 'Candidate',
+                                jobTitle: jobTitle || 'Job Role',
+                                type: emailType!,
+                            });
+                            return res.success;
+                        }
+                        return false;
+                    });
+
+                    const results = await Promise.all(emailPromises);
+                    emailCount = results.filter(Boolean).length;
+                }
+            }
+        }
+
         revalidatePath(`/dashboard/${jobId}`);
-        return { success: true, message: `Successfully updated ${candidateIds.length} candidates to ${newStatus}` };
+        
+        let message = `Successfully updated ${candidateIds.length} candidates to ${newStatus}`;
+        if (shouldSendEmail) {
+            message += `. Emailed ${emailCount} candidates.`;
+        }
+
+        return { success: true, message };
     } catch (error) {
         logger.error('Unexpected error in bulk update', { error });
         return { success: false, message: 'An unexpected error occurred' };

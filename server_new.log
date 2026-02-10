@@ -1,0 +1,1528 @@
+
+> app@0.1.0 dev
+> next dev
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /home/itsaibarr/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /home/itsaibarr/projects/hr_manager_mvp/package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.5.19.34:3000
+- Environments: .env.local, .env
+
+✓ Starting...
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 1859ms
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 4.1s (compile: 2.3s, proxy.ts: 1017ms, render: 745ms)
+ GET / 200 in 370ms (compile: 181ms, proxy.ts: 12ms, render: 177ms)
+ GET / 200 in 80ms (compile: 5ms, proxy.ts: 8ms, render: 68ms)
+ GET /auth 200 in 2.4s (compile: 2.1s, proxy.ts: 35ms, render: 211ms)
+ GET /dashboard 200 in 1130ms (compile: 79ms, proxy.ts: 997ms, render: 54ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 619ms (compile: 125ms, proxy.ts: 464ms, render: 30ms)
+ GET /dashboard 200 in 861ms (compile: 6ms, proxy.ts: 824ms, render: 30ms)
+ GET /dashboard/profile 200 in 5.8s (compile: 261ms, proxy.ts: 5.5s, render: 37ms)
+ GET /dashboard/profile 200 in 459ms (compile: 6ms, proxy.ts: 421ms, render: 32ms)
+ GET /dashboard 200 in 843ms (compile: 8ms, proxy.ts: 813ms, render: 22ms)
+ GET /dashboard/profile 200 in 904ms (compile: 4ms, proxy.ts: 875ms, render: 25ms)
+ GET /dashboard 200 in 369ms (compile: 6ms, proxy.ts: 342ms, render: 21ms)
+ GET /candidates 200 in 537ms (compile: 110ms, proxy.ts: 393ms, render: 35ms)
+ GET /dashboard/profile 200 in 468ms (compile: 4ms, proxy.ts: 429ms, render: 34ms)
+✓ Compiled in 1248ms
+✓ Compiled in 360ms
+⨯ ReferenceError: DensityProvider is not defined
+    at RootLayout (src/app/layout.tsx:52:12)
+  50 |       >
+  51 |         <ThemeProvider>
+> 52 |           <DensityProvider>
+     |            ^
+  53 |             {children}
+  54 |           </DensityProvider>
+  55 |         </ThemeProvider> {
+  digest: '3362579816'
+}
+ GET /dashboard/profile 200 in 920ms (compile: 99ms, proxy.ts: 685ms, render: 136ms)
+✓ Compiled in 961ms
+ GET /dashboard/profile 200 in 1372ms (compile: 813ms, proxy.ts: 395ms, render: 165ms)
+ GET /dashboard/profile 200 in 888ms (compile: 6ms, proxy.ts: 422ms, render: 460ms)
+ GET /dashboard/profile 200 in 537ms (compile: 16ms, proxy.ts: 417ms, render: 103ms)
+ GET /dashboard/profile 200 in 936ms (compile: 5ms, proxy.ts: 398ms, render: 532ms)
+ GET /dashboard 200 in 923ms (compile: 77ms, proxy.ts: 775ms, render: 71ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 852ms (compile: 364ms, proxy.ts: 332ms, render: 156ms)
+✓ Compiled in 813ms
+✓ Compiled in 1136ms
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 8.4s (compile: 1843ms, proxy.ts: 5.9s, render: 661ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 8.3s (compile: 1991ms, proxy.ts: 5.8s, render: 516ms)
+✓ Compiled in 13ms
+ GET /dashboard/profile 200 in 817ms (compile: 8ms, proxy.ts: 778ms, render: 30ms)
+ GET /dashboard 200 in 420ms (compile: 11ms, proxy.ts: 386ms, render: 23ms)
+ GET /dashboard/profile 200 in 506ms (compile: 5ms, proxy.ts: 472ms, render: 28ms)
+ GET /dashboard 200 in 440ms (compile: 6ms, proxy.ts: 413ms, render: 22ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 571ms (compile: 146ms, proxy.ts: 394ms, render: 30ms)
+ GET /dashboard 200 in 813ms (compile: 5ms, proxy.ts: 782ms, render: 25ms)
+ GET /candidates 200 in 778ms (compile: 267ms, proxy.ts: 392ms, render: 118ms)
+✓ Compiled in 240ms
+✓ Compiled in 112ms
+✓ Compiled in 387ms
+✓ Compiled in 288ms
+✓ Compiled in 187ms
+✓ Compiled in 221ms
+ GET /dashboard 200 in 1056ms (compile: 101ms, proxy.ts: 912ms, render: 43ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 919ms (compile: 463ms, proxy.ts: 344ms, render: 112ms)
+✓ Compiled in 139ms
+✓ Compiled in 77ms
+✓ Compiled in 89ms
+ GET /dashboard 200 in 826ms (compile: 17ms, proxy.ts: 779ms, render: 30ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 843ms (compile: 412ms, proxy.ts: 326ms, render: 105ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1049ms (compile: 137ms, proxy.ts: 400ms, render: 512ms)
+[2026-02-10T05:19:38.261Z] [WARN] [TEST MODE] Redirecting email for aibarerzhuman13@gmail.com to cametame001@gmail.com because Resend Test Mode only allows sending to verified address. {"originalTo":"aibarerzhuman13@gmail.com"}
+ POST /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 3.0s (compile: 138ms, proxy.ts: 731ms, render: 2.2s)
+ POST /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1458ms (compile: 125ms, proxy.ts: 511ms, render: 823ms)
+✓ Compiled in 411ms
+[2026-02-10T05:22:32.192Z] [WARN] [TEST MODE] Redirecting email for aibarerzhuman13@gmail.com to cametame001@gmail.com because Resend Test Mode only allows sending to verified address. {"originalTo":"aibarerzhuman13@gmail.com"}
+ POST /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 11.0s (compile: 542ms, proxy.ts: 1052ms, render: 9.4s)
+ POST /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 2.1s (compile: 137ms, proxy.ts: 723ms, render: 1223ms)
+✓ Compiled in 492ms
+ GET /candidates 200 in 1334ms (compile: 432ms, proxy.ts: 781ms, render: 121ms)
+✓ Compiled in 120ms
+ GET /dashboard 200 in 416ms (compile: 8ms, proxy.ts: 380ms, render: 27ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 842ms (compile: 411ms, proxy.ts: 346ms, render: 85ms)
+✓ Compiled in 122ms
+✓ Compiled in 72ms
+ GET /candidates 200 in 1362ms (compile: 360ms, proxy.ts: 941ms, render: 61ms)
+ GET /dashboard 200 in 2.3s (compile: 13ms, proxy.ts: 2.2s, render: 31ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1029ms (compile: 532ms, proxy.ts: 375ms, render: 122ms)
+✓ Compiled in 775ms
+✓ Compiled in 80ms
+ GET /candidates 200 in 1460ms (compile: 578ms, proxy.ts: 764ms, render: 118ms)
+ GET /dashboard 200 in 721ms (compile: 13ms, proxy.ts: 683ms, render: 24ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 573ms (compile: 145ms, proxy.ts: 397ms, render: 31ms)
+ GET /candidates 200 in 834ms (compile: 70ms, proxy.ts: 717ms, render: 47ms)
+ GET /dashboard/profile 200 in 407ms (compile: 25ms, proxy.ts: 330ms, render: 51ms)
+✓ Compiled in 157ms
+ GET /dashboard 200 in 536ms (compile: 15ms, proxy.ts: 496ms, render: 25ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 492ms (compile: 152ms, proxy.ts: 310ms, render: 30ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 573ms (compile: 209ms, proxy.ts: 316ms, render: 49ms)
+✓ Compiled in 1460ms
+✓ Compiled in 107ms
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 527ms (compile: 168ms, proxy.ts: 315ms, render: 43ms)
+ GET /dashboard/profile 200 in 592ms (compile: 24ms, proxy.ts: 536ms, render: 32ms)
+ GET /candidates 200 in 1047ms (compile: 395ms, proxy.ts: 580ms, render: 72ms)
+✓ Compiled in 331ms
+ GET /dashboard 200 in 792ms (compile: 27ms, proxy.ts: 715ms, render: 50ms)
+ GET /candidates 200 in 857ms (compile: 405ms, proxy.ts: 357ms, render: 95ms)
+✓ Compiled in 1166ms
+ GET /candidates 200 in 1383ms (compile: 561ms, proxy.ts: 483ms, render: 340ms)
+ GET /candidates 200 in 489ms (compile: 23ms, proxy.ts: 435ms, render: 31ms)
+✓ Compiled in 169ms
+✓ Compiled in 98ms
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:6:1
+Module not found: Can't resolve '@/components/ui/checkbox'
+[0m [90m 4 |[39m [36mimport[39m { [33mButton[39m } [36mfrom[39m [32m"@/components/ui/button"[39m
+ [90m 5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+[31m[1m>[22m[39m[90m 6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m 8 |[39m
+ [90m 9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {[0m
+
+Import map: aliased to relative './src/components/ui/checkbox' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled in 326ms
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx:7:1
+Module not found: Can't resolve '@/components/ui/label'
+[0m [90m  5 |[39m [36mimport[39m { [33mModal[39m } [36mfrom[39m [32m"@/components/ui/modal"[39m
+ [90m  6 |[39m [36mimport[39m { [33mCheckbox[39m } [36mfrom[39m [32m"@/components/ui/checkbox"[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m { [33mLabel[39m } [36mfrom[39m [32m"@/components/ui/label"[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m  8 |[39m
+ [90m  9 |[39m [36minterface[39m [33mBulkShortlistDialogProps[39m {
+ [90m 10 |[39m   isOpen[33m:[39m boolean[0m
+
+Import map: aliased to relative './src/components/ui/label' inside of [project]/projects/hr_manager_mvp
+
+
+Import traces:
+  Client Component Browser:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component Browser]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./projects/hr_manager_mvp/src/components/organisms/BulkShortlistDialog.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Client Component SSR]
+    ./projects/hr_manager_mvp/src/app/candidates/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+✓ Compiled in 819ms
+✓ Compiled in 253ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET /candidates 200 in 1924ms (compile: 591ms, proxy.ts: 707ms, render: 627ms)
+ GET /dashboard 200 in 528ms (compile: 18ms, proxy.ts: 475ms, render: 35ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 970ms (compile: 496ms, proxy.ts: 395ms, render: 79ms)
+ GET /candidates 200 in 540ms (compile: 20ms, proxy.ts: 489ms, render: 31ms)
+✓ Compiled in 174ms
+✓ Compiled in 704ms
+ GET /candidates 200 in 1271ms (compile: 253ms, proxy.ts: 886ms, render: 132ms)
+ GET /dashboard 200 in 778ms (compile: 63ms, proxy.ts: 658ms, render: 56ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1484ms (compile: 794ms, proxy.ts: 598ms, render: 93ms)
+✓ Compiled in 333ms
+✓ Compiled in 303ms
+✓ Compiled in 175ms
+✓ Compiled in 198ms
+✓ Compiled in 127ms
+✓ Compiled in 170ms
+✓ Compiled in 219ms
+✓ Compiled in 365ms
+✓ Compiled in 127ms
+✓ Compiled in 79ms
+✓ Compiled in 101ms
+ GET /candidates 200 in 975ms (compile: 72ms, proxy.ts: 836ms, render: 66ms)
+✓ Compiled in 194ms
+ GET /dashboard 200 in 877ms (compile: 37ms, proxy.ts: 778ms, render: 62ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1828ms (compile: 817ms, proxy.ts: 560ms, render: 450ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 552ms (compile: 16ms, proxy.ts: 510ms, render: 26ms)
+ GET /dashboard 200 in 1234ms (compile: 102ms, proxy.ts: 1088ms, render: 44ms)
+ GET /candidates 200 in 1422ms (compile: 774ms, proxy.ts: 553ms, render: 95ms)
+✓ Compiled in 678ms
+ GET /dashboard 200 in 1327ms (compile: 140ms, proxy.ts: 996ms, render: 191ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1456ms (compile: 392ms, proxy.ts: 1004ms, render: 59ms)
+✓ Compiled in 503ms
+✓ Compiled in 232ms
+ GET /dashboard 200 in 1260ms (compile: 90ms, proxy.ts: 1096ms, render: 75ms)
+ GET /candidates 200 in 514ms (compile: 79ms, proxy.ts: 389ms, render: 45ms)
+ GET /dashboard/profile 200 in 397ms (compile: 12ms, proxy.ts: 338ms, render: 47ms)
+ GET /dashboard 200 in 694ms (compile: 36ms, proxy.ts: 618ms, render: 40ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1583ms (compile: 809ms, proxy.ts: 473ms, render: 301ms)
+ GET /dashboard 200 in 737ms (compile: 116ms, proxy.ts: 539ms, render: 81ms)
+ GET /dashboard 200 in 455ms (compile: 45ms, proxy.ts: 379ms, render: 31ms)
+ GET /candidates 200 in 446ms (compile: 22ms, proxy.ts: 377ms, render: 48ms)
+ GET /dashboard/profile 200 in 475ms (compile: 12ms, proxy.ts: 419ms, render: 44ms)
+ GET /dashboard 200 in 798ms (compile: 91ms, proxy.ts: 669ms, render: 38ms)
+ GET /candidates 200 in 490ms (compile: 80ms, proxy.ts: 356ms, render: 54ms)
+ GET /dashboard/profile 200 in 420ms (compile: 31ms, proxy.ts: 341ms, render: 47ms)
+✓ Compiled in 476ms
+ GET /dashboard 200 in 898ms (compile: 90ms, proxy.ts: 763ms, render: 46ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1386ms (compile: 873ms, proxy.ts: 406ms, render: 107ms)
+ GET /dashboard/profile 200 in 526ms (compile: 10ms, proxy.ts: 478ms, render: 38ms)
+ GET /candidates 200 in 976ms (compile: 98ms, proxy.ts: 795ms, render: 84ms)
+ GET /dashboard 200 in 390ms (compile: 19ms, proxy.ts: 340ms, render: 31ms)
+✓ Compiled in 1340ms
+✓ Compiled in 1575ms
+ GET /dashboard/profile 200 in 1422ms (compile: 290ms, proxy.ts: 1012ms, render: 120ms)
+✓ Compiled in 1615ms
+ GET /dashboard/profile 200 in 3.0s (compile: 1174ms, proxy.ts: 960ms, render: 875ms)
+ GET /dashboard/profile 200 in 2.9s (compile: 1227ms, proxy.ts: 774ms, render: 869ms)
+ GET /dashboard/profile 200 in 3.0s (compile: 1293ms, proxy.ts: 950ms, render: 792ms)
+ GET /dashboard/profile 200 in 2.5s (compile: 652ms, proxy.ts: 443ms, render: 1435ms)
+ GET /dashboard 200 in 1358ms (compile: 259ms, proxy.ts: 972ms, render: 127ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1393ms (compile: 963ms, proxy.ts: 355ms, render: 75ms)
+✓ Compiled in 827ms
+✓ Compiled in 503ms
+✓ Compiled in 139ms
+ GET /dashboard/profile 200 in 1378ms (compile: 349ms, proxy.ts: 922ms, render: 108ms)
+ GET /dashboard 200 in 940ms (compile: 132ms, proxy.ts: 761ms, render: 47ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 2.0s (compile: 1456ms, proxy.ts: 460ms, render: 90ms)
+ GET /dashboard/profile 200 in 824ms (compile: 38ms, proxy.ts: 755ms, render: 31ms)
+ GET /dashboard 200 in 505ms (compile: 39ms, proxy.ts: 430ms, render: 36ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 568ms (compile: 182ms, proxy.ts: 341ms, render: 46ms)
+ GET /dashboard/profile 200 in 511ms (compile: 6ms, proxy.ts: 475ms, render: 31ms)
+✓ Compiled in 397ms
+✓ Compiled in 262ms
+ GET /dashboard 200 in 887ms (compile: 109ms, proxy.ts: 703ms, render: 74ms)
+ GET /candidates 200 in 1392ms (compile: 786ms, proxy.ts: 529ms, render: 77ms)
+ GET /dashboard/profile 200 in 656ms (compile: 117ms, proxy.ts: 455ms, render: 84ms)
+ GET /dashboard 200 in 851ms (compile: 44ms, proxy.ts: 775ms, render: 32ms)
+ GET /dashboard/profile 200 in 490ms (compile: 7ms, proxy.ts: 446ms, render: 38ms)
+ GET /dashboard 200 in 713ms (compile: 64ms, proxy.ts: 599ms, render: 51ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 1112ms (compile: 602ms, proxy.ts: 401ms, render: 110ms)
+ GET /candidates 200 in 707ms (compile: 35ms, proxy.ts: 636ms, render: 36ms)
+ GET /dashboard/profile 200 in 537ms (compile: 6ms, proxy.ts: 508ms, render: 24ms)
+ GET /dashboard 200 in 860ms (compile: 138ms, proxy.ts: 637ms, render: 85ms)
+ GET /candidates 200 in 434ms (compile: 50ms, proxy.ts: 343ms, render: 40ms)
+✓ Compiled in 484ms
+ GET /dashboard/profile 200 in 1618ms (compile: 283ms, proxy.ts: 1202ms, render: 133ms)
+ GET /candidates 200 in 754ms (compile: 81ms, proxy.ts: 638ms, render: 34ms)
+ GET /dashboard 200 in 399ms (compile: 20ms, proxy.ts: 351ms, render: 29ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 541ms (compile: 174ms, proxy.ts: 329ms, render: 37ms)
+ GET /dashboard/profile 200 in 506ms (compile: 5ms, proxy.ts: 471ms, render: 30ms)
+ GET /candidates 200 in 1293ms (compile: 29ms, proxy.ts: 1241ms, render: 23ms)
+ GET /dashboard 200 in 653ms (compile: 12ms, proxy.ts: 601ms, render: 40ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 553ms (compile: 165ms, proxy.ts: 348ms, render: 39ms)
+ GET /dashboard/profile 200 in 790ms (compile: 5ms, proxy.ts: 755ms, render: 30ms)
+ GET /dashboard 200 in 1302ms (compile: 128ms, proxy.ts: 1098ms, render: 77ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 773ms (compile: 193ms, proxy.ts: 534ms, render: 47ms)
+✓ Compiled in 3.2s
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 3.2s (compile: 1031ms, proxy.ts: 716ms, render: 1406ms)
+ GET /dashboard/95ebba06-197b-42d9-8c59-9c4ec0f9922f 200 in 2.9s (compile: 29ms, proxy.ts: 1614ms, render: 1290ms)
+ GET /dashboard 200 in 843ms (compile: 203ms, proxy.ts: 481ms, render: 159ms)
+ GET /candidates 200 in 1089ms (compile: 687ms, proxy.ts: 323ms, render: 79ms)
+ GET /dashboard/profile 200 in 749ms (compile: 72ms, proxy.ts: 624ms, render: 53ms)
+✓ Compiled in 2s
+✓ Compiled in 1263ms
+ GET /dashboard/profile 200 in 2.1s (compile: 640ms, proxy.ts: 956ms, render: 513ms)
+ GET /dashboard/profile 200 in 1834ms (compile: 488ms, proxy.ts: 670ms, render: 675ms)
+ GET /dashboard 200 in 2.4s (compile: 488ms, proxy.ts: 1282ms, render: 587ms)
+ GET /dashboard 200 in 1375ms (compile: 232ms, proxy.ts: 916ms, render: 227ms)

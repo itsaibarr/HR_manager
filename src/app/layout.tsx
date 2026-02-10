@@ -49,7 +49,7 @@ export default function RootLayout({
         className={`${sora.variable} ${ibmPlexMono.variable} antialiased`}
       >
         <ThemeProvider>
-          {children}
+            {children}
         </ThemeProvider>
       </body>
     </html>

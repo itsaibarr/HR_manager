@@ -8,12 +8,22 @@ interface TimeSavedMetricProps {
 }
 
 export function TimeSavedMetric({ candidateCount }: TimeSavedMetricProps) {
-    // Manual screening: 15 minutes per CV
-    // Time saved = all manual screening time replaced by instant AI results
-    const minutesSaved = candidateCount * 15
+    // Constants for estimation
+    const MANUAL_TIME_MINS = 15
+    const AI_TIME_MINS = 1 // Allocation for upload/processing wait
+
+    // Calculate savings
+    const minutesSaved = candidateCount * (MANUAL_TIME_MINS - AI_TIME_MINS)
     const hoursSaved = Math.floor(minutesSaved / 60)
     const remainingMinutes = minutesSaved % 60
     
+    // Calculate ROI: (Net Profit / Cost) * 100
+    // Net Profit (in time) = (Manual Time - AI Time)
+    // Cost (in time) = AI Time
+    const roi = AI_TIME_MINS > 0 
+        ? Math.round(((MANUAL_TIME_MINS - AI_TIME_MINS) / AI_TIME_MINS) * 100)
+        : 0
+
     if (candidateCount === 0) return null
 
     return (
@@ -26,7 +36,7 @@ export function TimeSavedMetric({ candidateCount }: TimeSavedMetricProps) {
                     {hoursSaved}h{remainingMinutes > 0 && <span className="text-lg ml-0.5">{remainingMinutes}m</span>}
                 </span>
                 <span className="text-[10px] font-bold text-good-fit bg-good-fit/5 border border-good-fit/10 px-1.5 py-0.5 rounded-sm uppercase tracking-tighter">
-                    +1500% ROI
+                    +{roi}% ROI
                 </span>
             </div>
         </div>

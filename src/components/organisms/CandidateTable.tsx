@@ -27,6 +27,7 @@ interface CandidateTableProps {
   showJobColumn?: boolean
   selectedIds?: string[]
   onSelectionChange?: (ids: string[]) => void
+  className?: string
 }
 
 const statusLabels: Record<string, string> = {
@@ -37,14 +38,24 @@ const statusLabels: Record<string, string> = {
   offered: 'Offered'
 }
 
-export function CandidateTable({ data, onView, onDelete, showJobColumn = false, selectedIds = [], onSelectionChange }: CandidateTableProps) {
+export function CandidateTable({
+  data,
+  onView,
+  onDelete,
+  showJobColumn = false,
+  selectedIds = [],
+  onSelectionChange,
+  className
+}: CandidateTableProps) {
   const allSelected = data.length > 0 && selectedIds.length === data.length
   
   const toggleSelectAll = () => {
-      if (allSelected) {
-          onSelectionChange?.([])
-      } else {
-          onSelectionChange?.(data.map(c => c.id))
+      if (onSelectionChange) {
+          if (allSelected) {
+              onSelectionChange([])
+          } else {
+              onSelectionChange(data.map(c => c.id))
+          }
       }
   }
 
@@ -56,16 +67,16 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false, 
       }
   }
 
-  if (!data || data.length === 0) {
+  if (data.length === 0) {
     return (
-      <div className="p-12 text-center text-muted border border-border border-dashed rounded-sm">
+      <div className={cn("p-12 text-center text-muted border border-border border-dashed rounded-sm", className)}>
         No candidates yet. Upload a CV to get started.
       </div>
     )
   }
   
   return (
-    <div className="w-full bg-paper rounded-sm border border-border/80 flex flex-col overflow-hidden">
+    <div className={cn("w-full bg-paper rounded-sm border border-border/80 flex flex-col overflow-hidden", className)}>
       {/* Header */}
       <div className="flex items-center px-[var(--density-row-px)] py-[var(--density-row-py)] bg-accent/40 border-b border-border/60 gap-[var(--density-gap)]">
         <div className="w-[40px] flex items-center justify-center">
@@ -73,7 +84,7 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false, 
                 type="checkbox" 
                 checked={allSelected}
                 onChange={toggleSelectAll}
-                className="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary cursor-pointer"
+                className="h-[16px] w-[16px] rounded border-border text-primary focus:ring-primary accent-primary cursor-pointer"
             />
         </div>
         <div className={cn("text-[10px] font-bold text-muted uppercase tracking-widest", showJobColumn ? "w-[180px]" : "w-[200px]")}>
@@ -104,7 +115,7 @@ export function CandidateTable({ data, onView, onDelete, showJobColumn = false, 
                     type="checkbox" 
                     checked={selectedIds.includes(candidate.id)}
                     onChange={() => toggleSelection(candidate.id)}
-                    className="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary cursor-pointer"
+                    className="h-[16px] w-[16px] rounded border-border text-primary focus:ring-primary accent-primary cursor-pointer"
                 />
             </div>
             {/* Candidate Info */}
