@@ -91,21 +91,21 @@
   /* High-end Neutral Palette (Dark) */
   --primary: #fafafa; /* Zinc 50 */
   --primary-foreground: #18181b; /* Zinc 900 */
-  --paper: #141415; /* Lighter Dark Background */
-  --cream: #1c1c1e;
+  --paper: #18181b; /* Zinc 900 - Lighter Background */
+  --cream: #27272a; /* Zinc 800 */
   --muted: #a1a1aa; /* Zinc 400 */
   --black-soft: #fafafa;
-  --border: #2e2e30;
-  --border-hover: #3f3f42;
+  --border: #3f3f46; /* Zinc 700 - Lighter Border */
+  --border-hover: #52525b; /* Zinc 600 */
 
   /* Component Colors Dark */
-  --card: #1c1c1e;
+  --card: #27272a; /* Zinc 800 - Lighter Card */
   --card-foreground: #fafafa;
-  --popover: #1c1c1e;
+  --popover: #27272a;
   --popover-foreground: #fafafa;
-  --input-bg: #1c1c1e;
+  --input-bg: #27272a;
   --muted-foreground: #a1a1aa;
-  --accent: #27272a; /* Zinc 800 */
+  --accent: #3f3f46; /* Zinc 700 */
   --accent-foreground: #fafafa;
   --destructive: #ef4444; /* Red 500 */
   --destructive-foreground: #fafafa;

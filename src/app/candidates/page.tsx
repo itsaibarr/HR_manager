@@ -363,6 +363,7 @@ export default function CandidatesPage() {
           isOpen={isDetailOpen}
           onClose={() => setIsDetailOpen(false)}
           onStatusChange={fetchData}
+          showReferenceRequirements={true}
         />
       )}
 

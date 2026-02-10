@@ -33,15 +33,16 @@ interface CandidateDetailFrameProps {
   isOpen: boolean
   onClose: () => void
   onStatusChange?: (message?: string, type?: 'success' | 'error') => void
+  showReferenceRequirements?: boolean
 }
 
 
-export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onStatusChange }: CandidateDetailFrameProps) {
+export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onStatusChange, showReferenceRequirements = false }: CandidateDetailFrameProps) {
   const [data, setData] = useState<any>(null)
   const [jobContext, setJobContext] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [actionLoading, setActionLoading] = useState(false)
-  const [showJobRequirements, setShowJobRequirements] = useState(false)
+  const [isJobRequirementsExpanded, setIsJobRequirementsExpanded] = useState(false)
   const [isCvOpen, setIsCvOpen] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
 
@@ -176,22 +177,23 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                 </div>
 
                 {/* View Job Requirements Button */}
+                {showReferenceRequirements && (
                 <div className="subtle-border rounded-sm bg-accent/20 overflow-hidden transition-all duration-200">
                   <button
-                    onClick={() => setShowJobRequirements(!showJobRequirements)}
+                    onClick={() => setIsJobRequirementsExpanded(!isJobRequirementsExpanded)}
                     className="flex items-center justify-between w-full p-4 text-left hover:bg-accent/30 transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <Briefcase className="w-[14px] h-[14px] text-primary/60" strokeWidth={2.4} />
                       <span className="text-[11px] font-bold uppercase tracking-widest text-primary/80">Reference Job Requirements</span>
                     </div>
-                    {showJobRequirements ? (
+                    {isJobRequirementsExpanded ? (
                       <ChevronUp className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
                     ) : (
                       <ChevronDown className="w-[14px] h-[14px] text-muted" strokeWidth={2.4} />
                     )}
                   </button>
-                  {showJobRequirements && jobContext && (
+                  {isJobRequirementsExpanded && jobContext && (
                     <div className="p-5 pt-0 space-y-5 border-t border-border/40">
                       {jobContext.original_description && (
                         <div className="space-y-2">
@@ -222,6 +224,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                     </div>
                   )}
                 </div>
+                )}
 
                 {/* AI Reasoning / Observations */}
                 {reasoning.length > 0 && (

@@ -135,13 +135,6 @@ export default function ProfilePage() {
                </Button>
             </div>
           </div>
-          
-          <div className="p-4 bg-accent/20 border border-border/40 rounded-sm flex gap-3">
-             <Shield className="w-5 h-5 text-primary/60 shrink-0 mt-0.5" />
-             <p className="text-[11px] text-muted leading-relaxed">
-               Your session is protected with biometric-grade encryption. API keys are encrypted at rest.
-             </p>
-          </div>
         </div>
 
         {/* Right: Settings Sections */}
@@ -267,8 +260,8 @@ function Section({ title, icon: Icon, description, children }: { title: string, 
     <div className="space-y-6">
       <div className="space-y-1.5 border-b border-border/60 pb-4">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-sm bg-primary text-paper flex items-center justify-center">
-            <Icon className="w-4 h-4" />
+          <div className="w-[20px] h-[20px] rounded-sm bg-primary text-paper flex items-center justify-center">
+            <Icon className="w-[16px] h-[16px]" />
           </div>
           <h2 className="text-lg font-sora font-extrabold text-primary tracking-tight uppercase">{title}</h2>
         </div>

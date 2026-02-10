@@ -82,7 +82,7 @@ export function Sidebar() {
          <button
             onClick={toggleSidebar}
             className={cn(
-                "flex items-center justify-center text-muted/40 hover:text-primary transition-all hover:bg-accent/40 rounded-sm z-50",
+                "flex items-center justify-center text-muted hover:text-primary transition-all hover:bg-accent/40 rounded-sm z-50",
                 isCollapsed 
                     ? "absolute right-[-10px] top-1/2 -translate-y-1/2 w-[24px] h-[24px] bg-paper border border-border shadow-md rounded-full" 
                     : "w-[16px] h-[16px]"
