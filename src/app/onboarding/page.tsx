@@ -9,8 +9,8 @@ export default function OnboardingPage() {
     <div className="min-h-screen flex items-center justify-center bg-paper p-4">
       <div className="max-w-[480px] w-full bg-paper rounded-sm border border-border/60 p-12 space-y-8">
         <div className="text-center space-y-2">
-            <div className="w-12 h-12 bg-primary rounded-sm mx-auto flex items-center justify-center mb-4">
-                 <span className="text-paper font-bold text-sm">HR</span>
+            <div className="w-14 h-14 mx-auto flex items-center justify-center mb-4">
+                 <img src="/logo.png" alt="Strata Logo" className="w-14 h-14 object-contain" />
             </div>
             <h2 className="text-2xl font-bold font-sora">Create Workspace</h2>
             <p className="text-muted">
@@ -29,7 +29,7 @@ export default function OnboardingPage() {
             </div>
              <div className="space-y-2">
                 <label className="text-sm font-medium text-primary">Role</label>
-                <Input placeholder="e.g. HR Manager" />
+                <Input placeholder="e.g. Hiring Manager" />
             </div>
         </div>
 

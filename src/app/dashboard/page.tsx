@@ -203,8 +203,8 @@ export default function JobsPage() {
         title="Job Contexts"
         subtitle="Manage your open roles and screening criteria."
         action={
-          <Button onClick={openCreateModal}>
-            <Plus className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
+          <Button onClick={openCreateModal} variant="brand" className="h-[40px] px-5 rounded-sm font-semibold text-[13px] tracking-tight">
+            <Plus className="w-[14px] h-[14px] mr-1" strokeWidth={2.4} />
             New Job Context
           </Button>
         }
@@ -266,8 +266,8 @@ function EmptyState({ onCreate }: { onCreate: () => void }) {
           Create your first job context to start screening candidates with AI.
         </p>
       </div>
-      <Button className="mt-2" onClick={onCreate}>
-        <Plus className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
+      <Button variant="brand" className="mt-2 h-10 px-6 rounded-sm font-semibold text-[13px] tracking-tight" onClick={onCreate}>
+        <Plus className="w-4 h-4 mr-2" strokeWidth={2.4} />
         Create Job Context
       </Button>
     </div>
@@ -284,64 +284,83 @@ interface JobCardProps {
 function JobCard({ job, onEdit, onDelete, onToggleStatus }: JobCardProps) {
   return (
     <motion.div>
-    <Card className={`subtle-border hover:border-primary/30 transition-all duration-200 h-full group bg-card ${!job.is_active ? 'opacity-60' : ''}`}>
-      <CardContent className="p-5 space-y-4">
-        <div className="flex justify-between items-start">
-          <Link href={`/dashboard/${job.id}`} className="flex-1">
-            <h3 className="font-sora font-extrabold text-base text-primary tracking-tight group-hover:text-primary/70 transition-colors leading-tight">
-              {job.title}
-            </h3>
-          </Link>
-          <DropdownMenu
-            trigger={
-              <button className="p-2 hover:bg-accent rounded-sm transition-all duration-200 opacity-40 group-hover:opacity-100">
-                <MoreVertical className="w-[14px] h-[14px] text-muted hover:text-primary" strokeWidth={2.4} />
-              </button>
-            }
-          >
-            <DropdownItem onClick={onEdit}>
-              <span className="flex items-center gap-2">
-                <Edit2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
-                Edit
-              </span>
-            </DropdownItem>
-            <DropdownItem onClick={onToggleStatus}>
-              <span className="flex items-center gap-2">
-                <Power className="w-[14px] h-[14px]" strokeWidth={2.4} />
-                {job.is_active ? 'Set Inactive' : 'Set Active'}
-              </span>
-            </DropdownItem>
-            <DropdownSeparator />
-            <DropdownItem onClick={onDelete} variant="destructive">
-              <span className="flex items-center gap-2">
-                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
-                Delete
-              </span>
-            </DropdownItem>
-          </DropdownMenu>
-        </div>
+      <div className={`
+        group relative flex flex-col h-full bg-paper border border-border/60 rounded-sm
+        transition-all duration-200 hover:border-primary/40 hover:shadow-sm overflow-hidden
+        ${!job.is_active ? 'opacity-70' : ''}
+      `}>
+        {/* Active Indicator Line */}
+        {job.is_active && (
+          <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-brand group-hover:bg-brand/80 transition-colors" />
+        )}
 
-        <Link href={`/dashboard/${job.id}`} className="block space-y-4">
-          <div className="flex items-baseline gap-2">
-            <span className="font-mono text-2xl font-semibold text-primary">
-              {job.candidatesCount}
-            </span>
-            <span className="text-xs uppercase tracking-wider text-muted font-bold">Candidates</span>
+        <div className="p-5 flex flex-col h-full">
+          {/* Header */}
+          <div className="flex justify-between items-start mb-6">
+            <Link href={`/dashboard/${job.id}`} className="flex-1 pr-4">
+              <h3 className="font-sora font-semibold text-[15px] leading-snug text-foreground group-hover:text-brand transition-colors">
+                {job.title}
+              </h3>
+            </Link>
+            
+            <DropdownMenu
+              trigger={
+                <button className="h-6 w-6 flex items-center justify-center -mr-1 text-muted hover:text-brand transition-colors">
+                  <MoreVertical className="w-4 h-4" />
+                </button>
+              }
+            >
+              <DropdownItem onClick={onEdit}>
+                <span className="flex items-center gap-2">
+                  <Edit2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                  Edit Context
+                </span>
+              </DropdownItem>
+              <DropdownItem onClick={onToggleStatus}>
+                <span className="flex items-center gap-2">
+                  <Power className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                  {job.is_active ? 'Set Inactive' : 'Set Active'}
+                </span>
+              </DropdownItem>
+              <DropdownSeparator />
+              <DropdownItem onClick={onDelete} variant="destructive">
+                <span className="flex items-center gap-2">
+                  <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                  Delete
+                </span>
+              </DropdownItem>
+            </DropdownMenu>
           </div>
 
-          <div className="flex justify-between items-center pt-3 border-t border-border/40">
-            <Badge 
-              variant={job.is_active ? "fit-strong" : "outline"}
-            >
-              {job.is_active ? 'Active' : 'Inactive'}
-            </Badge>
-            <span className="text-xs font-mono text-muted/80">
+          {/* Metrics - Technical Layout */}
+          <Link href={`/dashboard/${job.id}`} className="flex-1">
+            <div className="flex items-end gap-3 mb-6">
+              <span className="font-mono text-3xl font-medium tracking-tight text-brand">
+                {String(job.candidatesCount).padStart(2, '0')}
+              </span>
+              <span className="text-[11px] uppercase tracking-wider font-bold text-muted mb-1.5 font-mono">
+                Candidates
+              </span>
+            </div>
+          </Link>
+
+          {/* Footer Meta */}
+          <div className="mt-auto pt-4 border-t border-border/40 flex items-center justify-between">
+            <div className={`
+              inline-flex items-center px-2 py-0.5 rounded-xs text-[10px] font-bold uppercase tracking-wide border
+              ${job.is_active 
+                ? 'bg-brand/10 text-brand border-brand/20' 
+                : 'bg-muted/10 text-muted border-muted/20'}
+            `}>
+              {job.is_active ? 'Active' : 'Archived'}
+            </div>
+            
+            <span className="text-[11px] font-mono text-muted/60">
               {new Date(job.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
             </span>
           </div>
-        </Link>
-      </CardContent>
-    </Card>
+        </div>
+      </div>
     </motion.div>
   )
 }

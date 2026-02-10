@@ -10,11 +10,10 @@ export default function LandingPage() {
       <header className="px-6 lg:px-8 h-20 flex items-center justify-between bg-transparent sticky top-0 z-50">
         {/* Left: Logo */}
         <div className="flex items-center gap-3 z-20">
-           <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
-             <span className="text-paper font-bold text-xs font-mono">HR</span>
-           </div>
-           <span className="font-extrabold text-xl text-primary font-sora tracking-tighter">HR SCREEN</span>
+           <img src="/logo.png" alt="Strata Logo" className="w-10 h-10 rounded-sm object-contain" />
+           <span className="font-extrabold text-xl text-primary font-sora tracking-tighter">STRATA</span>
         </div>
+
 
         {/* Center: Nav Options */}
         <nav className="hidden md:flex gap-8 text-sm font-medium text-primary absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
@@ -92,7 +91,8 @@ export default function LandingPage() {
       </main>
 
       <footer className="py-12 border-t border-border mt-auto bg-white text-center text-sm text-muted">
-        <p>&copy; 2024 HR Manager AI. Built with Next.js 16.</p>
+        <p>&copy; 2026 Strata AI. Built with Next.js 16.</p>
+
       </footer>
     </div>
   )

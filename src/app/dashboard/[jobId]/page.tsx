@@ -11,6 +11,7 @@ import { CandidateTable } from "@/components/organisms/CandidateTable"
 import { JobContextPanel } from "@/components/organisms/JobContextPanel"
 import { UploadCandidateModal } from "@/components/organisms/UploadCandidateModal"
 import { TimeSavedMetric } from "@/components/organisms/TimeSavedMetric"
+import { getScoreBand } from "@/lib/evaluation/framework"
 import { CandidateDetailFrame } from "@/components/organisms/CandidateDetailFrame"
 import { CandidateFilters, FilterState } from "@/components/organisms/CandidateFilters"
 import { deleteCandidates, bulkUpdateCandidateStatus } from "@/app/actions/candidate-actions"
@@ -45,6 +46,60 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
     sortBy: 'score'
   })
   const [shortlistMode, setShortlistMode] = useState<number | null>(null)
+  const [sidePanelWidth, setSidePanelWidth] = useState(340)
+  const [isResizing, setIsResizing] = useState(false)
+
+  // Initialize side panel width from localStorage
+  useEffect(() => {
+    const savedWidth = localStorage.getItem('sidePanelWidth')
+    if (savedWidth) {
+      setSidePanelWidth(parseInt(savedWidth, 10))
+    }
+  }, [])
+
+  const startResizing = useCallback(() => {
+    setIsResizing(true)
+  }, [])
+
+  const stopResizing = useCallback(() => {
+    setIsResizing(false)
+    localStorage.setItem('sidePanelWidth', sidePanelWidth.toString())
+  }, [sidePanelWidth])
+
+  const resize = useCallback(
+    (mouseMoveEvent: MouseEvent) => {
+      if (isResizing) {
+        // Calculate new width: viewport width - mouse X position
+        // This assumes the panel is on the RIGHT side.
+        const newWidth = window.innerWidth - mouseMoveEvent.clientX
+        // Constrain width
+        if (newWidth > 280 && newWidth < 600) {
+          setSidePanelWidth(newWidth)
+        }
+      }
+    },
+    [isResizing]
+  )
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener("mousemove", resize)
+      window.addEventListener("mouseup", stopResizing)
+      document.body.style.cursor = "col-resize"
+      document.body.style.userSelect = "none"
+    } else {
+      window.removeEventListener("mousemove", resize)
+      window.removeEventListener("mouseup", stopResizing)
+      document.body.style.cursor = ""
+      document.body.style.userSelect = ""
+    }
+    return () => {
+      window.removeEventListener("mousemove", resize)
+      window.removeEventListener("mouseup", stopResizing)
+      document.body.style.cursor = ""
+      document.body.style.userSelect = ""
+    }
+  }, [isResizing, resize, stopResizing])
   
   const supabase = createClient()
 
@@ -89,7 +144,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
             experienceRaw: ev.candidate_profiles?.experience?.length ? `${ev.candidate_profiles.experience.length} roles` : "N/A",
             score: ev.final_score,
             // Calculate band on the fly to fix existing records with gaps
-            scoreBand: ev.final_score >= 85 ? 'strong' : ev.final_score >= 70 ? 'good' : ev.final_score >= 60 ? 'borderline' : 'reject',
+            scoreBand: getScoreBand(ev.final_score),
             status: ev.status || 'pending',
             topSkills: ev.candidate_profiles?.skills?.slice(0,3) || [],
             appliedAt: new Date(ev.created_at).toLocaleDateString()
@@ -357,9 +412,9 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
   }, [candidates, filters, shortlistMode])
 
   return (
-    <div className="flex h-full min-h-screen">
+    <div className="flex h-full min-h-screen bg-background">
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="p-6 w-full space-y-8">
+        <div className="p-6 w-full space-y-6">
           <ToastContainer toasts={toasts} onDismiss={dismissToast} />
           <PageHeader
                 title={jobTitle}
@@ -367,11 +422,16 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                 action={
                 <div className="flex gap-2">
                     <RoleSwitcher currentJobId={jobId} />
-                    <Button variant="outline" onClick={downloadCSV} disabled={candidates.length === 0}>
+                    <Button variant="outline" onClick={downloadCSV} disabled={candidates.length === 0} className="rounded-sm border-border/60">
                         <Download className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
                         Export CSV
                     </Button>
-                    <Button onClick={() => setIsUploadModalOpen(true)} disabled={isUploading}>
+                    <Button 
+                        variant="brand" 
+                        onClick={() => setIsUploadModalOpen(true)} 
+                        disabled={isUploading} 
+                        className="rounded-sm"
+                    >
                         <Plus className="w-[14px] h-[14px] mr-2" strokeWidth={2.4} />
                         Add Candidates
                     </Button>
@@ -381,30 +441,38 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
                 <div className="lg:col-span-3">
-                    <PipelineVisual counts={pipelineCounts} />
+                    <div className="bg-paper border border-border/60 rounded-sm p-1 overflow-hidden">
+                        <PipelineVisual counts={pipelineCounts} />
+                    </div>
                 </div>
                 <div className="lg:col-span-1">
-                    <TimeSavedMetric candidateCount={candidates.length} />
+                     <div className="h-full bg-paper border border-border/60 rounded-sm p-4 hover:border-brand/20 transition-colors group">
+                        <TimeSavedMetric candidateCount={candidates.length} />
+                    </div>
                 </div>
             </div>
 
-            <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-sora font-semibold text-primary">Active Candidates</h2>
-                    <div className="flex items-center gap-1">
+            <div className="space-y-4 pt-2">
+                <div className="flex items-center justify-between border-b border-border/40 pb-4">
+                    <div className="flex items-baseline gap-3">
+                        <h2 className="text-lg font-sora font-semibold text-foreground">Active Candidates</h2>
+                        <span className="text-xs font-mono text-muted">/{filteredCandidates.length}</span>
+                    </div>
+                    
+                    <div className="flex items-center gap-1 bg-paper border border-border/40 rounded-sm p-0.5">
                             <Button 
-                                variant="ghost" 
+                                variant={shortlistMode === 5 ? "brand" : "ghost"} 
                                 size="sm" 
                                 onClick={() => setShortlistMode(5)}
-                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3 py-2 transition-colors", shortlistMode === 5 ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" : "text-muted-foreground hover:text-primary")}
+                                className={cn("h-7 text-[10px] font-bold uppercase tracking-widest rounded-xs px-3 transition-colors", shortlistMode === 5 ? "shadow-sm" : "text-muted var-hover")}
                             >
                                 Top 5
                             </Button>
                             <Button 
-                                variant="ghost" 
+                                variant={shortlistMode === 10 ? "brand" : "ghost"} 
                                 size="sm" 
                                 onClick={() => setShortlistMode(10)}
-                                className={cn("text-[10px] font-bold uppercase tracking-widest rounded-sm px-3 py-2 transition-colors", shortlistMode === 10 ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground" : "text-muted-foreground hover:text-primary")}
+                                className={cn("h-7 text-[10px] font-bold uppercase tracking-widest rounded-xs px-3 transition-colors", shortlistMode === 10 ? "shadow-sm" : "text-muted var-hover")}
                             >
                                 Top 10
                             </Button>
@@ -413,7 +481,7 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                                     variant="ghost" 
                                     size="sm" 
                                     onClick={() => setShortlistMode(null)}
-                                    className="text-[10px] font-bold uppercase tracking-widest text-destructive hover:bg-destructive/5 rounded-sm px-3 py-2"
+                                    className="h-7 text-[10px] font-bold uppercase tracking-widest text-destructive hover:bg-destructive/10 rounded-xs px-3"
                                 >
                                     Clear
                                 </Button>
@@ -430,13 +498,15 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                     filteredCount={filteredCandidates.length}
                 />
                 
-                <CandidateTable 
-                    data={filteredCandidates} 
-                    onView={handleView}
-                    onDelete={handleDelete}
-                    selectedIds={selectedCandidateIds}
-                    onSelectionChange={setSelectedCandidateIds}
-                />
+                <div className="rounded-sm border border-border/60 overflow-hidden bg-paper">
+                    <CandidateTable 
+                        data={filteredCandidates} 
+                        onView={handleView}
+                        onDelete={handleDelete}
+                        selectedIds={selectedCandidateIds}
+                        onSelectionChange={setSelectedCandidateIds}
+                    />
+                </div>
 
                 <AnimatePresence>
                     {selectedCandidateIds.length > 0 && (
@@ -444,24 +514,44 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
                             initial={{ opacity: 0, y: 50 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 50 }}
-                            className="fixed bottom-[35px] left-1/2 transform -translate-x-1/2 bg-popover border border-border/80 shadow-2xl rounded-[10px] px-5 py-2.5 flex items-center gap-3 z-50 backdrop-blur-md"
+                            className="fixed bottom-[35px] left-1/2 transform -translate-x-1/2 bg-[#1A1D21] border border-white/10 shadow-2xl shadow-black/40 rounded-[15px] px-[10px] py-[10px] flex items-center gap-1 z-50"
                         >
-                            <span className="text-xs font-bold text-muted ml-1 uppercase tracking-wider">{selectedCandidateIds.length} selected</span>
-                            <div className="h-4 w-px bg-border"></div>
+                            <span className="text-sm font-medium text-muted-foreground mr-3 px-2">
+                                <span className="text-white font-semibold mr-1">Selected:</span> 
+                                {selectedCandidateIds.length}
+                            </span>
+                            
+                            <div className="h-[10px] w-px bg-white/40 mx-1"></div>
+                            
                             <Button 
-                                variant="secondary" 
-                                className="h-9 rounded-sm px-4 gap-2 shadow-sm bg-paper border-border/60 text-primary hover:bg-accent/50 transition-all font-sora text-[11px] font-bold uppercase tracking-widest"
+                                variant="ghost" 
+                                className="h-[30px] rounded-[10px] px-[14px] gap-2 text-white hover:bg-white/10 hover:text-white transition-all font-sora text-[11px] font-medium tracking-wide"
                                 onClick={() => setIsShortlistDialogOpen(true)}
                             >
-                                <Star className="w-[14px] h-[14px] text-primary/60" strokeWidth={2.4} />
+                                <Star className="w-3.5 h-3.5" strokeWidth={2} />
                                 Shortlist
                             </Button>
+
+                            <div className="h-[10px] w-px bg-white/40 mx-1"></div>
+
+                            {/* Assuming an 'Email' or 'Assign' action might replace this if desired, but sticking to existing actions for now */}
+
                             <Button 
-                                variant="destructive" 
-                                className="h-9 rounded-sm px-4 gap-2 shadow-sm transition-all font-sora text-[11px] font-bold uppercase tracking-widest"
+                                variant="ghost" 
+                                className="h-[30px] rounded-[10px] px-[14px] gap-2 text-white hover:bg-white/10 hover:text-white transition-all font-sora text-[11px] font-medium tracking-wide"
+                                onClick={() => setSelectedCandidateIds([])}
+                            >
+                                Discard
+                            </Button>
+
+                            <div className="h-[10px] w-px bg-white/40 mx-1"></div>
+
+                            <Button 
+                                variant="default" 
+                                className="h-[30px] rounded-[10px] bg-white text-destructive border border-transparent hover:bg-destructive hover:text-white transition-all font-sora text-[11px] font-bold tracking-wide px-5 ml-2 shadow-sm"
                                 onClick={handleBulkDelete}
                             >
-                                <Trash2 className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                                <Trash2 className="w-3.5 h-3.5 mr-2" strokeWidth={2} />
                                 Delete
                             </Button>
                         </motion.div>
@@ -552,8 +642,22 @@ export default function JobDashboardPage({ params }: { params: Promise<{ jobId: 
           variant="destructive"
         />
       </div>
+      
+      {/* Draggable Divider */}
+      <div 
+        className={cn(
+          "w-3 px-1 h-full cursor-col-resize transition-all duration-150 shrink-0 z-40 group/resizer flex items-center justify-center",
+          isResizing ? "opacity-100" : "opacity-0 hover:opacity-100"
+        )}
+        onMouseDown={startResizing}
+      >
+        <div className={cn(
+          "w-[2px] h-full transition-colors",
+          isResizing ? "bg-brand" : "bg-brand/20 group-hover/resizer:bg-brand/40"
+        )} />
+      </div>
 
-      <JobContextPanel job={jobContext} />
+      <JobContextPanel job={jobContext} width={sidePanelWidth} />
     </div>
   )
 }

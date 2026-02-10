@@ -17,7 +17,7 @@ export default function AuthPage() {
          <div className="absolute w-[400px] h-[400px] bg-white opacity-10 rounded-sm blur-none" />
          
          <div className="relative z-10 text-center space-y-6">
-            <h1 className="text-4xl font-normal font-sora text-white">HR Screen</h1>
+            <h1 className="text-4xl font-normal font-sora text-white">Strata</h1>
          </div>
       </div>
 

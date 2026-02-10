@@ -57,11 +57,10 @@ export function Sidebar() {
     >
       {/* Logo & Toggle Header */}
       <div className={cn("flex items-center mb-8 h-8 transition-all relative", isCollapsed ? "justify-center w-full" : "px-3 justify-between w-full")}>
-        <div className="flex items-center gap-3 w-full">
-            <Link href="/dashboard" className="flex items-center gap-3 group overflow-hidden shrink-0">
-                <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center transition-all group-hover:bg-primary/90 shrink-0">
-                    <span className="text-paper font-sora font-extrabold text-[10px] tracking-tighter">HR</span>
-                </div>
+        <div className={cn("flex items-center gap-3 w-full transition-all", isCollapsed ? "justify-center" : "")}>
+            <Link href="/dashboard" className="flex items-center gap-2 group overflow-hidden shrink-0">
+                <img src="/logo.png" alt="Strata Logo" className="w-10 h-10 rounded-sm object-contain bg-white" />
+
                 <AnimatePresence mode="wait">
                     {!isCollapsed && (
                         <motion.span 
@@ -71,7 +70,8 @@ export function Sidebar() {
                             transition={{ duration: 0.2 }}
                             className="font-sora font-bold text-lg text-primary tracking-tight whitespace-nowrap"
                         >
-                            Hirer
+                            Strata
+
                         </motion.span>
                     )}
                 </AnimatePresence>

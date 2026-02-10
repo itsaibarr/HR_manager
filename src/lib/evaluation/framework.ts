@@ -1,5 +1,5 @@
 /**
- * HR Screening Agent - Evaluation Framework
+ * Strata Screening Agent - Evaluation Framework
  * 
  * Fixed 5-dimension evaluation system with predetermined weights.
  * This is a RULE-DRIVEN system - weights and criteria are defined by humans,

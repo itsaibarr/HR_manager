@@ -5,6 +5,8 @@ import { Modal } from "@/components/ui/modal"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
 
 interface JobFormModalProps {
   isOpen: boolean
@@ -158,7 +160,8 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
           <Button 
             onClick={handleSubmit} 
             disabled={!title}
-            className="h-11 px-8 gap-2 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider"
+            variant="brand"
+            className="h-11 px-8 rounded-sm font-sora text-[11px] font-bold uppercase tracking-wider"
           >
             {isEditing ? "Save Changes" : "Create Context"}
           </Button>
@@ -167,17 +170,23 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
     >
       <form onSubmit={handleSubmit}>
         {!isEditing && (
-          <div className="flex gap-4 border-b border-gray-100 mb-4">
+          <div className="flex gap-6 border-b border-border/40 mb-6">
             <button 
               type="button"
-              className={`pb-2 text-sm font-medium ${!isFullJd ? 'text-primary border-b-2 border-primary' : 'text-gray-400'}`}
+              className={cn(
+                "pb-3 text-[11px] font-bold uppercase tracking-wider transition-all relative border-b-2",
+                !isFullJd ? "text-primary border-primary" : "text-muted border-transparent"
+              )}
               onClick={() => setIsFullJd(false)}
             >
               Quick Create
             </button>
             <button 
               type="button"
-              className={`pb-2 text-sm font-medium ${isFullJd ? 'text-primary border-b-2 border-primary' : 'text-gray-400'}`}
+              className={cn(
+                "pb-3 text-[11px] font-bold uppercase tracking-wider transition-all relative border-b-2",
+                isFullJd ? "text-primary border-primary" : "text-muted border-transparent"
+              )}
               onClick={() => setIsFullJd(true)}
             >
               Paste Full JD
@@ -185,12 +194,12 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
           </div>
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-primary">Job Title</label>
+            <label className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted">Job Title</label>
             <div className="relative">
               {suggestion && title && suggestion.toLowerCase().startsWith(title.toLowerCase()) && (
-                <div className="absolute inset-0 flex items-center px-3 py-2 text-sm pointer-events-none select-none z-0">
+                <div className="absolute inset-0 flex items-center px-4 py-2 text-sm pointer-events-none select-none z-0">
                   <span className="invisible whitespace-pre">{title}</span>
                   <span className="text-muted/40">{suggestion.slice(title.length)}</span>
                 </div>
@@ -201,37 +210,38 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
                 onChange={handleTitleChange}
                 onKeyDown={handleKeyDown}
                 autoFocus
-                className="relative z-10 bg-transparent"
+                className="relative z-10 bg-transparent h-11 border-border/80 focus:border-brand/40 focus:ring-0 rounded-sm"
               />
             </div>
           </div>
 
           {(isFullJd || isEditing) ? (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-primary">
-                {isEditing ? "Job Description" : "Job Description (Paste Full Text)"}
+              <label className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted">
+                {isEditing ? "Job Description" : "Paste Full JD"}
               </label>
-              <div className="text-xs text-gray-500 mb-1">
+              <div className="text-[11px] text-muted/60 mb-2">
                 {isEditing 
-                  ? "Original description that was used to generate requirements."
-                  : "We'll extract skills & requirements automatically."
+                  ? "Original description used for requirements generation."
+                  : "We'll extract requirements and skills automatically from this text."
                 }
               </div>
               <Textarea 
                 placeholder="Paste the full job description here..." 
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="min-h-[200px] font-sora text-sm leading-relaxed"
+                className="min-h-[200px] font-mono text-xs leading-relaxed bg-accent/5 border-border/80 focus:border-brand/40 focus:ring-0 rounded-sm p-4"
               />
             </div>
           ) : (
             <div className="space-y-2">
-              <label className="text-sm font-medium text-primary">Short Summary</label>
-              <div className="text-xs text-gray-500 mb-1">We'll generate requirements based on the title and this summary.</div>
+              <label className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted">Short Summary</label>
+              <div className="text-[11px] text-muted/60 mb-2">We'll generate requirements based on the title and this summary.</div>
               <Input 
                 placeholder="e.g. Looking for a senior designer with Fintech experience..." 
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                className="h-11 border-border/80 focus:border-brand/40 focus:ring-0 rounded-sm"
               />
             </div>
           )}

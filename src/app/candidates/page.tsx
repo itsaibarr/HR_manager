@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback, useMemo } from "react"
 import { PageHeader } from "@/components/shared/PageHeader"
 import { Button } from "@/components/ui/button"
-import { Download } from "lucide-react"
+import { Download, Star, Trash2 } from "lucide-react"
+import { getScoreBand } from "@/lib/evaluation/framework"
 import { CandidateTable } from "@/components/organisms/CandidateTable"
 import { CandidateDetailFrame } from "@/components/organisms/CandidateDetailFrame"
 import { CandidateFilters, FilterState } from "@/components/organisms/CandidateFilters"
@@ -12,7 +13,6 @@ import { ConfirmDialog } from "@/components/shared/ConfirmDialog"
 import { useToast } from "@/hooks/useToast"
 import { ToastContainer } from "@/components/ui/toast"
 import { AnimatePresence, motion } from "framer-motion"
-import { Star, Trash2 } from "lucide-react"
 import { bulkUpdateCandidateStatus, deleteCandidates } from "@/app/actions/candidate-actions"
 
 import { BulkShortlistDialog } from "@/components/organisms/BulkShortlistDialog"
@@ -83,10 +83,7 @@ export default function CandidatesPage() {
           ? `${ev.candidate_profiles.experience.length} roles` 
           : "N/A",
         score: ev.final_score,
-        scoreBand: ev.final_score >= 85 ? 'strong' 
-          : ev.final_score >= 70 ? 'good' 
-          : ev.final_score >= 60 ? 'borderline' 
-          : 'reject',
+        scoreBand: getScoreBand(ev.final_score),
         status: ev.status || 'pending',
         topSkills: ev.candidate_profiles?.skills?.slice(0,3) || [],
         appliedAt: new Date(ev.created_at).toLocaleDateString()

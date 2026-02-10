@@ -17,7 +17,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HR Manager - Intelligent Screening",
+  title: "Strata - Intelligent Screening",
   description: "AI-powered candidate screening for modern teams.",
 };
 

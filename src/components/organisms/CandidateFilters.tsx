@@ -25,10 +25,10 @@ interface CandidateFiltersProps {
 }
 
 const SCORE_BANDS = [
-  { value: 'strong', label: 'Force Multiplier', color: 'bg-green-600 hover:bg-green-700' },
-  { value: 'good', label: 'Solid Contributor', color: 'bg-blue-600 hover:bg-blue-700' },
-  { value: 'borderline', label: 'Baseline Capable', color: 'bg-yellow-600 hover:bg-yellow-700' },
-  { value: 'reject', label: 'Do Not Proceed', color: 'bg-gray-600 hover:bg-gray-700' }
+  { value: 'Force Multiplier', label: 'Force Multiplier', color: 'bg-emerald-600 hover:bg-emerald-700 border-emerald-500/20 text-white' },
+  { value: 'Solid Contributor', label: 'Solid Contributor', color: 'bg-blue-600 hover:bg-blue-700 border-blue-500/20 text-white' },
+  { value: 'Baseline Capable', label: 'Baseline Capable', color: 'bg-amber-500 hover:bg-amber-600 border-amber-500/20 text-white' },
+  { value: 'Do Not Proceed', label: 'Do Not Proceed', color: 'bg-destructive hover:bg-destructive/90 border-destructive/20 text-white' }
 ]
 
 const SORT_OPTIONS = [
@@ -98,7 +98,7 @@ export function CandidateFilters({
             placeholder="Search candidates..."
             value={filters.search}
             onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
-            className="pl-9 h-8 text-[13px] bg-transparent border-border/60"
+            className="pl-9 h-[30px] text-[13px] bg-transparent border-border/60"
           />
         </div>
 
@@ -108,11 +108,7 @@ export function CandidateFilters({
         <div className="flex items-center gap-1.5">
           {SCORE_BANDS.map((band) => {
             const isActive = filters.scoreBands.includes(band.value)
-            const colorClass = 
-              band.value === 'strong' ? 'bg-strong-fit hover:bg-strong-fit/90' :
-              band.value === 'good' ? 'bg-good-fit hover:bg-good-fit/90' :
-              band.value === 'borderline' ? 'bg-borderline hover:bg-borderline/90' :
-              'bg-muted hover:bg-muted/90'
+            const colorClass = band.color
 
             return (
               <button

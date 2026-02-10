@@ -18,6 +18,7 @@
   --color-amber-warning: #f59e0b;
   --color-teal-success: #10b981;
   --color-reject: #ef4444; /* Red 500 */
+  --color-brand: var(--brand); /* Strata Red */
 
   /* Typography */
   --font-sora: var(--font-sora);
@@ -85,6 +86,7 @@
   --accent-foreground: #18181b;
   --destructive: #ef4444; /* Red 500 */
   --destructive-foreground: #fafafa;
+  --brand: #FF4747;
 }
 
 .dark {
@@ -109,6 +111,7 @@
   --accent-foreground: #fafafa;
   --destructive: #ef4444; /* Red 500 */
   --destructive-foreground: #fafafa;
+  --brand: #FF4747;
 }
 
 body {

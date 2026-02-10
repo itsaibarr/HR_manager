@@ -90,7 +90,7 @@ export async function sendCandidateEmail(payload: EmailPayload) {
     logger.warn(`[TEST MODE] Redirecting email for ${to} to ${safeRecipient} because Resend Test Mode only allows sending to verified address.`, { originalTo: to });
 
     const data = await resend.emails.send({
-      from: 'Acme HR <onboarding@resend.dev>',
+      from: 'Strata Teams <onboarding@resend.dev>',
       to: [safeRecipient], // Override recipient
       subject: `[TEST for ${to}] ${subject}`, // Add original recipient to subject
       html,

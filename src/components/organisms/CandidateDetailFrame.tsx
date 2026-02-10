@@ -157,7 +157,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                 <div className="flex items-start justify-between">
                   <div className="flex gap-5">
                     <Button variant="ghost" size="icon" onClick={onClose} className="mt-1 -ml-2 rounded-sm hover:bg-accent/50">
-                      <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                      <X className="w-[16px] h-[16px]" strokeWidth={2.4} />
                     </Button>
                     <div className="space-y-1.5">
                       <h1 className="text-2xl font-sora font-extrabold text-primary tracking-tight">
@@ -326,7 +326,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                         className="w-full justify-center gap-2 font-bold text-[11px] uppercase tracking-widest h-10 border-border/80 hover:bg-accent/50 hover:border-primary/30 text-muted hover:text-primary transition-all"
                         onClick={() => setIsCvOpen(true)}
                     >
-                        <FileTextIcon className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                        <FileTextIcon className="w-[16px] h-[16px]" strokeWidth={2.4} />
                         Original Document
                     </Button>
                 </div>
@@ -339,7 +339,7 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                             id="email-notify" 
                             checked={emailNotification}
                             onChange={(e) => setEmailNotification(e.target.checked)}
-                            className="h-4 w-4 rounded border-border text-primary focus:ring-primary accent-primary"
+                            className="h-[12px] w-[12px] rounded border-border text-primary focus:ring-primary accent-primary"
                         />
                         <label 
                             htmlFor="email-notify" 
@@ -454,8 +454,8 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
           {/* Header: Clean & Functional */}
           <div className="h-14 px-6 flex items-center justify-between border-b border-border/60 bg-paper/50 sticky top-0 z-50 backdrop-blur-sm">
              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-8 h-8 rounded-sm bg-primary/10 text-primary">
-                   <FileTextIcon className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                <div className="flex items-center justify-center w-[30px] h-[30px] rounded-sm bg-primary/10 text-primary">
+                   <FileTextIcon className="w-[16px] h-[16px]" strokeWidth={2.4} />
                 </div>
                 <div>
                    <h2 className="text-sm font-bold font-sora text-primary tracking-tight">Original CV</h2>
@@ -469,12 +469,12 @@ export function CandidateDetailFrame({ candidateId, jobId, isOpen, onClose, onSt
                   onClick={handleCopyCv}
                   className="h-8 text-[11px] font-bold uppercase tracking-wider text-muted hover:text-primary gap-2"
                 >
-                   {isCopied ? <Check className="w-[14px] h-[14px] text-good-fit" strokeWidth={2.4} /> : <Copy className="w-[14px] h-[14px]" strokeWidth={2.4} />}
+                    {isCopied ? <Check className="w-[16px] h-[16px] text-good-fit" strokeWidth={2.4} /> : <Copy className="w-[16px] h-[16px]" strokeWidth={2.4} />}
                    {isCopied ? "Copied" : "Copy"}
                 </Button>
                 <div className="w-px h-4 bg-border/60 mx-1" />
-                <Button variant="ghost" size="icon" onClick={() => setIsCvOpen(false)} className="h-8 w-8 text-muted hover:text-primary rounded-sm">
-                   <X className="w-[14px] h-[14px]" strokeWidth={2.4} />
+                <Button variant="ghost" size="icon" onClick={() => setIsCvOpen(false)} className="h-[30px] w-[30px] text-muted hover:text-primary rounded-sm">
+                   <X className="w-[16px] h-[16px]" strokeWidth={2.4} />
                 </Button>
              </div>
           </div>
