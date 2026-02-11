@@ -66,52 +66,57 @@
 /* Theme Variables */
 :root {
   /* High-end Neutral Palette (Light) */
-  --primary: #09090b; /* Zinc 950 */
-  --primary-foreground: #fafafa; /* Zinc 50 */
-  --paper: #ffffff;
-  --cream: #fbfbfa;
-  --muted: #71717a; /* Zinc 500 */
-  --black-soft: #18181b; /* Zinc 900 */
-  --border: #e4e4e7; /* Zinc 200 */
-  --border-hover: #d4d4d8; /* Zinc 300 */
+  --primary: #000000; /* Deep Black */
+  --primary-foreground: #ffffff; /* Pure White */
+  --paper: #f9f9f9; /* Canvas */
+  --cream: #ffffff; /* Card Background */
+  --muted: #666666; /* Muted Text */
+  --black-soft: #18181b;
+  --border: #e5e5e5; /* Subtle Border */
+  --border-hover: #d4d4d4;
 
   /* Component Colors */
   --card: #ffffff;
-  --card-foreground: #18181b;
+  --card-foreground: #000000;
   --popover: #ffffff;
-  --popover-foreground: #18181b;
+  --popover-foreground: #000000;
   --input-bg: #ffffff;
-  --muted-foreground: #71717a;
-  --accent: #f4f4f5; /* Zinc 100 */
-  --accent-foreground: #18181b;
-  --destructive: #ef4444; /* Red 500 */
-  --destructive-foreground: #fafafa;
-  --brand: #FF4747;
+  --muted-foreground: #666666;
+  --accent: #f4f4f5;
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --brand: #ff4f00; /* Strata Accent */
 }
 
 .dark {
-  /* High-end Neutral Palette (Dark) */
-  --primary: #fafafa; /* Zinc 50 */
-  --primary-foreground: #18181b; /* Zinc 900 */
-  --paper: #18181b; /* Zinc 900 - Lighter Background */
-  --cream: #27272a; /* Zinc 800 */
-  --muted: #a1a1aa; /* Zinc 400 */
-  --black-soft: #fafafa;
-  --border: #3f3f46; /* Zinc 700 - Lighter Border */
-  --border-hover: #52525b; /* Zinc 600 */
+  /* Dark Mode Palette (keeping consistent with new brand but dark) */
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --paper: #0a0a0a; /* Deep Dark Background */
+  --cream: #171717; /* Dark Card */
+  --muted: #a3a3a3;
+  --black-soft: #ffffff;
+  --border: #262626;
+  --border-hover: #404040;
 
   /* Component Colors Dark */
-  --card: #27272a; /* Zinc 800 - Lighter Card */
-  --card-foreground: #fafafa;
-  --popover: #27272a;
-  --popover-foreground: #fafafa;
-  --input-bg: #27272a;
-  --muted-foreground: #a1a1aa;
-  --accent: #3f3f46; /* Zinc 700 */
-  --accent-foreground: #fafafa;
-  --destructive: #ef4444; /* Red 500 */
-  --destructive-foreground: #fafafa;
-  --brand: #FF4747;
+  --card: #171717;
+  --card-foreground: #ffffff;
+  --popover: #171717;
+  --popover-foreground: #ffffff;
+  --input-bg: #171717;
+  --muted-foreground: #a3a3a3;
+  --accent: #262626;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --brand: #ff4f00;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
 }
 
 body {
