@@ -1,83 +1,49 @@
-# HR Manager MVP (AI-Powered Recruitment)
+# Strata: AI-Powered Recruitment (MVP)
 
-> **Automated, intelligent candidate screening that mimics human HR judgment.**
-
-## 📖 Project Overview
-
-### What is this?
-
-HR Manager MVP is an AI-driven recruitment platform designed to help hiring teams process high volumes of CVs without losing the nuance of human evaluation. Unlike traditional ATS systems that rely on keyword matching (which often filters out great candidates), this system uses a Large Language Model (LLM) to "read" CVs, understand capabilities, and score candidates based on a holistic framework.
-
-### The Problem
-
-- **Resume Fatigue**: HR managers spend hours reviewing hundreds of CVs.
-- **Keyword Bias**: Good candidates get rejected because they didn't use the exact keywords from the JD.
-- **Inconsistent Scoring**: Different reviewers apply different standards.
-
-### Who is this for?
-
-- **Recruitment Agencies**: To process bulk applications faster.
-- **Startups/SMEs**: To hire senior talent without a dedicated HR team.
-- **Hiring Managers**: To get a ranked shortlist of "Force Multiplier" candidates instantly.
+> **High-density, technical-brutalist candidate screening that mimics senior HR judgment.**
 
 ---
 
-## ⚙️ How It Works
+## 📖 Project Overview
 
-### High-Level Flow
+**Strata** is an AI-driven recruitment platform designed for precision. Unlike traditional keyword-based ATS systems, Strata uses Large Language Models (LLM) to perform deep, contextual reading of CVs—extracting capabilities, inferring ownership, and scoring candidates against an expert-calibrated framework.
 
-1.  **Job Context Creation**: The user pastes a Job Description (JD) or writes a short summary.
-2.  **Candidate Import**: User uploads PDF CVs or imports from a CSV.
-3.  **Smart Parsing**: The system extracts text from PDFs using `pdf-parse`.
-4.  **AI Evaluation**: The core engine (Gemini Pro) analyzes the candidate against the Job Context.
-5.  **Scoring & Ranking**: Candidates are assigned a score (0-100) and placed into bands (e.g., "Force Multiplier", "Solid Contributor").
+### Why Strata?
 
-### Core Architecture
+- **Bias Reduction**: Rejects "checklist" thinking; focuses on demonstrated outcomes and system ownership.
+- **Seniority Gating**: Automatically classifies candidates (Junior to Expert) using distinct evaluation curves for each level.
+- **Technical Brutalism**: A UI designed for efficiency, not fluff. High information density, disciplined spacing, and zero visual noise.
 
-- **AI-First Logic**: The system prompt (`src/lib/ai/prompts.ts`) is designed to reject "checklist" thinking. It treats missing details as neutral, infers skills from context (e.g., "Production ownership" implies "Git"), and enforces a "Seniority Gate" before scoring.
-- **Seniority Gating**: Before assigning a score, the AI classifies the candidate as Junior, Mid, Senior, or Expert. A "Clear Senior" is scored on a different curve than a "Junior", preventing false equivalencies.
+---
+
+## ⚙️ Core Architecture
+
+### 1. Smart Evaluation Engine
+
+The core engine (`src/lib/ai/evaluator.ts`) uses **Gemini 1.5 Pro** to process candidates. It follows a multi-step "Chain of Thought" reasoning process:
+
+- **Parse**: Extract structured data from PDF/CSV.
+- **Gate**: Determine seniority level to set the scoring baseline.
+- **Score**: Evaluate across 5 dimensions (Core Competencies, Results, Leadership, Problem Solving, fit).
+
+### 2. Technical Brutalist Design System
+
+Built under strict constraints to ensure a professional, disciplined product feel:
+
+- **Hierarchy over Symmetry**: Using controlled asymmetry to guide the eye to primary actions.
+- **Restricted Palette**: High-contrast, single-primary color logic.
+- **Deterministic Spacing**: Strict 4px/8px grid system.
 
 ---
 
 ## 🛠 Tech Stack
 
-### Frontend
-
-- **Next.js 14** (App Router): React framework for performance and SEO.
-- **Tailwind CSS**: Utility-first styling for a custom, premium design system.
-- **Framer Motion**: For smooth UI transitions and micro-interactions.
-- **Shadcn UI**: Accessible, reusable component primitives.
-
-### Backend & Infrastructure
-
-- **Serverless API**: Next.js API Routes for handling parsing and AI requests.
-- **Supabase**: PostgreSQL database for storing jobs, candidates, and evaluations.
-- **Auth**: Supabase Auth (or Better Auth) for secure user management.
-
-### AI & ML
-
-- **Model**: Google Gemini Pro (via Vercel AI SDK).
-- **Prompt Engineering**: Custom "Human HR" system prompt with chain-of-thought calibration.
-
----
-
-## 📂 Project Structure
-
-```bash
-src/
-├── app/                  # Next.js App Router (Pages & API)
-│   ├── api/              # Server-side logic (Parsing, Uploads)
-│   └── dashboard/        # Main application UI
-├── components/           # React Components
-│   ├── atoms/            # Smallest units (Buttons, Badges)
-│   ├── molecules/        # Form fields, Cards
-│   └── organisms/        # Complex sections (CandidateTable, Filters)
-├── lib/                  # Core Business Logic
-│   ├── ai/               # Prompts, Parser, Evaluator
-│   ├── evaluation/       # Scoring Framework & Rules
-│   └── supabase/         # Database Clients
-└── scripts/              # Maintenance & Migration scripts
-```
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **Core**: React 19 / TypeScript 5.9
+- **Database/Auth**: [Supabase](https://supabase.com/) & [Better Auth](https://www.better-auth.com/)
+- **AI**: Google Gemini AI (Vertex AI SDK)
+- **Styling**: Tailwind CSS 4 (Technical Brutalist aesthetic)
+- **Email**: Resend API
 
 ---
 
@@ -85,78 +51,61 @@ src/
 
 ### Prerequisites
 
-- Node.js 18+
-- A Supabase project
-- A Google Gemini API Key
+- Node.js 20+
+- [Supabase](https://supabase.com/) Account & Project
+- [Google AI Studio](https://aistudio.google.com/) API Key (Gemini)
 
-### Installation
+### Local Setup
 
-1.  **Clone the repository**:
+1. **Clone the repository**:
 
-    ```bash
-    git clone https://github.com/yourusername/hr-manager-mvp.git
-    cd hr-manager-mvp
-    ```
+   ```bash
+   git clone https://github.com/itsaibarr/HR_manager.git
+   cd HR_manager
+   ```
 
-2.  **Install dependencies**:
+2. **Install dependencies**:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
-3.  **Configure Environment**:
-    Duplicate `.env.example` to `.env` and fill in your secrets.
+3. **Configure Environment**:
 
-    ```bash
-    cp .env.example .env
-    ```
+   ```bash
+   cp .env.example .env.local
+   ```
 
-4.  **Run Locally**:
-    ```bash
-    npm run dev
-    ```
-    Open [http://localhost:3000](http://localhost:3000) to create your first job context.
+   _Fill in your keys in `.env.local`._
+
+4. **Run Dev**:
+   ```bash
+   npm run dev
+   ```
 
 ---
 
-## 🔐 Environment Variables
+## 📁 Project Structure
 
-The application requires the following environment variables to function.
-
-| Variable                        | Description                                                 |
-| :------------------------------ | :---------------------------------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | content: Your Supabase Project URL                          |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | content: Your Supabase Anonymous Key (safe for client-side) |
-| `SUPABASE_SERVICE_ROLE_KEY`     | content: Service Role Key (Server-side only, bypasses RLS)  |
-| `GEMINI_API_KEY`                | content: Google Gemini API Key for the specific AI model    |
-| `BETTER_AUTH_SECRET`            | content: Secret used for session encryption (if enabled)    |
-| `RESEND_API_KEY`                | content: API Key for sending emails via Resend              |
-
-**Security Note**: Never commit your `.env` file. It is included in `.gitignore` by default.
+```bash
+src/
+├── app/                  # Next.js 16 App Router (Routes & Server Actions)
+├── components/           # Atomic Design Structure (Atoms -> Molecules -> Organisms)
+├── lib/                  # Core logic: AI Evaluator, Scoring Framework
+├── hooks/                # Custom React hooks (Theme, Toast, Auth)
+└── types/                # Centralized Type Definitions & Database Schemas
+```
 
 ---
 
 ## 🛡️ Security & Privacy
 
-- **No Hardcoded Secrets**: All API keys and sensitive credentials must be loaded via environment variables.
-- **Git Hygiene**: `.env` and other sensitive configuration files are strictly ignored by git.
-- **Data Isolation**: Each job context is isolated. Candidate data is processed ephemerally by the AI and stored securely in Supabase.
-
----
-
-## 🚧 Project Status
-
-**Current Status**: MVP (Minimum Viable Product)
-
-- ✅ Core AI Evaluation Engine
-- ✅ PDF Parsing & CSV Import
-- ✅ Seniority Gating Logic
-- ✅ Dashboard UI
-- 🚧 Calendar Integration (Planned)
-- 🚧 Automated Interview Scheduling (Planned)
+- **Stateless Intelligence**: Candidate data is processed ephemerally.
+- **Local Secrets**: All credentials are managed via environment variables and never committed to version control.
+- **Disciplined Git**: `.env`, `.agent`, and `.claude` directories are strictly ignored.
 
 ---
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+Strata is available under the [MIT License](LICENSE).
