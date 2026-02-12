@@ -1,7 +1,14 @@
 import { betterAuth } from "better-auth";
 
+const getBaseURL = () => {
+  if (process.env.BETTER_AUTH_URL) return process.env.BETTER_AUTH_URL;
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://localhost:3000";
+};
+
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: getBaseURL(),
   database: {
     type: "postgres",
     connectionString: process.env.DATABASE_URL || "", // Provide empty string to avoid adapter crash if missing during build

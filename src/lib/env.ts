@@ -14,8 +14,8 @@ const envSchema = z.object({
 
   // Better Auth
   BETTER_AUTH_SECRET: z.string().min(1, 'BETTER_AUTH_SECRET is required'),
-  BETTER_AUTH_URL: z.string().url().default('http://localhost:3000'),
-  NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
+  BETTER_AUTH_URL: z.string().url().optional(),
+  NEXT_PUBLIC_APP_URL: z.string().url().optional(),
 
   // Resend Email
   RESEND_API_KEY: z.string().min(1).optional(),
