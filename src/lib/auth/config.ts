@@ -11,7 +11,8 @@ export const auth = betterAuth({
   baseURL: getBaseURL(),
   database: {
     type: "postgres",
-    connectionString: process.env.DATABASE_URL || "", // Provide empty string to avoid adapter crash if missing during build
+    connectionString: process.env.DATABASE_URL || "postgres://dummy:dummy@localhost:5432/dummy",
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false,
   },
   emailAndPassword: {
     enabled: true,
@@ -27,6 +28,10 @@ export const auth = betterAuth({
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days
     updateAge: 60 * 60 * 24, // 1 day
+  },
+  advanced: {
+    // @ts-expect-error - generateId is a valid runtime option in Better Auth 1.x but may be missing in current type definitions
+    generateId: () => crypto.randomUUID(),
   },
 });
 
