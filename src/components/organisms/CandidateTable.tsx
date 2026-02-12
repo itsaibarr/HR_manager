@@ -141,13 +141,12 @@ export function CandidateTable({
               </div>
             )}
 
-            {/* Score */}
             <div className="w-[60px]">
               <span className={cn(
                 "font-mono text-base font-bold",
-                candidate.scoreBand === 'Force Multiplier' ? "text-emerald-500" :
-                candidate.scoreBand === 'Solid Contributor' ? "text-blue-500" : 
-                candidate.scoreBand === 'Baseline Capable' ? "text-amber-500" : "text-destructive"
+                candidate.scoreBand === 'Force Multiplier' || (candidate.score >= 85) ? "text-emerald-500" :
+                candidate.scoreBand === 'Solid Contributor' || (candidate.score >= 70) ? "text-blue-500" : 
+                candidate.scoreBand === 'Baseline Capable' || (candidate.score >= 60) ? "text-amber-500" : "text-destructive"
               )}>
                 {candidate.score}
               </span>

@@ -98,6 +98,8 @@ export async function POST(request: Request) {
         reasoning: evaluationResult.reasoning,
         potential_concern: evaluationResult.potentialConcern,
         rejection_reason: evaluationResult.rejectionReason,
+        confidence_score: Math.round(evaluationResult.confidenceScore * 100),
+        confidence_reason: evaluationResult.confidenceReason,
         evaluated_by: user.id,
         ai_model_version: evaluationResult.aiModelVersion,
       })

@@ -90,7 +90,7 @@ export function CandidateFilters({
   return (
     <div className="space-y-3">
       {/* Filter Bar */}
-      <div className="flex items-center gap-3 p-2 bg-paper border border-border/80 rounded-sm">
+      <div className="flex items-center flex-wrap gap-3 p-2 bg-paper border border-border/80 rounded-sm">
         {/* Search */}
         <div className="relative w-64">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-[14px] h-[14px] text-muted/60" strokeWidth={2.4} />

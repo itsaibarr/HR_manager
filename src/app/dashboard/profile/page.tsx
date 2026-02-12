@@ -195,7 +195,7 @@ export default function ProfilePage() {
                                             role: "Senior Product Designer",
                                             experienceRaw: "8y exp",
                                             score: 92,
-                                            scoreBand: "strong",
+                                            scoreBand: "Force Multiplier",
                                             status: "shortlisted",
                                             topSkills: ["Figma", "React", "Systems"],
                                             appliedAt: "2h ago",

@@ -547,9 +547,10 @@ function ProfileItem({ icon: Icon, label, value }: { icon: any, label: string, v
 }
 
 function ConfidenceBadge({ score, reason }: { score: number, reason?: string }) {
+    const displayScore = Math.round(score > 1 ? score : score * 100);
     return (
         <div className="flex items-center gap-2 px-2 py-0.5 rounded-sm bg-accent/30 border border-border/40 text-[10px] font-mono font-medium text-muted">
-            <span className="uppercase tracking-wider">Confidence {score}%</span>
+            <span className="uppercase tracking-wider">Confidence {displayScore}%</span>
             {reason && <span className="text-[9px] opacity-70 font-sans italic">— {reason}</span>}
         </div>
     )
