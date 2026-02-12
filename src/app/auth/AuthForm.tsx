@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth/client";
 import { createClient } from "@/lib/supabase/client";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -12,8 +12,8 @@ export function AuthForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,32 +24,44 @@ export function AuthForm() {
     const password = formData.get("password") as string;
     const name = formData.get("name") as string;
 
+    const supabase = createClient();
+
     startTransition(async () => {
       if (isLogin) {
-        const { error } = await authClient.signIn.email({
+        const { error } = await supabase.auth.signInWithPassword({
           email,
           password,
-          callbackURL: "/dashboard",
         });
-        if (error) setError(error.message || "Failed to sign in");
+        if (error) {
+          setError(error.message || "Failed to sign in");
+        } else {
+          router.push("/dashboard");
+        }
       } else {
-        const { error } = await authClient.signUp.email({
+        const { error } = await supabase.auth.signUp({
           email,
           password,
-          name,
-          callbackURL: "/dashboard",
+          options: { data: { full_name: name } },
         });
-        if (error) setError(error.message || "Failed to sign up");
-        else setSuccess("Account created successfully!");
+        if (error) {
+          setError(error.message || "Failed to sign up");
+        } else {
+          setSuccess("Check your email for a confirmation link.");
+        }
       }
     });
   }
 
   async function handleGoogleLogin() {
+    const supabase = createClient();
+    const origin = window.location.origin;
+
     startTransition(async () => {
-      const { error } = await authClient.signIn.social({
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
-        callbackURL: "/dashboard",
+        options: {
+          redirectTo: origin + "/auth/callback",
+        },
       });
       if (error) {
         setError(error.message || "Failed to sign in with Google");
@@ -77,10 +89,10 @@ export function AuthForm() {
               <label className="text-[10px] font-black tracking-widest text-primary/40 uppercase">
                 Full Name
               </label>
-              <Input 
-                name="name" 
-                placeholder="Name Surname" 
-                required 
+              <Input
+                name="name"
+                placeholder="Name Surname"
+                required
                 className="h-13 rounded-sm border-2 border-primary/10 focus:border-brand transition-all uppercase font-bold px-5"
               />
             </div>
@@ -89,11 +101,11 @@ export function AuthForm() {
             <label className="text-[10px] font-black tracking-widest text-primary/40 uppercase">
               Email
             </label>
-            <Input 
-              name="email" 
-              placeholder="name@company.com" 
-              type="email" 
-              required 
+            <Input
+              name="email"
+              placeholder="name@company.com"
+              type="email"
+              required
               className="h-13 rounded-sm border-2 border-primary/10 focus:border-brand transition-all uppercase font-bold px-5"
             />
           </div>
@@ -102,11 +114,11 @@ export function AuthForm() {
               Password
             </label>
             <div className="relative group">
-              <Input 
-                name="password" 
-                placeholder="••••••••" 
-                type={showPassword ? "text" : "password"} 
-                required 
+              <Input
+                name="password"
+                placeholder="••••••••"
+                type={showPassword ? "text" : "password"}
+                required
                 className="h-13 rounded-sm border-2 border-primary/10 focus:border-brand transition-all uppercase font-bold px-5 pr-12"
               />
               <button
@@ -158,20 +170,20 @@ export function AuthForm() {
         </div>
       </div>
 
-       <Button 
-         variant="outline" 
-         className="w-full h-[52px] text-xs font-black uppercase tracking-[0.2em] rounded-sm border-2 border-primary/10 hover:border-brand hover:text-brand transition-all" 
-         type="button" 
+       <Button
+         variant="outline"
+         className="w-full h-[52px] text-xs font-black uppercase tracking-[0.2em] rounded-sm border-2 border-primary/10 hover:border-brand hover:text-brand transition-all"
+         type="button"
          onClick={handleGoogleLogin}
        >
-            <svg 
-              className="mr-3 h-[14px] w-[14px]" 
-              aria-hidden="true" 
-              focusable="false" 
-              data-prefix="fab" 
-              data-icon="google" 
-              role="img" 
-              xmlns="http://www.w3.org/2000/svg" 
+            <svg
+              className="mr-3 h-[14px] w-[14px]"
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fab"
+              data-icon="google"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 488 512"
             >
               <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>

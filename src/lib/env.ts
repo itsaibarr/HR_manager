@@ -6,21 +6,19 @@ const envSchema = z.object({
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, 'NEXT_PUBLIC_SUPABASE_ANON_KEY is required'),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
 
-  // Better Auth - uses direct Postgres connection (Supabase: Settings > Database > Connection string)
-  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required for Better Auth').optional(),
+  // Direct Postgres connection (used by debug-auth route)
+  DATABASE_URL: z.string().min(1).optional(),
 
   // Gemini AI
   GEMINI_API_KEY: z.string().min(1).optional(),
 
-  // Better Auth
-  BETTER_AUTH_SECRET: z.string().min(1, 'BETTER_AUTH_SECRET is required'),
-  BETTER_AUTH_URL: z.string().url().optional(),
+  // App URL
   NEXT_PUBLIC_APP_URL: z.string().url().optional(),
 
   // Resend Email
   RESEND_API_KEY: z.string().min(1).optional(),
 
-  // Google OAuth (optional)
+  // Google OAuth (optional — configured in Supabase Dashboard)
   GOOGLE_CLIENT_ID: z.string().optional(),
   GOOGLE_CLIENT_SECRET: z.string().optional(),
 
