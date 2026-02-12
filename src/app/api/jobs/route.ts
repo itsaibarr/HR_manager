@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { JobContextSchema } from '@/types/schemas';
-import { NextResponse } from 'next/server';
+
 import { z } from 'zod';
 import { parseJobDescription } from '@/lib/ai/parser';
 import { apiError, apiSuccess } from '@/lib/api/error-handler';
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const supabase: SupabaseClient = await createClient();
     const { data: { user } } = await supabase.auth.getUser();

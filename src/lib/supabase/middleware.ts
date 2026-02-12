@@ -30,7 +30,11 @@ export async function updateSession(request: NextRequest) {
   );
 
   // Refresh session if expired
-  await supabase.auth.getUser();
+  try {
+    await supabase.auth.getUser();
+  } catch (error) {
+    console.error('Supabase middleware: failed to get user:', error);
+  }
 
   return supabaseResponse;
 }

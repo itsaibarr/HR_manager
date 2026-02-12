@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, Asterisk, ShieldCheck, Zap } from "lucide-react"
 import { AuthForm } from "./AuthForm"
@@ -42,7 +43,7 @@ export default function AuthPage() {
          
          {/* Lower Branding */}
          <div className="absolute bottom-12 left-12 flex items-center gap-3">
-             <img src="/logo.png" alt="Strata Logo" className="w-[32px] h-[32px] rounded-sm object-contain" />
+             <Image src="/logo.png" alt="Strata Logo" width={32} height={32} className="rounded-sm object-contain" />
              <span className="font-black text-lg text-white tracking-tighter uppercase">STRATA</span>
          </div>
       </div>

@@ -44,9 +44,13 @@ export default function CandidateDetailPage({
     fetchData()
   }, [candidateId, jobId, supabase])
 
-  if (!data) return <div className="p-12 text-center">Loading candidate details...</div>
+  if (!data) return (
+    <div className="p-12 text-center text-muted">
+      <div className="animate-pulse">Loading candidate details...</div>
+    </div>
+  )
 
-  const profile = data.candidate_profiles
+  const profile = data.candidate_profiles ?? {}
   const scoreBand = data.score_band
   
   return (
@@ -158,14 +162,15 @@ export default function CandidateDetailPage({
   )
 }
 
-function ScoreRow({ label, score, max }: { label: string, score: number, max: number }) {
-    const fillPercent = (score / max) * 100
+function ScoreRow({ label, score, max }: { label: string, score: number | null | undefined, max: number }) {
+    const safeScore = typeof score === 'number' ? score : 0
+    const fillPercent = max > 0 ? (safeScore / max) * 100 : 0
     
     return (
         <div className="space-y-1">
             <div className="flex justify-between text-sm">
                 <span className="font-medium text-primary">{label}</span>
-                <span className="font-mono text-muted">{score}/{max}</span>
+                <span className="font-mono text-muted">{safeScore}/{max}</span>
             </div>
             <div className="h-2 w-full bg-paper rounded-sm overflow-hidden">
                 <div 

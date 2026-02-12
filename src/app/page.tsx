@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { 
   ArrowRight, 
@@ -50,7 +51,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Left: Logo */}
           <div className="flex items-center gap-1 z-20">
-             <img src="/logo.png" alt="Strata Logo" className="w-10 h-10 rounded-sm object-contain" />
+             <Image src="/logo.png" alt="Strata Logo" width={40} height={40} className="rounded-sm object-contain" />
              <span className="font-extrabold text-xl text-primary font-sora tracking-tighter uppercase">STRATA</span>
           </div>
 
@@ -378,7 +379,7 @@ export default function LandingPage() {
                                 <div className="space-y-5">
                                     <h3 className="text-4xl md:text-5xl font-black text-primary tracking-tight uppercase leading-[0.9]">Stage 01: <br />Context Engine</h3>
                                     <p className="text-primary/60 text-lg leading-relaxed max-w-md">
-                                        We don't just search for keywords. Strata converts your job description into a high-precision screening matrix.
+                                        We don&apos;t just search for keywords. Strata converts your job description into a high-precision screening matrix.
                                     </p>
                                 </div>
                                 <ul className="space-y-4">
@@ -519,7 +520,7 @@ export default function LandingPage() {
                                 </div>
                                 <div className="p-8 bg-muted/10 border-l-[6px] border-brand rounded-r-2xl shadow-sm">
                                     <p className="text-base font-medium text-primary italic leading-relaxed">
-                                        "Strong focus on distributed systems. While missing direct AWS certifications, depth in Kubernetes and Go suggests rapid adaptation."
+                                        &quot;Strong focus on distributed systems. While missing direct AWS certifications, depth in Kubernetes and Go suggests rapid adaptation.&quot;
                                     </p>
                                 </div>
                             </div>

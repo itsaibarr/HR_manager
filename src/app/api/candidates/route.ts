@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { CandidateProfileSchema } from '@/types/schemas';
-import { NextResponse } from 'next/server';
+
 import { z } from 'zod';
 import { apiError, apiSuccess } from '@/lib/api/error-handler';
 import type { Database } from '@/types/database';

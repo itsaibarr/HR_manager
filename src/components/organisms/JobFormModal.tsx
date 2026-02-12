@@ -107,16 +107,18 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
   // Reset form when modal opens/closes or editing job changes
   useEffect(() => {
     if (isOpen) {
-      if (editingJob) {
-        setTitle(editingJob.title)
-        setDescription(editingJob.original_description || "")
-        setIsFullJd(!!editingJob.original_description)
-      } else {
-        setTitle("")
-        setDescription("")
-        setIsFullJd(false)
-        setSuggestion("")
-      }
+      requestAnimationFrame(() => {
+        if (editingJob) {
+          setTitle(editingJob.title)
+          setDescription(editingJob.original_description || "")
+          setIsFullJd(!!editingJob.original_description)
+        } else {
+          setTitle("")
+          setDescription("")
+          setIsFullJd(false)
+          setSuggestion("")
+        }
+      })
     }
   }, [isOpen, editingJob])
 
@@ -227,7 +229,7 @@ export function JobFormModal({ isOpen, onClose, onSubmit, editingJob }: JobFormM
             ) : (
               <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted">Short Summary</label>
-                <div className="text-[11px] text-muted/60 mb-2">We'll generate requirements based on the title and this summary.</div>
+                <div className="text-[11px] text-muted/60 mb-2">We&apos;ll generate requirements based on the title and this summary.</div>
                 <Input 
                   placeholder="e.g. Looking for a senior designer with Fintech experience..." 
                   value={description}

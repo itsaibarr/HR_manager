@@ -60,17 +60,17 @@ export default function JobsPage() {
       .order('created_at', { ascending: false })
     
     if (data) {
-      const mapped = (data as any[]).map((j: any) => ({
+      const mapped: JobData[] = data.map((j) => ({
         id: j.id,
         title: j.title,
         created_at: j.created_at,
         is_active: j.is_active !== false,
-        candidatesCount: j.evaluations?.[0]?.count || 0,
-        original_description: j.original_description,
-        responsibilities: j.responsibilities,
-        must_have_skills: j.must_have_skills,
-        nice_to_have_skills: j.nice_to_have_skills,
-        non_requirements: j.non_requirements
+        candidatesCount: (j as any).evaluations?.[0]?.count || 0,
+        original_description: j.original_description || undefined,
+        responsibilities: j.responsibilities as string[] || undefined,
+        must_have_skills: j.must_have_skills as string[] || undefined,
+        nice_to_have_skills: j.nice_to_have_skills as string[] || undefined,
+        non_requirements: j.non_requirements as string[] || undefined
       }))
       setJobs(mapped)
     }

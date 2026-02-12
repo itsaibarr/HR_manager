@@ -1,5 +1,4 @@
 import { createClient } from '@/lib/supabase/server';
-import { NextResponse } from 'next/server';
 import { parseJobDescription } from '@/lib/ai/parser';
 import { apiError, apiSuccess } from '@/lib/api/error-handler';
 import { z } from 'zod';

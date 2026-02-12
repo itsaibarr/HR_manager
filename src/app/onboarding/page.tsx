@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
@@ -10,7 +11,7 @@ export default function OnboardingPage() {
       <div className="max-w-[480px] w-full bg-paper rounded-sm border border-border/60 p-12 space-y-8">
         <div className="text-center space-y-2">
             <div className="w-14 h-14 mx-auto flex items-center justify-center mb-4">
-                 <img src="/logo.png" alt="Strata Logo" className="w-14 h-14 object-contain" />
+                 <Image src="/logo.png" alt="Strata Logo" width={56} height={56} className="object-contain" />
             </div>
             <h2 className="text-2xl font-bold font-sora">Create Workspace</h2>
             <p className="text-muted">

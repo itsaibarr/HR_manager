@@ -11,14 +11,16 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
 
 export function SidebarProvider({ children }: { children: React.ReactNode }) {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("sidebar-collapsed")
+      return saved === "true"
+    }
+    return false
+  })
   const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem("sidebar-collapsed")
-    if (saved) {
-      setIsCollapsed(saved === "true")
-    }
     setIsInitialized(true)
   }, [])
 

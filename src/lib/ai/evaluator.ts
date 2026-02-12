@@ -81,7 +81,7 @@ export async function evaluateCandidate(
   
   // Calculate final score
   const finalScore = autoReject ? 0 : calculateFinalScore(scores);
-  const scoreBand = autoReject ? 'Reject' : getScoreBand(finalScore);
+  const scoreBand = autoReject ? 'Do Not Proceed' : getScoreBand(finalScore);
 
   return {
     coreCompetenciesScore: scores.coreCompetencies,
@@ -96,9 +96,9 @@ export async function evaluateCandidate(
     rejectionReason: autoReject 
       ? 'Core Competencies score is 0 - automatic rejection per framework rules'
       : parsed.rejectionReason,
-    confidenceScore: parsed.confidenceScore ?? 1.0,
-    confidenceReason: parsed.confidenceReason || "Standard evaluation based on provided details.",
-    aiModelVersion: 'gemini-2.0-flash'
+    confidenceScore: parsed.confidenceScore ?? 0.5,
+    confidenceReason: parsed.confidenceReason || "Confidence not assessed by AI.",
+    aiModelVersion: 'gemini-2.5-flash'
   };
 }
 

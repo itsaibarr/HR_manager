@@ -82,22 +82,28 @@ export async function sendCandidateEmail(payload: EmailPayload) {
   }
 
   try {
-    // FIX: Resend Test Mode Restriction
-    // We can ONLY send to the verified email (cametame001@gmail.com) when using the free/test tier.
-    // We cannot send FROM a gmail address due to DMARC, so we keep onboarding@resend.dev.
-    const safeRecipient = 'cametame001@gmail.com';
-    
-    logger.warn(`[TEST MODE] Redirecting email for ${to} to ${safeRecipient} because Resend Test Mode only allows sending to verified address.`, { originalTo: to });
+    const isTestMode = process.env.NODE_ENV !== 'production';
+    const testRecipient = process.env.RESEND_TEST_EMAIL;
+
+    // In test/dev mode with Resend free tier, redirect to verified email
+    const recipient = (isTestMode && testRecipient) ? testRecipient : to;
+    const emailSubject = (isTestMode && testRecipient && recipient !== to)
+      ? `[TEST for ${to}] ${subject}`
+      : subject;
+
+    if (recipient !== to) {
+      logger.warn(`[TEST MODE] Redirecting email for ${to} to ${recipient}`, { originalTo: to });
+    }
 
     const data = await resend.emails.send({
       from: 'Strata Teams <onboarding@resend.dev>',
-      to: [safeRecipient], // Override recipient
-      subject: `[TEST for ${to}] ${subject}`, // Add original recipient to subject
+      to: [recipient],
+      subject: emailSubject,
       html,
     });
     return { success: true, data };
   } catch (error) {
     logger.error('Error sending email', { error, to });
-    return { success: false, error };
+    return { success: false, error: 'Failed to send email' };
   }
 }

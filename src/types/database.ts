@@ -249,7 +249,7 @@ export interface Database {
           final_score?: number
           confidence_score?: number | null
           confidence_reason?: string | null
-          score_band?: 'Strong Fit' | 'Good Fit' | 'Borderline' | 'Reject'
+          score_band?: 'Force Multiplier' | 'Solid Contributor' | 'Baseline Capable' | 'Do Not Proceed' | 'Reject'
           reasoning?: string[]
           potential_concern?: string
           rejection_reason?: string | null

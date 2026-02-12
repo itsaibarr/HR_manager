@@ -1,11 +1,13 @@
 "use client";
 
-import { useDensity, Density } from "@/lib/contexts/DensityContext";
+import { useTheme } from "@/components/providers/ThemeProvider";
 import { cn } from "@/lib/utils";
 import { AlignJustify, List, Rows } from "lucide-react";
 
+type Density = "compact" | "comfortable" | "spacious";
+
 export function DensityToggle({ showLabel = true }: { showLabel?: boolean }) {
-    const { density, setDensity } = useDensity();
+    const { density, setDensity } = useTheme();
 
     const options: { value: Density; label: string; icon: React.ElementType }[] = [
         { value: "compact", label: "Compact", icon: AlignJustify },

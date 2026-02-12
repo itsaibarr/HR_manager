@@ -195,12 +195,16 @@ export async function bulkUpdateCandidateStatus(
                 if (newStatus === 'rejected') emailType = 'reject';
 
                 if (emailType) {
-                    const emailPromises = evaluations.map(async (ev: any) => {
-                        const { email, full_name } = ev.candidate_profiles;
-                        const { title: jobTitle } = ev.job_contexts;
+                    const emailPromises = evaluations.map(async (ev) => {
+                        const profile = ev.candidate_profiles as { email: string | null; full_name: string | null } | null;
+                        const job = ev.job_contexts as { title: string | null } | null;
+                        
+                        if (!profile || !job) return false;
+                        
+                        const { email, full_name } = profile;
+                        const { title: jobTitle } = job;
                         
                         if (email && email.includes('@')) {
-                            // @ts-ignore
                             const res = await sendCandidateEmail({
                                 to: email,
                                 candidateName: full_name || 'Candidate',

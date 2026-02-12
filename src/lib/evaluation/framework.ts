@@ -98,14 +98,12 @@ export function calculateFinalScore(dimensionScores: Record<DimensionId, number>
 }
 
 /**
- * Determine score band from final score
+ * Determine score band from final score using >= thresholds (no gaps)
  */
 export function getScoreBand(finalScore: number): ScoreBand {
-  for (const [band, range] of Object.entries(EVALUATION_FRAMEWORK.scoreBands)) {
-    if (finalScore >= range.min && finalScore <= range.max) {
-      return band as ScoreBand;
-    }
-  }
+  if (finalScore >= 85) return 'Force Multiplier';
+  if (finalScore >= 70) return 'Solid Contributor';
+  if (finalScore >= 60) return 'Baseline Capable';
   return 'Do Not Proceed';
 }
 

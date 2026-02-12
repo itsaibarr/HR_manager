@@ -15,6 +15,28 @@ export function DropdownMenu({ trigger, children, align = "right" }: DropdownMen
   const dropdownRef = React.useRef<HTMLDivElement>(null)
   const [position, setPosition] = React.useState({ top: 0, left: 0, width: 0 })
 
+  const updatePosition = React.useCallback(() => {
+    if (triggerRef.current) {
+        const rect = triggerRef.current.getBoundingClientRect()
+        let top = rect.bottom + 4 // 4px gap
+        const left = align === "right" ? rect.right : rect.left
+        
+        // Flip if close to bottom
+        if (dropdownRef.current) {
+            const dropdownHeight = dropdownRef.current.offsetHeight
+            if (top + dropdownHeight > window.innerHeight - 10) {
+                top = rect.top - dropdownHeight - 4
+            }
+        }
+
+        setPosition({
+            top,
+            left,
+            width: rect.width
+        })
+    }
+  }, [align])
+
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // Check if click is inside trigger (handled by toggle) or inside menu (handled by click propagation)
@@ -43,29 +65,7 @@ export function DropdownMenu({ trigger, children, align = "right" }: DropdownMen
         window.removeEventListener("scroll", updatePosition, true)
         window.removeEventListener("resize", updatePosition)
     }
-  }, [isOpen])
-
-  const updatePosition = React.useCallback(() => {
-    if (triggerRef.current) {
-        const rect = triggerRef.current.getBoundingClientRect()
-        let top = rect.bottom + 4 // 4px gap
-        const left = align === "right" ? rect.right : rect.left
-        
-        // Flip if close to bottom
-        if (dropdownRef.current) {
-            const dropdownHeight = dropdownRef.current.offsetHeight
-            if (top + dropdownHeight > window.innerHeight - 10) {
-                top = rect.top - dropdownHeight - 4
-            }
-        }
-
-        setPosition({
-            top,
-            left,
-            width: rect.width
-        })
-    }
-  }, [align])
+  }, [isOpen, updatePosition])
 
   React.useLayoutEffect(() => {
     if (isOpen) {

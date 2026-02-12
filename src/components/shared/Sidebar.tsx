@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Home, Briefcase, Users, Settings, User, LogOut, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -59,7 +60,7 @@ export function Sidebar() {
       <div className={cn("flex items-center mb-8 h-8 transition-all relative", isCollapsed ? "justify-center w-full" : "px-3 justify-between w-full")}>
         <div className={cn("flex items-center gap-3 w-full transition-all", isCollapsed ? "justify-center" : "")}>
             <Link href="/dashboard" className="flex items-center gap-2 group overflow-hidden shrink-0">
-                <img src="/logo.png" alt="Strata Logo" className="w-10 h-10 rounded-sm object-contain" />
+                <Image src="/logo.png" alt="Strata Logo" width={40} height={40} className="rounded-sm object-contain" />
 
                 <AnimatePresence mode="wait">
                     {!isCollapsed && (

@@ -3,6 +3,7 @@ import { OpenAI } from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
 import { CandidateProfileSchema } from '@/types/schemas';
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 // --- Interfaces & Configuration ---
 
@@ -242,7 +243,7 @@ export async function parseCvText(
         rawCvText: rawText,
      };
    } catch (error) {
-     console.error("AI Parsing Failed:", error);
+     logger.error("AI Parsing Failed", { error });
      // Return minimal valid profile instead of throwing
      return {
        fullName: "",
@@ -282,7 +283,7 @@ export async function parseJobDescription(
             nonRequirements: Array.isArray(parsed.nonRequirements) ? parsed.nonRequirements : []
         };
     } catch (error) {
-        console.error("AI JD Parsing Failed:", error);
+        logger.error("AI JD Parsing Failed", { error });
         return {
             responsibilities: ["Parsed from description (Fallback)"],
             mustHaveSkills: [],

@@ -37,7 +37,7 @@ export function UploadCandidateModal({ isOpen, onClose, onUpload }: UploadCandid
   
   // CSV Mapping State
   const [csvHeaders, setCsvHeaders] = useState<string[]>([])
-  const [csvData, setCsvData] = useState<any[]>([])
+  const [csvData, setCsvData] = useState<Record<string, any>[]>([])
   const [columnMapping, setColumnMapping] = useState({
       name: '',
       email: '',

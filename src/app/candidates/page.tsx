@@ -17,8 +17,23 @@ import { bulkUpdateCandidateStatus, deleteCandidates } from "@/app/actions/candi
 
 import { BulkShortlistDialog } from "@/components/organisms/BulkShortlistDialog"
 
+interface CandidateDisplay {
+  id: string
+  evaluationId: string
+  jobContextId: string
+  name: string
+  initials: string
+  role: string
+  experienceRaw: string
+  score: number
+  scoreBand: 'Force Multiplier' | 'Solid Contributor' | 'Baseline Capable' | 'Do Not Proceed'
+  status: 'pending' | 'shortlisted' | 'rejected' | 'interviewing' | 'offered'
+  topSkills: string[]
+  appliedAt: string
+}
+
 export default function CandidatesPage() {
-  const [candidates, setCandidates] = useState<any[]>([])
+  const [candidates, setCandidates] = useState<CandidateDisplay[]>([])
   const [jobContexts, setJobContexts] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(true)
   const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(null)
@@ -48,12 +63,12 @@ export default function CandidatesPage() {
     
     if (jobs) {
       const jobMap: Record<string, string> = {}
-      jobs.forEach((j: any) => { jobMap[j.id] = j.title })
+      jobs.forEach((j) => { jobMap[j.id] = j.title })
       setJobContexts(jobMap)
     }
 
     // Fetch all evaluations with candidate profiles
-    const { data: evaluations } = await (supabase as any)
+    const { data: evaluations } = await supabase
       .from('evaluations')
       .select(`
         *,
@@ -70,7 +85,7 @@ export default function CandidatesPage() {
       .order('created_at', { ascending: false })
 
     if (evaluations) {
-      const mapped = evaluations.map((ev: any) => ({
+      const mapped: CandidateDisplay[] = (evaluations as any[]).map((ev: any) => ({
         id: ev.candidate_id,
         evaluationId: ev.id,
         jobContextId: ev.job_context_id,
@@ -85,7 +100,7 @@ export default function CandidatesPage() {
         score: ev.final_score,
         scoreBand: getScoreBand(ev.final_score),
         status: ev.status || 'pending',
-        topSkills: ev.candidate_profiles?.skills?.slice(0,3) || [],
+        topSkills: (ev.candidate_profiles?.skills as string[])?.slice(0,3) || [],
         appliedAt: new Date(ev.created_at).toLocaleDateString()
       }))
       setCandidates(mapped)
