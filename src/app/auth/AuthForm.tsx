@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { login, signup } from "./actions";
+import { authClient } from "@/lib/auth/client";
 import { createClient } from "@/lib/supabase/client";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -15,32 +15,46 @@ export function AuthForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setError(null);
     setSuccess(null);
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const name = formData.get("name") as string;
+
     startTransition(async () => {
       if (isLogin) {
-        const res = await login(formData);
-        if (res?.error) setError(res.error);
+        const { error } = await authClient.signIn.email({
+          email,
+          password,
+          callbackURL: "/dashboard",
+        });
+        if (error) setError(error.message || "Failed to sign in");
       } else {
-        const res = await signup(formData);
-        if (res?.error) setError(res.error);
-        else if (res?.success) setSuccess(res.message);
+        const { error } = await authClient.signUp.email({
+          email,
+          password,
+          name,
+          callbackURL: "/dashboard",
+        });
+        if (error) setError(error.message || "Failed to sign up");
+        else setSuccess("Account created successfully!");
       }
     });
   }
 
   async function handleGoogleLogin() {
-    const supabase = createClient();
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
+    startTransition(async () => {
+      const { error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/dashboard",
+      });
+      if (error) {
+        setError(error.message || "Failed to sign in with Google");
+      }
     });
-    if (error) {
-      setError(error.message);
-    }
   }
 
   return (
@@ -56,7 +70,7 @@ export function AuthForm() {
         </p>
       </div>
 
-      <form action={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-4">
           {!isLogin && (
           <div className="space-y-1">
