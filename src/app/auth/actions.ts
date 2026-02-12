@@ -28,7 +28,7 @@ export async function signup(formData: FormData) {
   const password = formData.get("password") as string;
   const name = formData.get("name") as string;
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -40,6 +40,15 @@ export async function signup(formData: FormData) {
 
   if (error) {
     return { error: error.message };
+  }
+
+  // Detect duplicate signup when enumeration protection is enabled
+  // data.user will exist but identities will be empty if email is already taken
+  if (data.user && (!data.user.identities || data.user.identities.length === 0)) {
+    return { 
+      success: true, 
+      message: "An account with this email already exists. Try signing in or reset your password if you forgot it." 
+    };
   }
 
   // After signup, we might want to redirect to a verification page or dashboard

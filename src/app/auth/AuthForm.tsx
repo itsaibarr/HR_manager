@@ -5,12 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { login, signup } from "./actions";
 import { createClient } from "@/lib/supabase/client";
+import { Eye, EyeOff } from "lucide-react";
 
 export function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     setError(null);
@@ -41,43 +44,86 @@ export function AuthForm() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold font-sora text-primary">
-          {isLogin ? "Welcome Back" : "Create Account"}
+    <div className="space-y-8">
+      <div className="space-y-2">
+        <h1 className="text-4xl font-black font-sora text-primary tracking-tighter uppercase">
+          {isLogin ? "Sign In" : "Sign Up"}
         </h1>
-        <p className="text-muted">
+        <p className="text-primary/40 text-base font-bold uppercase tracking-tight">
           {isLogin
-            ? "Enter your email to access your workspace."
-            : "Get started with your free account."}
+            ? "Enter your credentials to access your account."
+            : "Create an account to start screening candidates."}
         </p>
       </div>
 
       <form action={handleSubmit} className="space-y-4">
-        {!isLogin && (
+        <div className="space-y-4">
+          {!isLogin && (
+          <div className="space-y-1">
+              <label className="text-[10px] font-black tracking-widest text-primary/40 uppercase">
+                Full Name
+              </label>
+              <Input 
+                name="name" 
+                placeholder="Name Surname" 
+                required 
+                className="h-13 rounded-sm border-2 border-primary/10 focus:border-brand transition-all uppercase font-bold px-5"
+              />
+            </div>
+          )}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-primary">
-              Full Name
+            <label className="text-[10px] font-black tracking-widest text-primary/40 uppercase">
+              Email
             </label>
-            <Input name="name" placeholder="John Doe" required />
+            <Input 
+              name="email" 
+              placeholder="name@company.com" 
+              type="email" 
+              required 
+              className="h-13 rounded-sm border-2 border-primary/10 focus:border-brand transition-all uppercase font-bold px-5"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-[10px] font-black tracking-widest text-primary/40 uppercase">
+              Password
+            </label>
+            <div className="relative group">
+              <Input 
+                name="password" 
+                placeholder="••••••••" 
+                type={showPassword ? "text" : "password"} 
+                required 
+                className="h-13 rounded-sm border-2 border-primary/10 focus:border-brand transition-all uppercase font-bold px-5 pr-12"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-primary/20 hover:text-brand transition-colors p-1"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff size={18} strokeWidth={2.4} />
+                ) : (
+                  <Eye size={18} strokeWidth={2.4} />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {error && (
+          <div className="p-3 bg-reject/5 border border-reject/20 rounded-sm">
+            <p className="text-[10px] font-black uppercase text-reject tracking-widest">{error}</p>
           </div>
         )}
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-primary">Email</label>
-          <Input name="email" placeholder="name@company.com" type="email" required />
-        </div>
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-primary">
-            Password
-          </label>
-          <Input name="password" placeholder="••••••••" type="password" required />
-        </div>
-
-        {error && <p className="text-sm text-reject">{error}</p>}
-        {success && <p className="text-sm text-green-600">{success}</p>}
+        {success && (
+          <div className="p-3 bg-brand/5 border border-brand/20 rounded-sm">
+            <p className="text-[10px] font-black uppercase text-brand tracking-widest">{success}</p>
+          </div>
+        )}
 
         <Button
-          className="w-full mt-2"
+          className="w-full mt-5 h-[52px] text-sm font-black rounded-sm bg-primary hover:bg-brand text-white border-none transition-all duration-300 uppercase tracking-widest"
           size="lg"
           disabled={isPending}
         >
@@ -91,21 +137,21 @@ export function AuthForm() {
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-border" />
+          <span className="w-full border-t border-primary/10" />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-paper px-2 text-muted">Or continue with</span>
+        <div className="relative flex justify-center text-[10px] uppercase font-black tracking-widest">
+          <span className="bg-paper px-4 text-primary/20">OR</span>
         </div>
       </div>
 
        <Button 
          variant="outline" 
-         className="w-full h-13 text-base font-bold uppercase tracking-widest" 
+         className="w-full h-[52px] text-xs font-black uppercase tracking-[0.2em] rounded-sm border-2 border-primary/10 hover:border-brand hover:text-brand transition-all" 
          type="button" 
          onClick={handleGoogleLogin}
        >
             <svg 
-              className="mr-3 h-[16px] w-[16px]" 
+              className="mr-3 h-[14px] w-[14px]" 
               aria-hidden="true" 
               focusable="false" 
               data-prefix="fab" 
@@ -116,11 +162,13 @@ export function AuthForm() {
             >
               <path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path>
             </svg>
-            Google
+            Google OAuth
         </Button>
 
-      <p className="text-center text-sm text-muted">
-        {isLogin ? "Don't have an account? " : "Already have an account? "}
+      <p className="text-center">
+        <span className="text-[10px] font-black uppercase text-primary/30 tracking-widest">
+          {isLogin ? "Don't have an account? " : "Already have an account? "}
+        </span>
         <button
           type="button"
           onClick={() => {
@@ -128,9 +176,9 @@ export function AuthForm() {
             setError(null);
             setSuccess(null);
           }}
-          className="font-semibold text-primary hover:underline"
+          className="text-[10px] font-black uppercase text-brand tracking-widest hover:underline ml-1"
         >
-          {isLogin ? "Sign up" : "Log in"}
+          {isLogin ? "Sign Up" : "Log In"}
         </button>
       </p>
     </div>

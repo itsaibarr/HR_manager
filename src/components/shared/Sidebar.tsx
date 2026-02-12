@@ -59,7 +59,7 @@ export function Sidebar() {
       <div className={cn("flex items-center mb-8 h-8 transition-all relative", isCollapsed ? "justify-center w-full" : "px-3 justify-between w-full")}>
         <div className={cn("flex items-center gap-3 w-full transition-all", isCollapsed ? "justify-center" : "")}>
             <Link href="/dashboard" className="flex items-center gap-2 group overflow-hidden shrink-0">
-                <img src="/logo.png" alt="Strata Logo" className="w-10 h-10 rounded-sm object-contain bg-white" />
+                <img src="/logo.png" alt="Strata Logo" className="w-10 h-10 rounded-sm object-contain" />
 
                 <AnimatePresence mode="wait">
                     {!isCollapsed && (

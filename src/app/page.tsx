@@ -81,10 +81,15 @@ export default function LandingPage() {
 
           {/* Right: Auth */}
           <div className="flex justify-end gap-6 items-center">
-              <Link href="#contact" className="text-sm font-black text-muted-foreground hover:text-brand transition-colors duration-300 uppercase tracking-widest">
+              <Link 
+                href="https://calendly.com/cametame001/15-min-strata-demo-feedback" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-black text-muted-foreground hover:text-brand transition-colors duration-300 uppercase tracking-widest"
+              >
                   Book a call
               </Link>
-              <Link href="#demo">
+              <Link href="/auth">
                  <Button variant="outline" className="hidden sm:inline-flex rounded-sm px-7 py-6 border-2 border-primary/20 hover:border-brand hover:text-white hover:bg-brand transition-all uppercase font-black tracking-widest text-xs">
                      Check Demo
                  </Button>
@@ -146,14 +151,18 @@ export default function LandingPage() {
                 Replace manual scanning with context-aware evaluation at 10x depth.
             </motion.p>
             <div className="flex flex-col sm:flex-row gap-6 pt-4 relative z-10">
-                <Link href="#demo">
+                <Link href="/auth">
                     <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                         <Button size="lg" className="h-20 px-12 text-lg font-black rounded-sm bg-primary hover:bg-brand text-white border-none transition-all duration-300 uppercase tracking-widest">
                             Check Demo
                         </Button>
                     </motion.div>
                 </Link>
-                <Link href="#contact">
+                <Link 
+                  href="https://calendly.com/cametame001/15-min-strata-demo-feedback"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                     <motion.div whileHover={{ y: -5 }} transition={{ type: "spring", stiffness: 400 }}>
                         <Button variant="outline" size="lg" className="h-20 px-12 text-lg font-black rounded-sm border-2 border-primary text-primary hover:bg-primary/5 transition-all duration-300 uppercase tracking-widest">
                             Book a call
@@ -609,10 +618,12 @@ export default function LandingPage() {
                                     </p>
                                 </div>
                                 <div className="pt-6">
+                                <Link href="/auth">
                                     <Button variant="outline" className="h-20 px-12 rounded-sm border-2 border-primary text-primary hover:bg-primary/5 text-xl font-black transition-all group uppercase tracking-widest">
                                         Check Dashboard
                                         <ChevronRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
                                     </Button>
+                                </Link>
                                 </div>
                             </div>
                         </motion.div>
@@ -648,12 +659,18 @@ export default function LandingPage() {
                         </motion.div>
                         
                         <div className="flex flex-col md:flex-row gap-6 pt-4">
-                            <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
-                                <Button className="h-20 px-12 text-lg font-black rounded-sm bg-primary hover:bg-brand text-white border-none transition-all duration-300 uppercase tracking-widest flex items-center gap-4">
-                                    Book Strategy Call
-                                    <ArrowRight className="w-6 h-6" />
-                                </Button>
-                            </motion.div>
+                            <Link 
+                                href="https://calendly.com/cametame001/15-min-strata-demo-feedback"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
+                                    <Button className="h-20 px-12 text-lg font-black rounded-sm bg-primary hover:bg-brand text-white border-none transition-all duration-300 uppercase tracking-widest flex items-center gap-4">
+                                        Book Strategy Call
+                                        <ArrowRight className="w-6 h-6" />
+                                    </Button>
+                                </motion.div>
+                            </Link>
                             <Link href="/auth">
                                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 400 }}>
                                     <Button variant="outline" className="h-20 px-12 text-lg font-black rounded-sm border-2 border-primary text-primary hover:bg-primary/5 transition-all duration-300 uppercase tracking-widest">
