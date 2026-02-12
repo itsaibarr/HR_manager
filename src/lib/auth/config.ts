@@ -4,7 +4,7 @@ export const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL,
   database: {
     type: "postgres",
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL || "", // Provide empty string to avoid adapter crash if missing during build
   },
   emailAndPassword: {
     enabled: true,
